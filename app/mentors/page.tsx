@@ -63,11 +63,15 @@ export default function MentorsPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3 flex-wrap">
-        <h1 className="text-2xl font-bold">Mentors</h1>
+        <div>
+          <h1 className="text-2xl font-extrabold" style={{ color: 'var(--navy)' }}>Mentors</h1>
+          <p className="text-xs text-gray-400 mt-0.5">AY 2026-27 · Odd Semester</p>
+        </div>
         <div className="ml-auto flex gap-2">
           {(['summary', 'individual'] as const).map(t => (
             <button key={t} onClick={() => setTab(t)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition capitalize ${tab === t ? 'bg-blue-600 text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
+              style={tab === t ? { background: 'var(--navy)' } : undefined}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${tab === t ? 'text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
               {t === 'summary' ? 'All Mentors Summary' : 'Individual Schedule'}
             </button>
           ))}
@@ -139,8 +143,9 @@ export default function MentorsPage() {
           <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-wrap gap-2 shadow-sm">
             {mentors.map(m => (
               <button key={m.id} onClick={() => setSelected(m.id)}
-                className={`px-3 py-1.5 rounded-lg text-sm font-mono font-medium transition ${
-                  selectedMentor === m.id ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                style={selectedMentor === m.id ? { background: 'var(--navy)', color: 'white' } : undefined}
+                className={`px-3 py-1.5 rounded-lg text-sm font-mono font-semibold transition ${
+                  selectedMentor === m.id ? '' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
                 }`}>
                 {m.code}
               </button>
@@ -148,70 +153,142 @@ export default function MentorsPage() {
           </div>
 
           {selectedMentorObj && (
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-auto">
-              <div className="px-6 py-4 border-b flex items-center gap-4">
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              {/* Card header */}
+              <div style={{ background: 'var(--navy)' }} className="px-6 py-4 flex items-center justify-between flex-wrap gap-2">
                 <div>
-                  <h2 className="font-bold text-lg">{selectedMentorObj.name} ({selectedMentorObj.code})</h2>
-                  <p className="text-xs text-gray-500">
+                  <h2 className="font-extrabold text-lg text-white">
+                    {selectedMentorObj.name}
+                    <span className="ml-2 text-white/50 text-sm font-mono">({selectedMentorObj.code})</span>
+                  </h2>
+                  <p className="text-white/50 text-xs mt-0.5">
                     {selectedMentorObj.category} · {selectedMentorObj.qualification ?? 'N/A'} ·{' '}
                     {slots.filter(s => s.mentorId === selectedMentor).length} hrs/wk
                     (max {selectedMentorObj.maxHoursPerWeek})
                   </p>
                 </div>
               </div>
-              <table className="w-full text-xs border-collapse min-w-[700px]">
-                <thead>
-                  <tr className="bg-gray-50">
-                    <th className="border border-gray-200 px-3 py-2 text-left font-semibold text-gray-600 w-28">Session</th>
-                    {DAYS.map(d => (
-                      <th key={d} className="border border-gray-200 px-3 py-2 text-center font-semibold text-gray-700">{d}</th>
+
+              {/* Table — sessions as columns, days as rows */}
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse min-w-[1020px]">
+                  <thead>
+                    <tr>
+                      <th style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.45)' }}
+                        className="text-left px-4 py-3 text-xs font-semibold tracking-widest w-28 border-r border-white/10">
+                        DAY
+                      </th>
+                      {SESSION_INFO.slice(0, 2).map(({ n, label }) => (
+                        <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
+                          className="px-2 py-3 text-center border-r border-white/10">
+                          <div className="text-sm font-bold">S{n}</div>
+                          <div className="text-[10px] text-white/50 mt-0.5">{label}</div>
+                        </th>
+                      ))}
+                      <th style={{ background: 'rgba(251,191,36,0.18)', color: '#92700a' }}
+                        className="px-2 py-3 text-center border-r border-amber-300/40 w-16">
+                        <div className="text-sm">☕</div>
+                        <div className="text-[9px] font-semibold mt-0.5 leading-tight">Break<br/>10:10–10:20</div>
+                      </th>
+                      {SESSION_INFO.slice(2, 4).map(({ n, label }) => (
+                        <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
+                          className="px-2 py-3 text-center border-r border-white/10">
+                          <div className="text-sm font-bold">S{n}</div>
+                          <div className="text-[10px] text-white/50 mt-0.5">{label}</div>
+                        </th>
+                      ))}
+                      <th style={{ background: 'rgba(16,185,129,0.15)', color: '#065f46' }}
+                        className="px-2 py-3 text-center border-r border-emerald-300/40 w-16">
+                        <div className="text-sm">🍽</div>
+                        <div className="text-[9px] font-semibold mt-0.5 leading-tight">Lunch<br/>12:00–12:45</div>
+                      </th>
+                      {SESSION_INFO.slice(4).map(({ n, label }) => (
+                        <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
+                          className="px-2 py-3 text-center border-r border-white/10 last:border-r-0">
+                          <div className="text-sm font-bold">S{n}</div>
+                          <div className="text-[10px] text-white/50 mt-0.5">{label}</div>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[1, 2, 3, 4, 5].map(day => (
+                      <tr key={day} className={day % 2 === 0 ? 'bg-gray-50/60' : 'bg-white'}>
+                        <td style={{ color: 'var(--navy)' }}
+                          className="px-4 py-2 font-extrabold text-sm border-r border-b border-gray-100 whitespace-nowrap align-middle">
+                          {DAYS[day - 1]}
+                        </td>
+                        {/* S1, S2 */}
+                        {[1, 2].map(n => {
+                          const s   = mentorSlot(day, n);
+                          const sub = s ? subjectMap[s.subjectId] : null;
+                          const cls = s ? classMap[s.classId]   : null;
+                          return (
+                            <td key={n} className="p-1.5 align-top border-r border-b border-gray-100">
+                              {sub && cls ? (
+                                <div className={`rounded-xl px-2.5 pt-2 pb-1.5 min-h-[72px] flex flex-col justify-between shadow-sm ${CATEGORY_COLORS[sub.category]}`}>
+                                  <p className="font-semibold text-[11px] leading-snug">{sub.name}</p>
+                                  <span className="text-[10px] font-bold opacity-70 mt-1">{cls.shortName}</span>
+                                </div>
+                              ) : (
+                                <div className="min-h-[72px] flex items-center justify-center">
+                                  <span className="text-gray-200 text-lg">·</span>
+                                </div>
+                              )}
+                            </td>
+                          );
+                        })}
+                        {/* Break spacer */}
+                        <td style={{ background: 'rgba(251,191,36,0.06)', borderColor: 'rgba(251,191,36,0.25)' }}
+                          className="border-r border-b w-16" />
+                        {/* S3, S4 */}
+                        {[3, 4].map(n => {
+                          const s   = mentorSlot(day, n);
+                          const sub = s ? subjectMap[s.subjectId] : null;
+                          const cls = s ? classMap[s.classId]   : null;
+                          return (
+                            <td key={n} className="p-1.5 align-top border-r border-b border-gray-100">
+                              {sub && cls ? (
+                                <div className={`rounded-xl px-2.5 pt-2 pb-1.5 min-h-[72px] flex flex-col justify-between shadow-sm ${CATEGORY_COLORS[sub.category]}`}>
+                                  <p className="font-semibold text-[11px] leading-snug">{sub.name}</p>
+                                  <span className="text-[10px] font-bold opacity-70 mt-1">{cls.shortName}</span>
+                                </div>
+                              ) : (
+                                <div className="min-h-[72px] flex items-center justify-center">
+                                  <span className="text-gray-200 text-lg">·</span>
+                                </div>
+                              )}
+                            </td>
+                          );
+                        })}
+                        {/* Lunch spacer */}
+                        <td style={{ background: 'rgba(16,185,129,0.05)', borderColor: 'rgba(16,185,129,0.25)' }}
+                          className="border-r border-b w-16" />
+                        {/* S5, S6, S7 */}
+                        {[5, 6, 7].map(n => {
+                          const s   = mentorSlot(day, n);
+                          const sub = s ? subjectMap[s.subjectId] : null;
+                          const cls = s ? classMap[s.classId]   : null;
+                          return (
+                            <td key={n} className="p-1.5 align-top border-r border-b border-gray-100 last:border-r-0">
+                              {sub && cls ? (
+                                <div className={`rounded-xl px-2.5 pt-2 pb-1.5 min-h-[72px] flex flex-col justify-between shadow-sm ${CATEGORY_COLORS[sub.category]}`}>
+                                  <p className="font-semibold text-[11px] leading-snug">{sub.name}</p>
+                                  <span className="text-[10px] font-bold opacity-70 mt-1">{cls.shortName}</span>
+                                </div>
+                              ) : (
+                                <div className="min-h-[72px] flex items-center justify-center">
+                                  <span className="text-gray-200 text-lg">·</span>
+                                </div>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
                     ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {(() => {
-                    const rows: React.ReactNode[] = [];
-                    SESSION_INFO.forEach(({ n, label }, idx) => {
-                      if (n === 3) rows.push(
-                        <tr key="break" className="bg-orange-50">
-                          <td colSpan={6} className="border border-gray-200 px-3 py-1 text-center text-orange-500 text-xs italic">☕ Break  10:10–10:20</td>
-                        </tr>
-                      );
-                      if (n === 5) rows.push(
-                        <tr key="lunch" className="bg-green-50">
-                          <td colSpan={6} className="border border-gray-200 px-3 py-1 text-center text-green-600 text-xs italic">🍽 Lunch  12:00–12:45</td>
-                        </tr>
-                      );
-                      rows.push(
-                        <tr key={n} className={idx % 2 === 0 ? '' : 'bg-gray-50/50'}>
-                          <td className="border border-gray-200 px-3 py-2 font-medium text-gray-600 whitespace-nowrap">
-                            <div>S{n}</div>
-                            <div className="text-gray-400 text-[10px]">{label}</div>
-                          </td>
-                          {[1, 2, 3, 4, 5].map(day => {
-                            const s   = mentorSlot(day, n);
-                            const sub = s ? subjectMap[s.subjectId] : null;
-                            const cls = s ? classMap[s.classId] : null;
-                            return (
-                              <td key={day} className="border border-gray-200 px-2 py-1.5 align-top min-w-[120px]">
-                                {sub && cls ? (
-                                  <div className={`rounded px-1.5 py-1 ${CATEGORY_COLORS[sub.category]}`}>
-                                    <div className="font-medium leading-tight">{cls.shortName}</div>
-                                    <div className="text-[10px] opacity-75 leading-tight">{sub.name}</div>
-                                  </div>
-                                ) : (
-                                  <div className="text-gray-200 text-center py-1">—</div>
-                                )}
-                              </td>
-                            );
-                          })}
-                        </tr>
-                      );
-                    });
-                    return rows;
-                  })()}
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </div>
