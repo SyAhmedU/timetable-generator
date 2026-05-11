@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import type { Class, Subject, Mentor, TimetableSlot } from '@/lib/types';
 import { CATEGORY_COLORS, DAYS } from '@/lib/types';
 import { getClasses, getSubjects, getMentors, getTimetable } from '@/lib/client-store';
-import { exportMentorSummaryExcel } from '@/lib/client-export';
+import { exportMentorSummaryExcel, exportMentorMappingExcel } from '@/lib/client-export';
 
 const SESSION_INFO = [
   { n: 1, label: '8:30–9:20'   },
@@ -120,10 +120,14 @@ export default function MentorsPage() {
               ))}
             </tbody>
           </table>
-          <div className="px-6 py-3 border-t flex gap-3">
+          <div className="px-6 py-3 border-t flex gap-3 flex-wrap">
             <button onClick={() => exportMentorSummaryExcel(classes, subjects, mentors, timetable)}
               className="px-3 py-1.5 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
               📊 Export Summary Excel
+            </button>
+            <button onClick={() => exportMentorMappingExcel(mentors, subjects, timetable)}
+              className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+              📋 Export Mentor–Subject Mapping
             </button>
           </div>
         </div>

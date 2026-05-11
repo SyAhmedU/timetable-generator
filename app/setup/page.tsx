@@ -225,9 +225,9 @@ export default function SetupPage() {
               <select value={mentorModal.departmentId ?? ''} onChange={e => setMentorModal(p => ({ ...p, departmentId: (e.target.value || null) as 'ACS' | 'PCOM' | 'PBF' | null }))}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400">
                 <option value="">Cross-department</option>
-                <option value="ACS">ACS</option>
-                <option value="PCOM">PCOM</option>
-                <option value="PBF">PBF</option>
+                <option value="ACS">ACS — Advanced Computing Science</option>
+                <option value="PCOM">PCOM — B.Com. Fintech with AI</option>
+                <option value="PBF">PBF — B.B.A. E-Commerce and Digital Marketing</option>
               </select>
             </div>
             <div className="flex gap-3 pt-2">

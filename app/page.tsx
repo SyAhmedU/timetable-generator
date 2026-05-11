@@ -3,13 +3,8 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { getClasses, getSubjects, getMentors, getTimetable } from '@/lib/client-store';
-import type { Class, Subject, Mentor, Timetable } from '@/lib/types';
-
-const DEPT_LABELS: Record<string, string> = {
-  ACS:  'Advanced Computing Science',
-  PCOM: 'BCom Fintech with AI',
-  PBF:  'Management (PBF)',
-};
+import type { Class, Subject, Mentor, Timetable, DepartmentCode } from '@/lib/types';
+import { DEPT_LABELS } from '@/lib/types';
 
 export default function DashboardPage() {
   const [classes,   setClasses]   = useState<Class[]>([]);
@@ -82,7 +77,7 @@ export default function DashboardPage() {
           {Object.entries(deptCounts).map(([dept, count]) => (
             <div key={dept} className="bg-gray-50 rounded-lg p-4 border border-gray-100">
               <p className="font-medium">{dept}</p>
-              <p className="text-xs text-gray-500">{DEPT_LABELS[dept]}</p>
+              <p className="text-xs text-gray-500">{DEPT_LABELS[dept as DepartmentCode]}</p>
               <p className="text-2xl font-bold text-blue-600 mt-2">
                 {count} <span className="text-sm font-normal text-gray-500">classes</span>
               </p>

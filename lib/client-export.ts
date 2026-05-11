@@ -1,6 +1,6 @@
 // Client-side Excel export (runs in browser, triggers download directly)
 import * as XLSX from 'xlsx';
-import type { Class, Subject, Mentor, Timetable, AbsenceRecord } from './types';
+import type { Class, Subject, Mentor, MentorCategory, Timetable, AbsenceRecord } from './types';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 const SESSION_LABELS: Record<number, string> = {
@@ -76,6 +76,55 @@ export function exportMentorSummaryExcel(
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), 'Mentor Summary');
   XLSX.writeFile(wb, 'mentor-summary.xlsx');
+}
+
+// AMET University submission format: SL No, Campus Name, Department, Subject, Mentor, Hours
+export function exportMentorMappingExcel(
+  mentors: Mentor[],
+  subjects: Subject[],
+  timetable: Timetable,
+) {
+  const subMap = Object.fromEntries(subjects.map(s => [s.id, s]));
+
+  const CAT_ROLE: Record<MentorCategory, string> = {
+    CS:         'Computer Science Mentor',
+    MTECH:      'M.Tech Mentor',
+    MANAGEMENT: 'Management Mentor',
+    ENGLISH:    'English Mentor',
+    MATH:       'Mathematics Mentor',
+    COMMERCE:   'Commerce Mentor',
+    APTITUDE:   'Aptitude Mentor',
+  };
+
+  // Count per category to decide if we need " 1", " 2" suffixes
+  const catCounts: Partial<Record<MentorCategory, number>> = {};
+  for (const m of mentors) catCounts[m.category] = (catCounts[m.category] ?? 0) + 1;
+  const catIdx: Partial<Record<MentorCategory, number>> = {};
+
+  const rows = mentors.map((m, i) => {
+    const mySlots = timetable.slots.filter(s => s.mentorId === m.id);
+    const uniqueSubNames = [...new Set(
+      mySlots.map(s => subMap[s.subjectId]?.name).filter((n): n is string => Boolean(n))
+    )];
+    catIdx[m.category] = (catIdx[m.category] ?? 0) + 1;
+    const roleLabel = (catCounts[m.category] ?? 0) > 1
+      ? `${CAT_ROLE[m.category]} ${catIdx[m.category]}`
+      : CAT_ROLE[m.category];
+    return {
+      'SL No':       i + 1,
+      'Campus Name': 'AMET University',
+      'Department':  roleLabel,
+      'Subject':     uniqueSubNames.join(', '),
+      'Mentor':      m.name,
+      'Hours':       mySlots.length,
+    };
+  });
+
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(rows);
+  ws['!cols'] = [{ wch: 6 }, { wch: 20 }, { wch: 28 }, { wch: 55 }, { wch: 22 }, { wch: 8 }];
+  XLSX.utils.book_append_sheet(wb, ws, 'Mentor Subject Mapping');
+  XLSX.writeFile(wb, 'AMET-mentor-subject-mapping.xlsx');
 }
 
 export function exportAbsenceLogExcel(
