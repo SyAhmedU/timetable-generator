@@ -1,5 +1,9 @@
 import type { Class, Subject, Mentor, Timetable } from './types';
 
+// Bump this string whenever seed data changes — triggers auto-reset in browsers
+// with stale localStorage from a previous version.
+export const SEED_VERSION = 'v3-ds-category';
+
 export const SEED_CLASSES: Class[] = [
   { id: 'cls_aiml3',    name: 'III B.Sc. AI-ML',              shortName: 'AIML-III',   year: 3, semester: 5, group: null,      departmentId: 'ACS',  studentCount: null },
   { id: 'cls_aiml2',    name: 'II B.Sc. AI-ML',               shortName: 'AIML-II',    year: 2, semester: 3, group: null,      departmentId: 'ACS',  studentCount: null },

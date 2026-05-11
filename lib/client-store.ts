@@ -1,6 +1,18 @@
 // All data lives in localStorage — works anywhere, no server needed
-import { SEED_CLASSES, SEED_SUBJECTS, SEED_MENTORS, EMPTY_TIMETABLE } from './seed-data';
+import { SEED_CLASSES, SEED_SUBJECTS, SEED_MENTORS, EMPTY_TIMETABLE, SEED_VERSION } from './seed-data';
 import type { Class, Subject, Mentor, Timetable, AbsenceRecord } from './types';
+
+// Auto-migrate: if stored version doesn't match current seed, wipe stale data.
+// Runs once at module load time in the browser (before any reads).
+if (typeof window !== 'undefined') {
+  if (localStorage.getItem('tt_version') !== SEED_VERSION) {
+    localStorage.setItem('tt_subjects',  JSON.stringify(SEED_SUBJECTS));
+    localStorage.setItem('tt_mentors',   JSON.stringify(SEED_MENTORS));
+    localStorage.setItem('tt_timetable', JSON.stringify(EMPTY_TIMETABLE));
+    localStorage.setItem('tt_absence',   JSON.stringify([]));
+    localStorage.setItem('tt_version',   SEED_VERSION);
+  }
+}
 
 function read<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback;
@@ -47,4 +59,5 @@ export function resetToDefaults() {
   write('tt_mentors',   SEED_MENTORS);
   write('tt_timetable', EMPTY_TIMETABLE);
   write('tt_absence',   []);
+  if (typeof window !== 'undefined') localStorage.setItem('tt_version', SEED_VERSION);
 }
