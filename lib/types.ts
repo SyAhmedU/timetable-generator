@@ -86,8 +86,8 @@ export const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 
 export const DEPT_LABELS: Record<DepartmentCode, string> = {
   ACS:  'Advanced Computing Science',
-  PCOM: 'B.Com. Fintech with AI',
-  PBF:  'B.B.A. E-Commerce and Digital Marketing',
+  PCOM: 'Commerce Department',
+  PBF:  'Management Department',
 };
 
 export const CATEGORY_COLORS: Record<MentorCategory, string> = {
