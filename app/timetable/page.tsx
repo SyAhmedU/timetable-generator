@@ -75,71 +75,34 @@ export default function TimetablePage() {
 
   const selectedClass_ = classes.find(c => c.id === selectedClass);
 
-  function buildRows() {
-    const rows: React.ReactNode[] = [];
-    for (let i = 0; i < SESSION_INFO.length; i++) {
-      const { n, label } = SESSION_INFO[i];
-
-      if (n === 3) rows.push(
-        <tr key="break">
-          <td colSpan={6}
-            style={{ background: 'rgba(251,191,36,0.08)', borderTop: '2px dashed rgba(251,191,36,0.4)', borderBottom: '2px dashed rgba(251,191,36,0.4)' }}
-            className="py-1.5 text-center text-amber-600 text-xs font-semibold tracking-widest">
-            ─────  ☕  Break  10:10 – 10:20  ─────
-          </td>
-        </tr>
-      );
-      if (n === 5) rows.push(
-        <tr key="lunch">
-          <td colSpan={6}
-            style={{ background: 'rgba(16,185,129,0.07)', borderTop: '2px dashed rgba(16,185,129,0.35)', borderBottom: '2px dashed rgba(16,185,129,0.35)' }}
-            className="py-1.5 text-center text-emerald-600 text-xs font-semibold tracking-widest">
-            ─────  🍽  Lunch  12:00 – 12:45  ─────
-          </td>
-        </tr>
-      );
-
-      rows.push(
-        <tr key={n}>
-          {/* Session label */}
-          <td className="p-2 align-top w-24 border-r border-gray-100">
-            <div style={{ color: 'var(--navy)' }} className="font-extrabold text-sm">S{n}</div>
-            <div className="text-gray-400 text-[10px] mt-0.5 leading-tight">{label}</div>
-          </td>
-
-          {[1, 2, 3, 4, 5].map(day => {
-            const s      = slot(day, n);
-            const sub    = s ? subjectMap[s.subjectId] : null;
-            const mentor = s?.mentorId ? mentorMap[s.mentorId] : null;
-            return (
-              <td key={day} className="p-1.5 align-top border-r border-b border-gray-100 last:border-r-0">
-                {sub ? (
-                  <div className={`rounded-xl px-2.5 pt-2.5 pb-2 min-h-[72px] flex flex-col justify-between shadow-sm ${CATEGORY_COLORS[sub.category]}`}>
-                    <p className="font-semibold text-[11.5px] leading-snug">{sub.name}</p>
-                    <div className="flex items-center justify-between mt-2 gap-1">
-                      {showMentors && (
-                        mentor
-                          ? <span className="text-[10px] font-mono font-bold bg-black/10 px-1.5 py-0.5 rounded-md">{mentor.code}</span>
-                          : <span className="text-[10px] font-semibold text-red-500">TBA</span>
-                      )}
-                      {sub.isLab && (
-                        <span className="text-[9px] font-semibold bg-black/10 px-1.5 py-0.5 rounded-full ml-auto">Lab</span>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="min-h-[72px] flex items-center justify-center">
-                    <span className="text-gray-200 text-lg">·</span>
-                  </div>
-                )}
-              </td>
-            );
-          })}
-        </tr>
-      );
-    }
-    return rows;
-  }
+  const renderCell = (day: number, n: number) => {
+    const s      = slot(day, n);
+    const sub    = s ? subjectMap[s.subjectId] : null;
+    const mentor = s?.mentorId ? mentorMap[s.mentorId] : null;
+    return (
+      <td key={n} className="p-1.5 align-top border-r border-b border-gray-100">
+        {sub ? (
+          <div className={`rounded-xl px-2.5 pt-2.5 pb-2 min-h-[72px] flex flex-col justify-between shadow-sm ${CATEGORY_COLORS[sub.category]}`}>
+            <p className="font-semibold text-[11.5px] leading-snug">{sub.name}</p>
+            <div className="flex items-center justify-between mt-2 gap-1">
+              {showMentors && (
+                mentor
+                  ? <span className="text-[10px] font-mono font-bold bg-black/10 px-1.5 py-0.5 rounded-md">{mentor.code}</span>
+                  : <span className="text-[10px] font-semibold text-red-500">TBA</span>
+              )}
+              {sub.isLab && (
+                <span className="text-[9px] font-semibold bg-black/10 px-1.5 py-0.5 rounded-full ml-auto">Lab</span>
+              )}
+            </div>
+          </div>
+        ) : (
+          <div className="min-h-[72px] flex items-center justify-center">
+            <span className="text-gray-200 text-lg">·</span>
+          </div>
+        )}
+      </td>
+    );
+  };
 
   return (
     <div className="space-y-5">
@@ -242,25 +205,77 @@ export default function TimetablePage() {
               )}
             </div>
 
-            {/* Table */}
+            {/* Table — sessions as columns, days as rows */}
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse min-w-[740px]">
+              <table className="w-full border-collapse min-w-[1020px]">
                 <thead>
                   <tr>
-                    <th style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.5)' }}
-                      className="text-left px-3 py-3 text-xs font-semibold tracking-widest w-24 border-r border-white/10">
-                      SESSION
+                    {/* Day label column */}
+                    <th style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.45)' }}
+                      className="text-left px-4 py-3 text-xs font-semibold tracking-widest w-28 border-r border-white/10">
+                      DAY
                     </th>
-                    {DAYS.map(d => (
-                      <th key={d}
-                        style={{ background: 'var(--navy)', color: 'white' }}
-                        className="px-3 py-3 text-sm font-bold text-center border-r border-white/10 last:border-r-0 tracking-wide">
-                        {d}
+                    {/* S1, S2 */}
+                    {SESSION_INFO.slice(0, 2).map(({ n, label }) => (
+                      <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
+                        className="px-2 py-3 text-center border-r border-white/10">
+                        <div className="text-sm font-bold">S{n}</div>
+                        <div className="text-[10px] text-white/50 mt-0.5">{label}</div>
+                      </th>
+                    ))}
+                    {/* Break */}
+                    <th style={{ background: 'rgba(251,191,36,0.18)', color: '#92700a' }}
+                      className="px-2 py-3 text-center border-r border-amber-300/40 w-16">
+                      <div className="text-sm">☕</div>
+                      <div className="text-[9px] font-semibold mt-0.5 leading-tight">Break<br/>10:10–10:20</div>
+                    </th>
+                    {/* S3, S4 */}
+                    {SESSION_INFO.slice(2, 4).map(({ n, label }) => (
+                      <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
+                        className="px-2 py-3 text-center border-r border-white/10">
+                        <div className="text-sm font-bold">S{n}</div>
+                        <div className="text-[10px] text-white/50 mt-0.5">{label}</div>
+                      </th>
+                    ))}
+                    {/* Lunch */}
+                    <th style={{ background: 'rgba(16,185,129,0.15)', color: '#065f46' }}
+                      className="px-2 py-3 text-center border-r border-emerald-300/40 w-16">
+                      <div className="text-sm">🍽</div>
+                      <div className="text-[9px] font-semibold mt-0.5 leading-tight">Lunch<br/>12:00–12:45</div>
+                    </th>
+                    {/* S5, S6, S7 */}
+                    {SESSION_INFO.slice(4).map(({ n, label }) => (
+                      <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
+                        className="px-2 py-3 text-center border-r border-white/10 last:border-r-0">
+                        <div className="text-sm font-bold">S{n}</div>
+                        <div className="text-[10px] text-white/50 mt-0.5">{label}</div>
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody>{buildRows()}</tbody>
+                <tbody>
+                  {[1, 2, 3, 4, 5].map(day => (
+                    <tr key={day} className={day % 2 === 0 ? 'bg-gray-50/60' : 'bg-white'}>
+                      {/* Day label */}
+                      <td style={{ color: 'var(--navy)' }}
+                        className="px-4 py-2 font-extrabold text-sm border-r border-b border-gray-100 whitespace-nowrap align-middle">
+                        {DAYS[day - 1]}
+                      </td>
+                      {/* S1, S2 */}
+                      {[1, 2].map(n => renderCell(day, n))}
+                      {/* Break spacer */}
+                      <td style={{ background: 'rgba(251,191,36,0.06)', borderColor: 'rgba(251,191,36,0.25)' }}
+                        className="border-r border-b w-16" />
+                      {/* S3, S4 */}
+                      {[3, 4].map(n => renderCell(day, n))}
+                      {/* Lunch spacer */}
+                      <td style={{ background: 'rgba(16,185,129,0.05)', borderColor: 'rgba(16,185,129,0.25)' }}
+                        className="border-r border-b w-16" />
+                      {/* S5, S6, S7 */}
+                      {[5, 6, 7].map(n => renderCell(day, n))}
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
 
