@@ -88,6 +88,7 @@ export function exportMentorMappingExcel(
 
   const CAT_ROLE: Record<MentorCategory, string> = {
     CS:         'Computer Science Mentor',
+    DS:         'Data Science Mentor',
     MTECH:      'M.Tech Mentor',
     MANAGEMENT: 'Management Mentor',
     ENGLISH:    'English Mentor',

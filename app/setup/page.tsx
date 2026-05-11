@@ -8,13 +8,15 @@ import {
   saveSubjects, addMentor, updateMentor, deleteMentor, resetToDefaults,
 } from '@/lib/client-store';
 
-const CATEGORIES: MentorCategory[] = ['CS', 'MTECH', 'MANAGEMENT', 'ENGLISH', 'MATH', 'COMMERCE', 'APTITUDE'];
+const CATEGORIES: MentorCategory[] = ['CS', 'DS', 'MTECH', 'MANAGEMENT', 'ENGLISH', 'MATH', 'COMMERCE', 'APTITUDE'];
 const CAT_LABELS: Record<MentorCategory, string> = {
-  CS: 'CS (B.Sc.)', MTECH: 'M.Tech (B.Tech)', MANAGEMENT: 'Management',
-  ENGLISH: 'English', MATH: 'Mathematics', COMMERCE: 'Commerce', APTITUDE: 'Aptitude',
+  CS: 'CS — Core Computing', DS: 'DS — AI / Data Science', MTECH: 'M.Tech (B.Tech)',
+  MANAGEMENT: 'Management', ENGLISH: 'English', MATH: 'Mathematics',
+  COMMERCE: 'Commerce', APTITUDE: 'Aptitude',
 };
 const CAT_COLORS: Record<MentorCategory, string> = {
-  CS: 'bg-blue-100 text-blue-700', MTECH: 'bg-indigo-100 text-indigo-700',
+  CS: 'bg-blue-100 text-blue-700', DS: 'bg-cyan-100 text-cyan-700',
+  MTECH: 'bg-indigo-100 text-indigo-700',
   MANAGEMENT: 'bg-green-100 text-green-700', ENGLISH: 'bg-yellow-100 text-yellow-800',
   MATH: 'bg-purple-100 text-purple-700', COMMERCE: 'bg-orange-100 text-orange-700',
   APTITUDE: 'bg-pink-100 text-pink-700',
@@ -25,7 +27,7 @@ export default function SetupPage() {
   const [subjects,    setSubjects]    = useState<Subject[]>([]);
   const [mentors,     setMentors]     = useState<Mentor[]>([]);
   const [activeClass, setActiveClass] = useState('');
-  const [tab,         setTab]         = useState<'subjects' | 'mentors'>('subjects');
+  const [tab,         setTab]         = useState<'subjects' | 'mentors' | 'capacity'>('subjects');
   const [saved,       setSaved]       = useState(false);
   const [mentorModal, setMentorModal] = useState<Partial<Mentor> | null>(null);
   const [isNew,       setIsNew]       = useState(false);
@@ -88,11 +90,15 @@ export default function SetupPage() {
           }} className="px-3 py-2 rounded-lg text-sm font-medium bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition">
             ↺ Reset Defaults
           </button>
-          {(['subjects', 'mentors'] as const).map(t => (
-            <button key={t} onClick={() => setTab(t)}
-              style={tab === t ? { background: 'var(--navy)' } : undefined}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${tab === t ? 'text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
-              {t === 'subjects' ? 'Subjects & Hours' : `Mentors (${mentors.length})`}
+          {([
+            { key: 'subjects',  label: 'Subjects & Hours'      },
+            { key: 'mentors',   label: `Mentors (${mentors.length})` },
+            { key: 'capacity',  label: '📊 Capacity Analysis'  },
+          ] as { key: typeof tab; label: string }[]).map(t => (
+            <button key={t.key} onClick={() => setTab(t.key)}
+              style={tab === t.key ? { background: 'var(--navy)' } : undefined}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${tab === t.key ? 'text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
+              {t.label}
             </button>
           ))}
         </div>
@@ -208,6 +214,83 @@ export default function SetupPage() {
           })}
         </div>
       )}
+
+      {/* ── CAPACITY ANALYSIS ─────────────────────────────────────────── */}
+      {tab === 'capacity' && (() => {
+        const rows = CATEGORIES.map(cat => {
+          const catSubjects = subjects.filter(s => s.category === cat);
+          const demand      = catSubjects.reduce((a, s) => a + s.hoursPerWeek, 0);
+          const catMentors  = mentors.filter(m => m.category === cat);
+          const capacity    = catMentors.reduce((a, m) => a + m.maxHoursPerWeek, 0);
+          const needed      = Math.ceil(demand / 20);
+          const have        = catMentors.length;
+          const ok          = capacity >= demand && have > 0;
+          return { cat, demand, capacity, needed, have, ok, catSubjects, catMentors };
+        }).filter(r => r.demand > 0 || r.have > 0);
+
+        return (
+          <div className="space-y-4">
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              <div style={{ background: 'var(--navy)' }} className="px-6 py-4">
+                <h2 className="text-white font-bold text-base">Mentor Capacity vs. Subject Demand</h2>
+                <p className="text-white/50 text-xs mt-1">
+                  Based on total hrs/week across all classes. Minimum mentors = ⌈total demand ÷ 20 hrs⌉.
+                </p>
+              </div>
+              <table className="w-full text-sm">
+                <thead className="bg-gray-50 border-b">
+                  <tr>
+                    <th className="text-left px-5 py-3 font-semibold text-gray-600">Category</th>
+                    <th className="text-center px-4 py-3 font-semibold text-gray-600">Subjects</th>
+                    <th className="text-center px-4 py-3 font-semibold text-gray-600">Demand (hrs/wk)</th>
+                    <th className="text-center px-4 py-3 font-semibold text-gray-600">Mentors on Roster</th>
+                    <th className="text-center px-4 py-3 font-semibold text-gray-600">Supply (hrs/wk)</th>
+                    <th className="text-center px-4 py-3 font-semibold text-gray-600">Min. Needed</th>
+                    <th className="text-center px-4 py-3 font-semibold text-gray-600">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map((r, i) => (
+                    <tr key={r.cat} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                      <td className="px-5 py-3">
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${CAT_COLORS[r.cat]}`}>{r.cat}</span>
+                        <span className="ml-2 text-gray-600 text-xs">{CAT_LABELS[r.cat]}</span>
+                      </td>
+                      <td className="px-4 py-3 text-center text-gray-700">{r.catSubjects.length}</td>
+                      <td className="px-4 py-3 text-center font-bold text-gray-800">{r.demand}</td>
+                      <td className="px-4 py-3 text-center text-gray-700">{r.have}</td>
+                      <td className="px-4 py-3 text-center font-bold text-gray-800">{r.capacity}</td>
+                      <td className="px-4 py-3 text-center">
+                        <span className={`font-bold text-sm ${r.have >= r.needed ? 'text-gray-400' : 'text-red-600'}`}>
+                          {r.needed}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-center">
+                        {r.demand === 0 ? (
+                          <span className="text-gray-300 text-xs">—</span>
+                        ) : r.ok ? (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-semibold">
+                            ✓ OK
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold">
+                            ✗ Need {r.needed - r.have} more
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="px-6 py-4 bg-amber-50 border-t border-amber-200">
+                <p className="text-xs text-amber-700 font-medium">
+                  ⚠️ This is a lower-bound estimate. If multiple classes need the same category at the same time slot, you may need more mentors than the minimum shown. Re-generate the timetable and check for warnings after adjusting mentor counts.
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* ── Modal ──────────────────────────────────────────────────────── */}
       {mentorModal && (

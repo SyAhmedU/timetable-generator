@@ -42,22 +42,34 @@ export function generateTimetable(
     day: number,
     session: number,
     prefer?: string
-  ): string | null => {
+  ): { id: string | null; reason: string } => {
     if (prefer) {
       const p = mentors.find(m => m.id === prefer);
       if (p && !isBusy(prefer, day, session) &&
           (mentorHours.get(prefer) ?? 0) < p.maxHoursPerWeek) {
-        return prefer;
+        return { id: prefer, reason: '' };
       }
     }
-    const eligible = mentors
+    const catMentors = mentors.filter(m => m.category === category);
+    const eligible = catMentors
       .filter(m =>
-        m.category === category &&
         !isBusy(m.id, day, session) &&
         (mentorHours.get(m.id) ?? 0) < m.maxHoursPerWeek
       )
       .sort((a, b) => (mentorHours.get(a.id) ?? 0) - (mentorHours.get(b.id) ?? 0));
-    return eligible[0]?.id ?? null;
+    if (eligible.length > 0) return { id: eligible[0].id, reason: '' };
+
+    if (catMentors.length === 0) {
+      return { id: null, reason: `no ${category} mentors exist on roster` };
+    }
+    const atCapacity = catMentors.filter(
+      m => (mentorHours.get(m.id) ?? 0) >= m.maxHoursPerWeek
+    );
+    const busyAtSlot = catMentors.filter(m => isBusy(m.id, day, session));
+    if (atCapacity.length === catMentors.length) {
+      return { id: null, reason: `all ${catMentors.length} ${category} mentor(s) have reached weekly capacity` };
+    }
+    return { id: null, reason: `all ${busyAtSlot.length}/${catMentors.length} ${category} mentor(s) are booked at this slot` };
   };
 
   // Group subjects by class
@@ -140,7 +152,7 @@ export function generateTimetable(
           if (theoryMentor) prefer = theoryMentor;
         }
 
-        const mentorId = findMentor(sub.category, day, session, prefer);
+        const { id: mentorId, reason } = findMentor(sub.category, day, session, prefer);
 
         if (mentorId) {
           markBusy(mentorId, day, session);
@@ -153,7 +165,7 @@ export function generateTimetable(
             classSubjectMentor.set(subjectId, null);
           }
           warnings.push(
-            `${cls.shortName}: no ${sub.category} mentor free for "${sub.name}" at Day ${day} / S${session}`
+            `${cls.shortName}: "${sub.name}" (${sub.category}) unassigned at Day ${day} S${session} — ${reason}`
           );
         }
 

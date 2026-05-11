@@ -16,13 +16,13 @@ export const SEED_CLASSES: Class[] = [
 
 export const SEED_SUBJECTS: Subject[] = [
   // ── III B.Sc. AI-ML ──────────────────────────────────────────────────────────
-  { id: 's_aiml3_genai',    classId: 'cls_aiml3', name: 'Generative AI',                                    category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_aiml3_nlp',      classId: 'cls_aiml3', name: 'Natural Language Processing',                      category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_aiml3_dl',       classId: 'cls_aiml3', name: 'Deep Learning',                                    category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_aiml3_dwm',      classId: 'cls_aiml3', name: 'Data Warehousing and Mining',                      category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_aiml3_rl',       classId: 'cls_aiml3', name: 'Reinforcement Learning',                           category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_aiml3_cap',      classId: 'cls_aiml3', name: 'Capstone Projects',                                category: 'CS',         hoursPerWeek: 2, isLab: false, labForSubjectId: null },
-  { id: 's_aiml3_icp',      classId: 'cls_aiml3', name: 'Industry Connect Program',                         category: 'CS',         hoursPerWeek: 2, isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_genai',    classId: 'cls_aiml3', name: 'Generative AI',                                    category: 'DS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_nlp',      classId: 'cls_aiml3', name: 'Natural Language Processing',                      category: 'DS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_dl',       classId: 'cls_aiml3', name: 'Deep Learning',                                    category: 'DS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_dwm',      classId: 'cls_aiml3', name: 'Data Warehousing and Mining',                      category: 'DS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_rl',       classId: 'cls_aiml3', name: 'Reinforcement Learning',                           category: 'DS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_cap',      classId: 'cls_aiml3', name: 'Capstone Projects',                                category: 'DS',         hoursPerWeek: 2, isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_icp',      classId: 'cls_aiml3', name: 'Industry Connect Program',                         category: 'DS',         hoursPerWeek: 2, isLab: false, labForSubjectId: null },
   { id: 's_aiml3_rta',      classId: 'cls_aiml3', name: 'Fundamentals of Recruitment & Talent Acquisition', category: 'MANAGEMENT', hoursPerWeek: 2, isLab: false, labForSubjectId: null },
   { id: 's_aiml3_pts',      classId: 'cls_aiml3', name: 'Placement Training Skill Development',             category: 'ENGLISH',    hoursPerWeek: 2, isLab: false, labForSubjectId: null },
   { id: 's_aiml3_apt',      classId: 'cls_aiml3', name: 'Aptitude Training',                                category: 'APTITUDE',   hoursPerWeek: 2, isLab: false, labForSubjectId: null },
@@ -32,7 +32,7 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aiml2_os',       classId: 'cls_aiml2', name: 'Operating Systems',                                category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aiml2_dsa',      classId: 'cls_aiml2', name: 'Data Structures and Algorithms',                   category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aiml2_dbms',     classId: 'cls_aiml2', name: 'Database Management Systems',                      category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_aiml2_ba',       classId: 'cls_aiml2', name: 'Business Analytics',                               category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_aiml2_ba',       classId: 'cls_aiml2', name: 'Business Analytics',                               category: 'DS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aiml2_dsal',     classId: 'cls_aiml2', name: 'Data Structures and Algorithms Lab',               category: 'CS',         hoursPerWeek: 2, isLab: true,  labForSubjectId: 's_aiml2_dsa' },
   { id: 's_aiml2_pom',      classId: 'cls_aiml2', name: 'Principles of Management',                         category: 'COMMERCE',   hoursPerWeek: 3, isLab: false, labForSubjectId: null },
   { id: 's_aiml2_comm',     classId: 'cls_aiml2', name: 'Effective Communication Skill Development',        category: 'ENGLISH',    hoursPerWeek: 2, isLab: false, labForSubjectId: null },
@@ -43,7 +43,7 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aids2_os',       classId: 'cls_aids2', name: 'Operating Systems',                                category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aids2_dsa',      classId: 'cls_aids2', name: 'Data Structures and Algorithms',                   category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aids2_dbms',     classId: 'cls_aids2', name: 'Database Management Systems',                      category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_aids2_ba',       classId: 'cls_aids2', name: 'Business Analytics',                               category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_aids2_ba',       classId: 'cls_aids2', name: 'Business Analytics',                               category: 'DS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aids2_dsal',     classId: 'cls_aids2', name: 'Data Structures and Algorithms Lab',               category: 'CS',         hoursPerWeek: 2, isLab: true,  labForSubjectId: 's_aids2_dsa' },
   { id: 's_aids2_pom',      classId: 'cls_aids2', name: 'Principles of Management',                         category: 'COMMERCE',   hoursPerWeek: 3, isLab: false, labForSubjectId: null },
   { id: 's_aids2_comm',     classId: 'cls_aids2', name: 'Effective Communication Skill Development',        category: 'ENGLISH',    hoursPerWeek: 2, isLab: false, labForSubjectId: null },
@@ -128,12 +128,15 @@ export const SEED_SUBJECTS: Subject[] = [
 ];
 
 export const SEED_MENTORS: Mentor[] = [
-  // CS mentors (B.Sc. AI/CS programs)
+  // CS mentors — core: Python, DSA, OS, DBMS, Architecture, Design for Dev
   { id: 'm_cs1',   code: 'CS1',   name: 'CS Mentor 1',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
   { id: 'm_cs2',   code: 'CS2',   name: 'CS Mentor 2',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
   { id: 'm_cs3',   code: 'CS3',   name: 'CS Mentor 3',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
   { id: 'm_cs4',   code: 'CS4',   name: 'CS Mentor 4',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
-  { id: 'm_cs5',   code: 'CS5',   name: 'CS Mentor 5',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
+  // DS mentors — AI/ML: GenAI, NLP, Deep Learning, RL, DWM, Analytics
+  { id: 'm_ds1',   code: 'DS1',   name: 'DS Mentor 1',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
+  { id: 'm_ds2',   code: 'DS2',   name: 'DS Mentor 2',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
+  { id: 'm_ds3',   code: 'DS3',   name: 'DS Mentor 3',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
   // M.Tech mentors (B.Tech programs)
   { id: 'm_mt1',   code: 'MT1',   name: 'MTech Mentor 1',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
   { id: 'm_mt2',   code: 'MT2',   name: 'MTech Mentor 2',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
