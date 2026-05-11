@@ -1,8 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import type { Class, Subject, Mentor, TimetableSlot } from '@/lib/types';
-import { DAYS, CATEGORY_COLORS } from '@/lib/types';
+import type { Class, Subject, Mentor, TimetableSlot, DepartmentCode } from '@/lib/types';
+import { DAYS, CATEGORY_COLORS, DEPT_LABELS } from '@/lib/types';
 import {
   getClasses, getSubjects, getMentors, getTimetable, saveTimetable, clearTimetable,
 } from '@/lib/client-store';
@@ -232,7 +232,7 @@ export default function TimetablePage() {
               <div>
                 <h2 className="font-extrabold text-lg text-white">{selectedClass_?.name}</h2>
                 <p className="text-white/50 text-xs mt-0.5">
-                  {selectedClass_?.departmentId} · Semester {selectedClass_?.semester} · AY 2026-27 Odd
+                  {selectedClass_ ? DEPT_LABELS[selectedClass_.departmentId as DepartmentCode] : ''} · Semester {selectedClass_?.semester} · AY 2026-27 Odd
                 </p>
               </div>
               {timetable.generatedAt && (

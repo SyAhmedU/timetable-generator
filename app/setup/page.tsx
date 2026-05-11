@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import type { Class, Subject, Mentor, MentorCategory } from '@/lib/types';
+import type { Class, Subject, Mentor, MentorCategory, DepartmentCode } from '@/lib/types';
+import { DEPT_LABELS } from '@/lib/types';
 import {
   getClasses, getSubjects, getMentors,
   saveSubjects, addMentor, updateMentor, deleteMentor, resetToDefaults,
@@ -106,7 +107,7 @@ export default function SetupPage() {
               <button key={c.id} onClick={() => setActiveClass(c.id)}
                 className={`w-full text-left px-4 py-2.5 text-sm border-b border-gray-100 transition ${activeClass === c.id ? 'bg-blue-50 text-blue-700 font-medium' : 'hover:bg-gray-50 text-gray-700'}`}>
                 <div>{c.shortName}</div>
-                <div className="text-xs text-gray-400">{c.departmentId} · Sem {c.semester}</div>
+                <div className="text-xs text-gray-400">{DEPT_LABELS[c.departmentId as DepartmentCode]} · Sem {c.semester}</div>
               </button>
             ))}
           </div>
@@ -192,7 +193,7 @@ export default function SetupPage() {
                         <td className="px-5 py-2 font-mono font-semibold text-blue-700">{m.code}</td>
                         <td className="px-4 py-2">{m.name}</td>
                         <td className="px-4 py-2 text-gray-500">{m.qualification ?? '—'}</td>
-                        <td className="px-4 py-2 text-gray-500">{m.departmentId ?? 'Cross-dept'}</td>
+                        <td className="px-4 py-2 text-gray-500">{m.departmentId ? DEPT_LABELS[m.departmentId as DepartmentCode] : 'Cross-dept'}</td>
                         <td className="px-4 py-2 text-center">{m.maxHoursPerWeek}</td>
                         <td className="px-4 py-2 flex gap-2 justify-end">
                           <button onClick={() => { setIsNew(false); setMentorModal({ ...m }); }} className="text-blue-600 hover:underline text-xs">Edit</button>

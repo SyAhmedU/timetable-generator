@@ -102,8 +102,7 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {(Object.entries(deptCounts) as [DepartmentCode, number][]).map(([dept, count]) => (
             <div key={dept} className={`rounded-xl p-4 border-2 ${DEPT_COLORS[dept]}`}>
-              <p className="font-bold text-sm">{dept}</p>
-              <p className="text-xs mt-0.5 opacity-70">{DEPT_LABELS[dept]}</p>
+              <p className="font-bold text-sm">{DEPT_LABELS[dept]}</p>
               <p className="text-3xl font-extrabold mt-3">
                 {count} <span className="text-sm font-normal opacity-60">classes</span>
               </p>
