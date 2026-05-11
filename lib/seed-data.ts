@@ -34,7 +34,7 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aiml2_dbms',     classId: 'cls_aiml2', name: 'Database Management Systems',                      category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aiml2_ba',       classId: 'cls_aiml2', name: 'Business Analytics',                               category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aiml2_dsal',     classId: 'cls_aiml2', name: 'Data Structures and Algorithms Lab',               category: 'CS',         hoursPerWeek: 2, isLab: true,  labForSubjectId: 's_aiml2_dsa' },
-  { id: 's_aiml2_pom',      classId: 'cls_aiml2', name: 'Principles of Management',                         category: 'MANAGEMENT', hoursPerWeek: 3, isLab: false, labForSubjectId: null },
+  { id: 's_aiml2_pom',      classId: 'cls_aiml2', name: 'Principles of Management',                         category: 'COMMERCE',   hoursPerWeek: 3, isLab: false, labForSubjectId: null },
   { id: 's_aiml2_comm',     classId: 'cls_aiml2', name: 'Effective Communication Skill Development',        category: 'ENGLISH',    hoursPerWeek: 2, isLab: false, labForSubjectId: null },
   { id: 's_aiml2_apt',      classId: 'cls_aiml2', name: 'Aptitude Training',                                category: 'APTITUDE',   hoursPerWeek: 2, isLab: false, labForSubjectId: null },
 
@@ -45,7 +45,7 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aids2_dbms',     classId: 'cls_aids2', name: 'Database Management Systems',                      category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aids2_ba',       classId: 'cls_aids2', name: 'Business Analytics',                               category: 'CS',         hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_aids2_dsal',     classId: 'cls_aids2', name: 'Data Structures and Algorithms Lab',               category: 'CS',         hoursPerWeek: 2, isLab: true,  labForSubjectId: 's_aids2_dsa' },
-  { id: 's_aids2_pom',      classId: 'cls_aids2', name: 'Principles of Management',                         category: 'MANAGEMENT', hoursPerWeek: 3, isLab: false, labForSubjectId: null },
+  { id: 's_aids2_pom',      classId: 'cls_aids2', name: 'Principles of Management',                         category: 'COMMERCE',   hoursPerWeek: 3, isLab: false, labForSubjectId: null },
   { id: 's_aids2_comm',     classId: 'cls_aids2', name: 'Effective Communication Skill Development',        category: 'ENGLISH',    hoursPerWeek: 2, isLab: false, labForSubjectId: null },
   { id: 's_aids2_apt',      classId: 'cls_aids2', name: 'Aptitude Training',                                category: 'APTITUDE',   hoursPerWeek: 2, isLab: false, labForSubjectId: null },
 
@@ -101,7 +101,7 @@ export const SEED_SUBJECTS: Subject[] = [
   // ── I B.Com. FAI Group 1 ─────────────────────────────────────────────────────
   { id: 's_bcom1g1_math',   classId: 'cls_bcom1g1', name: 'Business Mathematics and Statistics',           category: 'MATH',       hoursPerWeek: 5, isLab: false, labForSubjectId: null },
   { id: 's_bcom1g1_ft',     classId: 'cls_bcom1g1', name: 'Introduction to FinTech',                       category: 'COMMERCE',   hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_bcom1g1_pom',    classId: 'cls_bcom1g1', name: 'Principles of Management',                      category: 'MANAGEMENT', hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_bcom1g1_pom',    classId: 'cls_bcom1g1', name: 'Principles of Management',                      category: 'COMMERCE',   hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_bcom1g1_fa',     classId: 'cls_bcom1g1', name: 'Principles of Financial Accounting',            category: 'COMMERCE',   hoursPerWeek: 5, isLab: false, labForSubjectId: null },
   { id: 's_bcom1g1_eco',    classId: 'cls_bcom1g1', name: 'Business Economics',                            category: 'COMMERCE',   hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_bcom1g1_comm',   classId: 'cls_bcom1g1', name: 'Effective Communication for Professionals',     category: 'ENGLISH',    hoursPerWeek: 3, isLab: false, labForSubjectId: null },
@@ -110,7 +110,7 @@ export const SEED_SUBJECTS: Subject[] = [
   // ── I B.Com. FAI Group 2 ─────────────────────────────────────────────────────
   { id: 's_bcom1g2_math',   classId: 'cls_bcom1g2', name: 'Business Mathematics and Statistics',           category: 'MATH',       hoursPerWeek: 5, isLab: false, labForSubjectId: null },
   { id: 's_bcom1g2_ft',     classId: 'cls_bcom1g2', name: 'Introduction to FinTech',                       category: 'COMMERCE',   hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_bcom1g2_pom',    classId: 'cls_bcom1g2', name: 'Principles of Management',                      category: 'MANAGEMENT', hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_bcom1g2_pom',    classId: 'cls_bcom1g2', name: 'Principles of Management',                      category: 'COMMERCE',   hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_bcom1g2_fa',     classId: 'cls_bcom1g2', name: 'Principles of Financial Accounting',            category: 'COMMERCE',   hoursPerWeek: 5, isLab: false, labForSubjectId: null },
   { id: 's_bcom1g2_eco',    classId: 'cls_bcom1g2', name: 'Business Economics',                            category: 'COMMERCE',   hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_bcom1g2_comm',   classId: 'cls_bcom1g2', name: 'Effective Communication for Professionals',     category: 'ENGLISH',    hoursPerWeek: 3, isLab: false, labForSubjectId: null },
@@ -118,11 +118,11 @@ export const SEED_SUBJECTS: Subject[] = [
 
   // ── II B.B.A. E-Commerce & DM ────────────────────────────────────────────────
   { id: 's_bba2_ps',        classId: 'cls_bba2', name: 'Product Sourcing and Inventory Management',         category: 'MANAGEMENT', hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_bba2_fa',        classId: 'cls_bba2', name: 'Financial Accounting',                              category: 'MANAGEMENT', hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_bba2_fa',        classId: 'cls_bba2', name: 'Financial Accounting',                              category: 'COMMERCE',   hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_bba2_sm',        classId: 'cls_bba2', name: 'Strategic Management',                              category: 'MANAGEMENT', hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_bba2_bs',        classId: 'cls_bba2', name: 'Business Statistics and Data Research',             category: 'MATH',       hoursPerWeek: 3, isLab: false, labForSubjectId: null },
-  { id: 's_bba2_log',       classId: 'cls_bba2', name: 'Logistics and E-Commerce Trends',                   category: 'MANAGEMENT', hoursPerWeek: 4, isLab: false, labForSubjectId: null },
-  { id: 's_bba2_omni',      classId: 'cls_bba2', name: 'Omnichannel Marketing and Customer Journey',        category: 'MANAGEMENT', hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_bba2_log',       classId: 'cls_bba2', name: 'Logistics and E-Commerce Trends',                   category: 'COMMERCE',   hoursPerWeek: 4, isLab: false, labForSubjectId: null },
+  { id: 's_bba2_omni',      classId: 'cls_bba2', name: 'Omnichannel Marketing and Customer Journey',        category: 'COMMERCE',   hoursPerWeek: 4, isLab: false, labForSubjectId: null },
   { id: 's_bba2_cap',       classId: 'cls_bba2', name: 'Capstone Projects – II',                            category: 'MANAGEMENT', hoursPerWeek: 2, isLab: false, labForSubjectId: null },
   { id: 's_bba2_comm',      classId: 'cls_bba2', name: 'Effective Communication Skills',                    category: 'ENGLISH',    hoursPerWeek: 3, isLab: false, labForSubjectId: null },
 ];
@@ -138,9 +138,8 @@ export const SEED_MENTORS: Mentor[] = [
   { id: 'm_mt1',   code: 'MT1',   name: 'MTech Mentor 1',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
   { id: 'm_mt2',   code: 'MT2',   name: 'MTech Mentor 2',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
   { id: 'm_mt3',   code: 'MT3',   name: 'MTech Mentor 3',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
-  // Management mentors
-  { id: 'm_mg1',   code: 'MG1',   name: 'Management Mentor 1', category: 'MANAGEMENT', departmentId: null,   maxHoursPerWeek: 20, qualification: 'MBA'        },
-  { id: 'm_mg2',   code: 'MG2',   name: 'Management Mentor 2', category: 'MANAGEMENT', departmentId: null,   maxHoursPerWeek: 20, qualification: 'MBA'        },
+  // Management mentor (single — handles BBA strategic/operational subjects + cross-dept RTA)
+  { id: 'm_mg1',   code: 'MG1',   name: 'Management Mentor',   category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
   // English mentors
   { id: 'm_eng1',  code: 'ENG1',  name: 'English Mentor 1',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
   { id: 'm_eng2',  code: 'ENG2',  name: 'English Mentor 2',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },

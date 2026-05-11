@@ -40,3 +40,11 @@ export function deleteMentor(id: string) { write('tt_mentors', getMentors().filt
 export function addAbsenceRecords(records: AbsenceRecord[]) {
   saveAbsenceLog([...records, ...getAbsenceLog()]);
 }
+
+// ── Factory reset ─────────────────────────────────────────────────────────────
+export function resetToDefaults() {
+  write('tt_subjects',  SEED_SUBJECTS);
+  write('tt_mentors',   SEED_MENTORS);
+  write('tt_timetable', EMPTY_TIMETABLE);
+  write('tt_absence',   []);
+}

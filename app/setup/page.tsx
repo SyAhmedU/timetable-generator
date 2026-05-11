@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import type { Class, Subject, Mentor, MentorCategory } from '@/lib/types';
 import {
   getClasses, getSubjects, getMentors,
-  saveSubjects, addMentor, updateMentor, deleteMentor,
+  saveSubjects, addMentor, updateMentor, deleteMentor, resetToDefaults,
 } from '@/lib/client-store';
 
 const CATEGORIES: MentorCategory[] = ['CS', 'MTECH', 'MANAGEMENT', 'ENGLISH', 'MATH', 'COMMERCE', 'APTITUDE'];
@@ -74,11 +74,23 @@ export default function SetupPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <h1 className="text-2xl font-bold">Setup</h1>
+        <div>
+          <h1 className="text-2xl font-extrabold" style={{ color: 'var(--navy)' }}>Setup</h1>
+          <p className="text-xs text-gray-400 mt-0.5">Configure subjects, hours, and mentors</p>
+        </div>
         <div className="flex gap-2">
+          <button onClick={() => {
+            if (!confirm('Reset all subjects, mentors, and timetable to factory defaults? This cannot be undone.')) return;
+            resetToDefaults();
+            setSubjects(getSubjects());
+            setMentors(getMentors());
+          }} className="px-3 py-2 rounded-lg text-sm font-medium bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition">
+            ↺ Reset Defaults
+          </button>
           {(['subjects', 'mentors'] as const).map(t => (
             <button key={t} onClick={() => setTab(t)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${tab === t ? 'bg-blue-600 text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
+              style={tab === t ? { background: 'var(--navy)' } : undefined}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${tab === t ? 'text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
               {t === 'subjects' ? 'Subjects & Hours' : `Mentors (${mentors.length})`}
             </button>
           ))}
@@ -108,7 +120,8 @@ export default function SetupPage() {
                 </p>
               </div>
               <button onClick={handleSave}
-                className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+                style={!saved ? { background: 'var(--navy)' } : undefined}
+                className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${saved ? 'bg-emerald-600 text-white' : 'text-white hover:opacity-90'}`}>
                 {saved ? '✓ Saved' : 'Save Changes'}
               </button>
             </div>
@@ -147,7 +160,8 @@ export default function SetupPage() {
         <div className="space-y-4">
           <div className="flex justify-end">
             <button onClick={() => { setIsNew(true); setMentorModal({ category: 'CS', maxHoursPerWeek: 20, departmentId: null, qualification: null }); }}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+              style={{ background: 'var(--navy)' }}
+              className="text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition">
               + Add Mentor
             </button>
           </div>
