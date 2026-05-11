@@ -82,16 +82,22 @@ export default function TimetablePage() {
     return (
       <td key={n} className="p-1.5 align-top border-r border-b border-gray-100">
         {sub ? (
-          <div className={`rounded-xl px-2.5 pt-2.5 pb-2 min-h-[72px] flex flex-col justify-between shadow-sm ${CATEGORY_COLORS[sub.category]}`}>
-            <p className="font-semibold text-[11.5px] leading-snug">{sub.name}</p>
+          <div className={`print-cell rounded-xl px-2.5 pt-2.5 pb-2 min-h-[72px] flex flex-col justify-between shadow-sm ${CATEGORY_COLORS[sub.category]}`}>
+            <div>
+              <p className="font-semibold text-[11.5px] leading-snug">{sub.name}</p>
+              <span className="cat-label">[{sub.category}]</span>
+            </div>
             <div className="flex items-center justify-between mt-2 gap-1">
-              {showMentors && (
-                mentor
-                  ? <span className="text-[10px] font-mono font-bold bg-black/10 px-1.5 py-0.5 rounded-md">{mentor.code}</span>
-                  : <span className="text-[10px] font-semibold text-red-500">TBA</span>
+              {/* Always in DOM so print can show mentor even when toggled off on screen */}
+              {mentor ? (
+                <span className={`mentor-code text-[10px] font-mono font-bold bg-black/10 px-1.5 py-0.5 rounded-md ${showMentors ? '' : 'print-only'}`}>
+                  {mentor.code}
+                </span>
+              ) : (
+                <span className={`text-[10px] font-semibold text-red-500 ${showMentors ? '' : 'print-only'}`}>TBA</span>
               )}
               {sub.isLab && (
-                <span className="text-[9px] font-semibold bg-black/10 px-1.5 py-0.5 rounded-full ml-auto">Lab</span>
+                <span className="lab-badge text-[9px] font-semibold bg-black/10 px-1.5 py-0.5 rounded-full ml-auto">Lab</span>
               )}
             </div>
           </div>
@@ -106,12 +112,100 @@ export default function TimetablePage() {
 
   return (
     <div className="space-y-5">
-      <style>{`@media print {
-        header { display:none !important; }
-        body { background:white !important; }
-        .no-print { display:none !important; }
-        table { page-break-inside: avoid; }
-      }`}</style>
+      <style>{`
+        /* Screen: hide print-only helpers */
+        .cat-label  { display: none; }
+        .print-only { display: none; }
+        .print-header { display: none; }
+
+        @media print {
+          @page { size: A4 landscape; margin: 1.2cm 1.6cm; }
+
+          /* Hide all UI chrome */
+          header, nav, .no-print { display: none !important; }
+          body { background: white !important; font-family: Arial, Helvetica, sans-serif !important; }
+
+          /* Reveal print-only helpers */
+          .print-header { display: block !important; }
+          .print-only   { display: inline !important; }
+          .cat-label    { display: inline !important; font-size: 7pt; color: #555; margin-left: 1px; }
+
+          /* Print letterhead block */
+          .print-header {
+            border-bottom: 2pt solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+          }
+
+          /* Table overflow fix */
+          .overflow-x-auto { overflow: visible !important; }
+          table { min-width: 0 !important; width: 100% !important; }
+          tr    { page-break-inside: avoid; }
+
+          /* ── Card header ──────────────────────────────── */
+          .print-card-header {
+            background: white !important;
+            border-bottom: 2pt solid #000 !important;
+            padding: 8px 14px !important;
+          }
+          .print-card-header * { color: #000 !important; }
+
+          /* ── Table column headers ─────────────────────── */
+          th.day-th {
+            background: #111 !important; color: #fff !important;
+            border: 1px solid #000 !important;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+          }
+          th.session-th {
+            background: #111 !important; color: #fff !important;
+            border: 1px solid #000 !important;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+          }
+          th.break-th {
+            background: #ddd !important; color: #000 !important;
+            border: 1px solid #bbb !important;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+          }
+          th.lunch-th {
+            background: #ddd !important; color: #000 !important;
+            border: 1px solid #bbb !important;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+          }
+
+          /* ── Table body cells ─────────────────────────── */
+          tbody tr   { background: white !important; }
+          tbody td   { border: 1px solid #ccc !important; }
+
+          td.day-col {
+            background: #f0f0f0 !important; color: #000 !important;
+            border-right: 2px solid #333 !important;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+          }
+          td.break-col, td.lunch-col {
+            background: #ebebeb !important;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+          }
+
+          /* ── Subject cards ────────────────────────────── */
+          .print-cell {
+            background: white !important;
+            color: #000 !important;
+            border: 1.5px solid #444 !important;
+            border-radius: 2px !important;
+            box-shadow: none !important;
+          }
+          .print-cell p, .print-cell span { color: #000 !important; }
+          .print-cell .mentor-code {
+            background: #e0e0e0 !important; color: #000 !important;
+            border-radius: 2px !important;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+          }
+          .print-cell .lab-badge {
+            background: #d0d0d0 !important; color: #000 !important;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+          }
+        }
+      `}</style>
 
       {/* ── Toolbar ──────────────────────────────────────────────────────── */}
       <div className="flex items-center gap-3 flex-wrap no-print">
@@ -174,6 +268,29 @@ export default function TimetablePage() {
       {/* ── Generated view ───────────────────────────────────────────────── */}
       {timetable?.generated && (
         <>
+          {/* Print-only letterhead — hidden on screen */}
+          <div className="print-header">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div>
+                <div style={{ fontSize: '18pt', fontWeight: '900', letterSpacing: '-0.3px' }}>AMET University</div>
+                <div style={{ fontSize: '10.5pt', marginTop: '3px' }}>
+                  {selectedClass_ ? DEPT_LABELS[selectedClass_.departmentId as DepartmentCode] : ''}
+                </div>
+                <div style={{ fontSize: '10pt', marginTop: '5px', fontWeight: 'bold' }}>
+                  {selectedClass_?.name}&nbsp;&nbsp;·&nbsp;&nbsp;Semester {selectedClass_?.semester}&nbsp;&nbsp;·&nbsp;&nbsp;Academic Year 2026-27 (Odd Semester)
+                </div>
+              </div>
+              <div style={{ textAlign: 'right', fontSize: '9pt', lineHeight: '1.6' }}>
+                <div style={{ fontWeight: '800', letterSpacing: '1px', fontSize: '10pt' }}>TIMETABLE</div>
+                {timetable.generatedAt && (
+                  <div style={{ color: '#555', marginTop: '4px' }}>
+                    Generated: {new Date(timetable.generatedAt).toLocaleString('en-IN')}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
           {/* Class tabs */}
           <div className="flex gap-1.5 flex-wrap no-print">
             {classes.map(c => (
@@ -191,7 +308,7 @@ export default function TimetablePage() {
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
 
             {/* Card header */}
-            <div style={{ background: 'var(--navy)' }} className="px-6 py-4 flex items-center justify-between flex-wrap gap-2">
+            <div style={{ background: 'var(--navy)' }} className="print-card-header px-6 py-4 flex items-center justify-between flex-wrap gap-2">
               <div>
                 <h2 className="font-extrabold text-lg text-white">{selectedClass_?.name}</h2>
                 <p className="text-white/50 text-xs mt-0.5">
@@ -212,41 +329,41 @@ export default function TimetablePage() {
                   <tr>
                     {/* Day label column */}
                     <th style={{ background: 'var(--navy)', color: 'rgba(255,255,255,0.45)' }}
-                      className="text-left px-4 py-3 text-xs font-semibold tracking-widest w-28 border-r border-white/10">
+                      className="day-th text-left px-4 py-3 text-xs font-semibold tracking-widest w-28 border-r border-white/10">
                       DAY
                     </th>
                     {/* S1, S2 */}
                     {SESSION_INFO.slice(0, 2).map(({ n, label }) => (
                       <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
-                        className="px-2 py-3 text-center border-r border-white/10">
+                        className="session-th px-2 py-3 text-center border-r border-white/10">
                         <div className="text-sm font-bold">S{n}</div>
                         <div className="text-[10px] text-white/50 mt-0.5">{label}</div>
                       </th>
                     ))}
                     {/* Break */}
                     <th style={{ background: 'rgba(251,191,36,0.18)', color: '#92700a' }}
-                      className="px-2 py-3 text-center border-r border-amber-300/40 w-16">
+                      className="break-th px-2 py-3 text-center border-r border-amber-300/40 w-16">
                       <div className="text-sm">☕</div>
                       <div className="text-[9px] font-semibold mt-0.5 leading-tight">Break<br/>10:10–10:20</div>
                     </th>
                     {/* S3, S4 */}
                     {SESSION_INFO.slice(2, 4).map(({ n, label }) => (
                       <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
-                        className="px-2 py-3 text-center border-r border-white/10">
+                        className="session-th px-2 py-3 text-center border-r border-white/10">
                         <div className="text-sm font-bold">S{n}</div>
                         <div className="text-[10px] text-white/50 mt-0.5">{label}</div>
                       </th>
                     ))}
                     {/* Lunch */}
                     <th style={{ background: 'rgba(16,185,129,0.15)', color: '#065f46' }}
-                      className="px-2 py-3 text-center border-r border-emerald-300/40 w-16">
+                      className="lunch-th px-2 py-3 text-center border-r border-emerald-300/40 w-16">
                       <div className="text-sm">🍽</div>
                       <div className="text-[9px] font-semibold mt-0.5 leading-tight">Lunch<br/>12:00–12:45</div>
                     </th>
                     {/* S5, S6, S7 */}
                     {SESSION_INFO.slice(4).map(({ n, label }) => (
                       <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
-                        className="px-2 py-3 text-center border-r border-white/10 last:border-r-0">
+                        className="session-th px-2 py-3 text-center border-r border-white/10 last:border-r-0">
                         <div className="text-sm font-bold">S{n}</div>
                         <div className="text-[10px] text-white/50 mt-0.5">{label}</div>
                       </th>
@@ -258,19 +375,19 @@ export default function TimetablePage() {
                     <tr key={day} className={day % 2 === 0 ? 'bg-gray-50/60' : 'bg-white'}>
                       {/* Day label */}
                       <td style={{ color: 'var(--navy)' }}
-                        className="px-4 py-2 font-extrabold text-sm border-r border-b border-gray-100 whitespace-nowrap align-middle">
+                        className="day-col px-4 py-2 font-extrabold text-sm border-r border-b border-gray-100 whitespace-nowrap align-middle">
                         {DAYS[day - 1]}
                       </td>
                       {/* S1, S2 */}
                       {[1, 2].map(n => renderCell(day, n))}
                       {/* Break spacer */}
                       <td style={{ background: 'rgba(251,191,36,0.06)', borderColor: 'rgba(251,191,36,0.25)' }}
-                        className="border-r border-b w-16" />
+                        className="break-col border-r border-b w-16" />
                       {/* S3, S4 */}
                       {[3, 4].map(n => renderCell(day, n))}
                       {/* Lunch spacer */}
                       <td style={{ background: 'rgba(16,185,129,0.05)', borderColor: 'rgba(16,185,129,0.25)' }}
-                        className="border-r border-b w-16" />
+                        className="lunch-col border-r border-b w-16" />
                       {/* S5, S6, S7 */}
                       {[5, 6, 7].map(n => renderCell(day, n))}
                     </tr>
