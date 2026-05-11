@@ -1,0 +1,190 @@
+import type { Class, Subject, Mentor, TimetableSlot, Timetable } from './types';
+
+interface ClassWithSubjects extends Class {
+  subjects: Subject[];
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+export function generateTimetable(
+  classes: Class[],
+  subjects: Subject[],
+  mentors: Mentor[],
+): Timetable {
+  const warnings: string[] = [];
+  const allSlots: TimetableSlot[] = [];
+
+  // mentorBusy: mentorId → Set<"day-session">
+  const mentorBusy = new Map<string, Set<string>>(
+    mentors.map(m => [m.id, new Set()])
+  );
+  const mentorHours = new Map<string, number>(
+    mentors.map(m => [m.id, 0])
+  );
+
+  const isBusy = (mid: string, day: number, session: number) =>
+    mentorBusy.get(mid)?.has(`${day}-${session}`) ?? true;
+
+  const markBusy = (mid: string, day: number, session: number) => {
+    mentorBusy.get(mid)?.add(`${day}-${session}`);
+    mentorHours.set(mid, (mentorHours.get(mid) ?? 0) + 1);
+  };
+
+  const findMentor = (
+    category: string,
+    day: number,
+    session: number,
+    prefer?: string
+  ): string | null => {
+    if (prefer) {
+      const p = mentors.find(m => m.id === prefer);
+      if (p && !isBusy(prefer, day, session) &&
+          (mentorHours.get(prefer) ?? 0) < p.maxHoursPerWeek) {
+        return prefer;
+      }
+    }
+    const eligible = mentors
+      .filter(m =>
+        m.category === category &&
+        !isBusy(m.id, day, session) &&
+        (mentorHours.get(m.id) ?? 0) < m.maxHoursPerWeek
+      )
+      .sort((a, b) => (mentorHours.get(a.id) ?? 0) - (mentorHours.get(b.id) ?? 0));
+    return eligible[0]?.id ?? null;
+  };
+
+  // Group subjects by class
+  const subjectsByClass = new Map<string, Subject[]>();
+  for (const cls of classes) subjectsByClass.set(cls.id, []);
+  for (const sub of subjects) {
+    subjectsByClass.get(sub.classId)?.push(sub);
+  }
+
+  for (const cls of classes) {
+    const clsSubjects = subjectsByClass.get(cls.id) ?? [];
+    const totalHours = clsSubjects.reduce((s, sub) => s + sub.hoursPerWeek, 0);
+    if (totalHours > 35) {
+      warnings.push(`${cls.shortName}: total hours (${totalHours}) exceed 35 slots — some sessions will be dropped`);
+    }
+
+    // ── Phase 1: distribute subjects into (day, session) slots ──────────────
+    // grid[day 1-5][session 1-7] = subjectId | null
+    const grid: (string | null)[][] = Array.from({ length: 6 }, () =>
+      Array<string | null>(8).fill(null)
+    );
+
+    // Build expanded queue and shuffle for randomness
+    const queue = shuffle(
+      clsSubjects.flatMap(sub =>
+        Array.from({ length: sub.hoursPerWeek }, () => sub.id)
+      )
+    );
+
+    // Track how many times each subject appears per day (for spreading)
+    const subjectDayCount = new Map<string, Map<number, number>>(
+      clsSubjects.map(s => [s.id, new Map()])
+    );
+
+    for (const subjectId of queue) {
+      const dayCount = subjectDayCount.get(subjectId)!;
+      // Sort days by how often this subject already appears there (prefer low-count days)
+      const days = [1, 2, 3, 4, 5].sort(
+        (a, b) => (dayCount.get(a) ?? 0) - (dayCount.get(b) ?? 0)
+      );
+
+      let placed = false;
+      outer: for (const day of days) {
+        for (let session = 1; session <= 7; session++) {
+          if (!grid[day][session]) {
+            grid[day][session] = subjectId;
+            dayCount.set(day, (dayCount.get(day) ?? 0) + 1);
+            placed = true;
+            break outer;
+          }
+        }
+      }
+      if (!placed) {
+        warnings.push(`${cls.shortName}: could not place all sessions for "${subjectId}" — reduce hours`);
+      }
+    }
+
+    // ── Phase 2: assign mentors per slot ────────────────────────────────────
+    // classSubjectMentor: tracks which mentor was assigned to each subject so far
+    // (enables consistency and theory→lab linking)
+    const classSubjectMentor = new Map<string, string | null>();
+
+    for (let day = 1; day <= 5; day++) {
+      for (let session = 1; session <= 7; session++) {
+        const subjectId = grid[day][session];
+        if (!subjectId) continue;
+
+        const sub = clsSubjects.find(s => s.id === subjectId);
+        if (!sub) continue;
+
+        // Determine preferred mentor:
+        // 1. If previously assigned in this class, prefer consistency
+        // 2. If lab, prefer theory subject's mentor
+        let prefer: string | undefined;
+        const prev = classSubjectMentor.get(subjectId);
+        if (prev) {
+          prefer = prev;
+        } else if (sub.isLab && sub.labForSubjectId) {
+          const theoryMentor = classSubjectMentor.get(sub.labForSubjectId);
+          if (theoryMentor) prefer = theoryMentor;
+        }
+
+        const mentorId = findMentor(sub.category, day, session, prefer);
+
+        if (mentorId) {
+          markBusy(mentorId, day, session);
+          // Only record first assignment for consistency tracking
+          if (!classSubjectMentor.has(subjectId)) {
+            classSubjectMentor.set(subjectId, mentorId);
+          }
+        } else {
+          if (!classSubjectMentor.has(subjectId)) {
+            classSubjectMentor.set(subjectId, null);
+          }
+          warnings.push(
+            `${cls.shortName}: no ${sub.category} mentor free for "${sub.name}" at Day ${day} / S${session}`
+          );
+        }
+
+        allSlots.push({ classId: cls.id, subjectId, mentorId, day, session });
+      }
+    }
+  }
+
+  // Detect any remaining double-bookings (should be none, but just in case)
+  const slotMap = new Map<string, string[]>();
+  for (const slot of allSlots) {
+    if (!slot.mentorId) continue;
+    const key = `${slot.day}-${slot.session}`;
+    if (!slotMap.has(key)) slotMap.set(key, []);
+    slotMap.get(key)!.push(slot.mentorId);
+  }
+  for (const [key, ids] of slotMap) {
+    const dups = ids.filter((id, i) => ids.indexOf(id) !== i);
+    if (dups.length) {
+      const [day, session] = key.split('-');
+      const codes = [...new Set(dups)].map(
+        id => mentors.find(m => m.id === id)?.code ?? id
+      );
+      warnings.push(`Double-booking detected at Day ${day} / Session ${session}: ${codes.join(', ')}`);
+    }
+  }
+
+  return {
+    generated: true,
+    generatedAt: new Date().toISOString(),
+    slots: allSlots,
+    warnings,
+  };
+}

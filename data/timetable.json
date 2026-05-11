@@ -1,0 +1,2167 @@
+{
+  "generated": true,
+  "generatedAt": "2026-05-11T14:42:34.081Z",
+  "slots": [
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_rl",
+      "mentorId": "m_cs1",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_cap",
+      "mentorId": "m_cs2",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_nlp",
+      "mentorId": "m_cs3",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_genai",
+      "mentorId": "m_cs4",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_dl",
+      "mentorId": "m_cs5",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_apt",
+      "mentorId": "m_apt1",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_pts",
+      "mentorId": "m_eng1",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_rl",
+      "mentorId": "m_cs1",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_nlp",
+      "mentorId": "m_cs3",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_dl",
+      "mentorId": "m_cs5",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_icp",
+      "mentorId": "m_cs2",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_cap",
+      "mentorId": "m_cs2",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_rta",
+      "mentorId": "m_mg1",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_genai",
+      "mentorId": "m_cs4",
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_dl",
+      "mentorId": "m_cs5",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_genai",
+      "mentorId": "m_cs4",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_rl",
+      "mentorId": "m_cs1",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_dwm",
+      "mentorId": "m_cs3",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_nlp",
+      "mentorId": "m_cs3",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_apt",
+      "mentorId": "m_apt1",
+      "day": 3,
+      "session": 6
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_dwm",
+      "mentorId": "m_cs3",
+      "day": 3,
+      "session": 7
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_dl",
+      "mentorId": "m_cs5",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_genai",
+      "mentorId": "m_cs4",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_nlp",
+      "mentorId": "m_cs3",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_dwm",
+      "mentorId": "m_cs3",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_rl",
+      "mentorId": "m_cs1",
+      "day": 4,
+      "session": 5
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_pts",
+      "mentorId": "m_eng1",
+      "day": 4,
+      "session": 6
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_icp",
+      "mentorId": "m_cs2",
+      "day": 4,
+      "session": 7
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_dwm",
+      "mentorId": "m_cs3",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_aiml3",
+      "subjectId": "s_aiml3_rta",
+      "mentorId": "m_mg1",
+      "day": 5,
+      "session": 2
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dsa",
+      "mentorId": "m_cs2",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_es",
+      "mentorId": "m_cs1",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_apt",
+      "mentorId": "m_apt2",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dbms",
+      "mentorId": "m_cs5",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_os",
+      "mentorId": "m_cs4",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_ba",
+      "mentorId": "m_cs1",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_comm",
+      "mentorId": "m_eng2",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_es",
+      "mentorId": "m_cs2",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dbms",
+      "mentorId": "m_cs5",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_ba",
+      "mentorId": "m_cs1",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_os",
+      "mentorId": "m_cs4",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dsa",
+      "mentorId": "m_cs4",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dsal",
+      "mentorId": "m_cs2",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_apt",
+      "mentorId": "m_apt2",
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_os",
+      "mentorId": "m_cs4",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dsa",
+      "mentorId": "m_cs2",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dbms",
+      "mentorId": "m_cs5",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_comm",
+      "mentorId": "m_eng2",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_pom",
+      "mentorId": "m_mg2",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_ba",
+      "mentorId": "m_cs1",
+      "day": 3,
+      "session": 6
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_es",
+      "mentorId": "m_cs1",
+      "day": 3,
+      "session": 7
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_os",
+      "mentorId": "m_cs4",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_pom",
+      "mentorId": "m_mg2",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dsal",
+      "mentorId": "m_cs2",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_ba",
+      "mentorId": "m_cs1",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dbms",
+      "mentorId": "m_cs5",
+      "day": 4,
+      "session": 5
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_dsa",
+      "mentorId": "m_cs2",
+      "day": 4,
+      "session": 6
+    },
+    {
+      "classId": "cls_aiml2",
+      "subjectId": "s_aiml2_pom",
+      "mentorId": "m_mg2",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_os",
+      "mentorId": "m_cs3",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_pom",
+      "mentorId": "m_mg1",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dbms",
+      "mentorId": "m_cs5",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_apt",
+      "mentorId": "m_apt1",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_es",
+      "mentorId": "m_cs3",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dsal",
+      "mentorId": "m_cs4",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_ba",
+      "mentorId": "m_cs5",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_pom",
+      "mentorId": "m_mg1",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_os",
+      "mentorId": "m_cs1",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dsal",
+      "mentorId": "m_cs4",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_comm",
+      "mentorId": "m_eng1",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_ba",
+      "mentorId": "m_cs5",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dsa",
+      "mentorId": "m_cs3",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dbms",
+      "mentorId": "m_cs5",
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_os",
+      "mentorId": "m_cs3",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dbms",
+      "mentorId": "m_cs5",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_apt",
+      "mentorId": "m_apt1",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_ba",
+      "mentorId": "m_cs5",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_es",
+      "mentorId": "m_cs2",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dsa",
+      "mentorId": "m_cs3",
+      "day": 3,
+      "session": 6
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_comm",
+      "mentorId": "m_eng1",
+      "day": 3,
+      "session": 7
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_os",
+      "mentorId": "m_cs3",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dsa",
+      "mentorId": "m_cs3",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dbms",
+      "mentorId": "m_cs5",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_es",
+      "mentorId": "m_cs2",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_pom",
+      "mentorId": "m_mg1",
+      "day": 4,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_ba",
+      "mentorId": "m_cs5",
+      "day": 4,
+      "session": 6
+    },
+    {
+      "classId": "cls_aids2",
+      "subjectId": "s_aids2_dsa",
+      "mentorId": "m_cs1",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_apt",
+      "mentorId": "m_apt2",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_ux",
+      "mentorId": "m_cs4",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_ca",
+      "mentorId": "m_cs1",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_py",
+      "mentorId": "m_cs2",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_comm",
+      "mentorId": "m_eng2",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_pyl",
+      "mentorId": "m_cs2",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_math",
+      "mentorId": "m_math1",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_apt",
+      "mentorId": "m_apt2",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_ca",
+      "mentorId": "m_cs4",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_ux",
+      "mentorId": "m_cs2",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_pyl",
+      "mentorId": "m_cs1",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_comm",
+      "mentorId": "m_eng2",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_py",
+      "mentorId": "m_cs4",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_math",
+      "mentorId": "m_math1",
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_py",
+      "mentorId": "m_cs2",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_ux",
+      "mentorId": "m_cs1",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_math",
+      "mentorId": "m_math1",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_pyl",
+      "mentorId": "m_cs2",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_ca",
+      "mentorId": "m_cs1",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_ux",
+      "mentorId": "m_cs1",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_py",
+      "mentorId": "m_cs2",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_math",
+      "mentorId": "m_math1",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_ca",
+      "mentorId": "m_cs4",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_math",
+      "mentorId": "m_math1",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g1",
+      "subjectId": "s_aids1g1_py",
+      "mentorId": "m_cs2",
+      "day": 5,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_ux",
+      "mentorId": "m_cs4",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_math",
+      "mentorId": "m_math2",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_pyl",
+      "mentorId": "m_cs4",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_comm",
+      "mentorId": "m_eng1",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_py",
+      "mentorId": "m_cs1",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_ca",
+      "mentorId": "m_cs3",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_apt",
+      "mentorId": "m_apt1",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_py",
+      "mentorId": "m_cs3",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_comm",
+      "mentorId": "m_eng1",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_ux",
+      "mentorId": "m_cs3",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_math",
+      "mentorId": "m_math2",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_pyl",
+      "mentorId": "m_cs1",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_ca",
+      "mentorId": "m_cs5",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_apt",
+      "mentorId": "m_apt1",
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_py",
+      "mentorId": "m_cs1",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_math",
+      "mentorId": "m_math2",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_ca",
+      "mentorId": "m_cs3",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_ux",
+      "mentorId": "m_cs4",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_pyl",
+      "mentorId": "m_cs4",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_py",
+      "mentorId": "m_cs2",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_math",
+      "mentorId": "m_math2",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_ca",
+      "mentorId": "m_cs4",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_ux",
+      "mentorId": "m_cs5",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_math",
+      "mentorId": "m_math2",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_aids1g2",
+      "subjectId": "s_aids1g2_py",
+      "mentorId": "m_cs5",
+      "day": 5,
+      "session": 2
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_dt",
+      "mentorId": "m_mt1",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_soft",
+      "mentorId": "m_eng2",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_lc",
+      "mentorId": "m_mt2",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_stats",
+      "mentorId": "m_math1",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_rai",
+      "mentorId": "m_mt3",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_java",
+      "mentorId": "m_mt1",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_apt",
+      "mentorId": "m_apt2",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_stats",
+      "mentorId": "m_math1",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_soft",
+      "mentorId": "m_eng2",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_lc",
+      "mentorId": "m_mt2",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_rai",
+      "mentorId": "m_mt3",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_dt",
+      "mentorId": "m_mt1",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_eng",
+      "mentorId": "m_eng1",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_java",
+      "mentorId": "m_mt1",
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_lc",
+      "mentorId": "m_mt2",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_rai",
+      "mentorId": "m_mt3",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_dt",
+      "mentorId": "m_mt1",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_stats",
+      "mentorId": "m_math1",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_java",
+      "mentorId": "m_mt1",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_eng",
+      "mentorId": "m_eng1",
+      "day": 3,
+      "session": 6
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_soft",
+      "mentorId": "m_eng2",
+      "day": 3,
+      "session": 7
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_lc",
+      "mentorId": "m_mt2",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_rai",
+      "mentorId": "m_mt3",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_java",
+      "mentorId": "m_mt1",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_apt",
+      "mentorId": "m_apt2",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_dt",
+      "mentorId": "m_mt1",
+      "day": 4,
+      "session": 5
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_stats",
+      "mentorId": "m_math1",
+      "day": 4,
+      "session": 6
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_eng",
+      "mentorId": "m_eng1",
+      "day": 4,
+      "session": 7
+    },
+    {
+      "classId": "cls_btech1g1",
+      "subjectId": "s_bt1g1_java",
+      "mentorId": "m_mt1",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_soft",
+      "mentorId": "m_eng2",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_rai",
+      "mentorId": "m_mt2",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_eng",
+      "mentorId": "m_eng2",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_lc",
+      "mentorId": "m_mt3",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_stats",
+      "mentorId": "m_math2",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_dt",
+      "mentorId": "m_mt2",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_java",
+      "mentorId": "m_mt3",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_eng",
+      "mentorId": "m_eng2",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_rai",
+      "mentorId": "m_mt2",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_stats",
+      "mentorId": "m_math2",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_apt",
+      "mentorId": "m_apt1",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_dt",
+      "mentorId": "m_mt2",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_java",
+      "mentorId": "m_mt3",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_lc",
+      "mentorId": "m_mt3",
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_java",
+      "mentorId": "m_mt3",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_rai",
+      "mentorId": "m_mt2",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_lc",
+      "mentorId": "m_mt3",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_stats",
+      "mentorId": "m_math2",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_dt",
+      "mentorId": "m_mt2",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_soft",
+      "mentorId": "m_eng2",
+      "day": 3,
+      "session": 6
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_eng",
+      "mentorId": null,
+      "day": 3,
+      "session": 7
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_java",
+      "mentorId": "m_mt3",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_dt",
+      "mentorId": "m_mt2",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_stats",
+      "mentorId": "m_math2",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_soft",
+      "mentorId": "m_eng2",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_lc",
+      "mentorId": "m_mt3",
+      "day": 4,
+      "session": 5
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_rai",
+      "mentorId": "m_mt2",
+      "day": 4,
+      "session": 6
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_apt",
+      "mentorId": "m_apt1",
+      "day": 4,
+      "session": 7
+    },
+    {
+      "classId": "cls_btech1g2",
+      "subjectId": "s_bt1g2_java",
+      "mentorId": "m_mt3",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_gov",
+      "mentorId": "m_com1",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_ent",
+      "mentorId": "m_com2",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_acc",
+      "mentorId": "m_com3",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_btp",
+      "mentorId": "m_com1",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_cost",
+      "mentorId": "m_com2",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_fm",
+      "mentorId": "m_com3",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_dm",
+      "mentorId": "m_com1",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_ent",
+      "mentorId": "m_com2",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_acc",
+      "mentorId": "m_com3",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_gov",
+      "mentorId": "m_com1",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_cost",
+      "mentorId": "m_com2",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_comm",
+      "mentorId": "m_eng1",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_dm",
+      "mentorId": "m_com1",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_apt",
+      "mentorId": null,
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_ent",
+      "mentorId": "m_com2",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_acc",
+      "mentorId": "m_com3",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_gov",
+      "mentorId": "m_com1",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_btp",
+      "mentorId": "m_com1",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_cost",
+      "mentorId": "m_com2",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_dm",
+      "mentorId": "m_com1",
+      "day": 3,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_apt",
+      "mentorId": "m_apt2",
+      "day": 3,
+      "session": 7
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_acc",
+      "mentorId": "m_com3",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_comm",
+      "mentorId": "m_eng1",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_dm",
+      "mentorId": "m_com1",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_btp",
+      "mentorId": "m_com1",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_fm",
+      "mentorId": "m_com3",
+      "day": 4,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_ent",
+      "mentorId": "m_com2",
+      "day": 4,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_gov",
+      "mentorId": "m_com1",
+      "day": 4,
+      "session": 7
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_fm",
+      "mentorId": "m_com3",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_btp",
+      "mentorId": "m_com1",
+      "day": 5,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom2",
+      "subjectId": "s_bcom2_fm",
+      "mentorId": "m_com3",
+      "day": 5,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_fa",
+      "mentorId": "m_com2",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_ft",
+      "mentorId": "m_com3",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_eco",
+      "mentorId": "m_com2",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_pom",
+      "mentorId": "m_mg2",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_math",
+      "mentorId": "m_math1",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_apt",
+      "mentorId": "m_apt2",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_comm",
+      "mentorId": null,
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_eco",
+      "mentorId": "m_com3",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_math",
+      "mentorId": "m_math1",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_pom",
+      "mentorId": "m_mg2",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_ft",
+      "mentorId": "m_com3",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_fa",
+      "mentorId": "m_com2",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_comm",
+      "mentorId": "m_eng2",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_apt",
+      "mentorId": null,
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_eco",
+      "mentorId": "m_com3",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_fa",
+      "mentorId": "m_com2",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_ft",
+      "mentorId": "m_com3",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_math",
+      "mentorId": null,
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_comm",
+      "mentorId": "m_eng1",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_pom",
+      "mentorId": "m_mg2",
+      "day": 3,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_eco",
+      "mentorId": "m_com2",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_math",
+      "mentorId": "m_math1",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_ft",
+      "mentorId": "m_com3",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_fa",
+      "mentorId": "m_com2",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_pom",
+      "mentorId": "m_mg2",
+      "day": 4,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_fa",
+      "mentorId": "m_com2",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g1",
+      "subjectId": "s_bcom1g1_math",
+      "mentorId": "m_math1",
+      "day": 5,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_pom",
+      "mentorId": "m_mg1",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_ft",
+      "mentorId": "m_com1",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_math",
+      "mentorId": "m_math2",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_eco",
+      "mentorId": "m_com2",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_apt",
+      "mentorId": "m_apt1",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_comm",
+      "mentorId": "m_eng1",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_fa",
+      "mentorId": "m_com3",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_ft",
+      "mentorId": "m_com1",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_math",
+      "mentorId": "m_math2",
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_comm",
+      "mentorId": "m_eng1",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_fa",
+      "mentorId": "m_com1",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_eco",
+      "mentorId": "m_com1",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_apt",
+      "mentorId": "m_apt1",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_pom",
+      "mentorId": "m_mg1",
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_ft",
+      "mentorId": "m_com1",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_math",
+      "mentorId": "m_math1",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_eco",
+      "mentorId": "m_com2",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_fa",
+      "mentorId": "m_com3",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_comm",
+      "mentorId": "m_eng2",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_pom",
+      "mentorId": "m_mg1",
+      "day": 3,
+      "session": 6
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_ft",
+      "mentorId": "m_com1",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_math",
+      "mentorId": null,
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_fa",
+      "mentorId": "m_com2",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_eco",
+      "mentorId": "m_com3",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_pom",
+      "mentorId": null,
+      "day": 4,
+      "session": 5
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_fa",
+      "mentorId": "m_com1",
+      "day": 5,
+      "session": 1
+    },
+    {
+      "classId": "cls_bcom1g2",
+      "subjectId": "s_bcom1g2_math",
+      "mentorId": "m_math2",
+      "day": 5,
+      "session": 2
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_sm",
+      "mentorId": "m_mg2",
+      "day": 1,
+      "session": 1
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_comm",
+      "mentorId": "m_eng1",
+      "day": 1,
+      "session": 2
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_ps",
+      "mentorId": "m_mg1",
+      "day": 1,
+      "session": 3
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_cap",
+      "mentorId": "m_mg1",
+      "day": 1,
+      "session": 4
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_fa",
+      "mentorId": "m_mg2",
+      "day": 1,
+      "session": 5
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_bs",
+      "mentorId": "m_math2",
+      "day": 1,
+      "session": 6
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_log",
+      "mentorId": "m_mg2",
+      "day": 1,
+      "session": 7
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_sm",
+      "mentorId": "m_mg2",
+      "day": 2,
+      "session": 1
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_comm",
+      "mentorId": null,
+      "day": 2,
+      "session": 2
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_fa",
+      "mentorId": "m_mg1",
+      "day": 2,
+      "session": 3
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_ps",
+      "mentorId": "m_mg1",
+      "day": 2,
+      "session": 4
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_cap",
+      "mentorId": "m_mg1",
+      "day": 2,
+      "session": 5
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_log",
+      "mentorId": "m_mg2",
+      "day": 2,
+      "session": 6
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_bs",
+      "mentorId": "m_math2",
+      "day": 2,
+      "session": 7
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_sm",
+      "mentorId": "m_mg2",
+      "day": 3,
+      "session": 1
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_ps",
+      "mentorId": "m_mg1",
+      "day": 3,
+      "session": 2
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_fa",
+      "mentorId": "m_mg2",
+      "day": 3,
+      "session": 3
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_comm",
+      "mentorId": "m_eng1",
+      "day": 3,
+      "session": 4
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_log",
+      "mentorId": "m_mg1",
+      "day": 3,
+      "session": 5
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_omni",
+      "mentorId": null,
+      "day": 3,
+      "session": 6
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_bs",
+      "mentorId": "m_math2",
+      "day": 3,
+      "session": 7
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_ps",
+      "mentorId": "m_mg1",
+      "day": 4,
+      "session": 1
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_fa",
+      "mentorId": "m_mg1",
+      "day": 4,
+      "session": 2
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_log",
+      "mentorId": "m_mg2",
+      "day": 4,
+      "session": 3
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_omni",
+      "mentorId": "m_mg2",
+      "day": 4,
+      "session": 4
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_sm",
+      "mentorId": null,
+      "day": 4,
+      "session": 5
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_omni",
+      "mentorId": "m_mg2",
+      "day": 4,
+      "session": 6
+    },
+    {
+      "classId": "cls_bba2",
+      "subjectId": "s_bba2_omni",
+      "mentorId": "m_mg1",
+      "day": 5,
+      "session": 1
+    }
+  ],
+  "warnings": [
+    "BTech-I G2: no ENGLISH mentor free for \"Workplace English for Engineers\" at Day 3 / S7",
+    "BCOM-II: no APTITUDE mentor free for \"Aptitude Training\" at Day 2 / S7",
+    "BCOM-I G1: no ENGLISH mentor free for \"Effective Communication for Professionals\" at Day 1 / S7",
+    "BCOM-I G1: no APTITUDE mentor free for \"Problem Solving through Aptitude – I\" at Day 2 / S7",
+    "BCOM-I G1: no MATH mentor free for \"Business Mathematics and Statistics\" at Day 3 / S4",
+    "BCOM-I G2: no MATH mentor free for \"Business Mathematics and Statistics\" at Day 4 / S2",
+    "BCOM-I G2: no MANAGEMENT mentor free for \"Principles of Management\" at Day 4 / S5",
+    "BBA-II: no ENGLISH mentor free for \"Effective Communication Skills\" at Day 2 / S2",
+    "BBA-II: no MANAGEMENT mentor free for \"Omnichannel Marketing and Customer Journey\" at Day 3 / S6",
+    "BBA-II: no MANAGEMENT mentor free for \"Strategic Management\" at Day 4 / S5"
+  ]
+}
