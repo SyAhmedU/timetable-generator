@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import type { Class, Subject, Mentor, TimetableSlot } from '@/lib/types';
 import { CATEGORY_COLORS, DAYS } from '@/lib/types';
+import { getClasses, getSubjects, getMentors, getTimetable } from '@/lib/client-store';
+import { exportMentorSummaryExcel } from '@/lib/client-export';
 
 const SESSION_INFO = [
   { n: 1, label: '8:30–9:20'   },
@@ -23,39 +25,40 @@ export default function MentorsPage() {
   const [selectedMentor, setSelected] = useState('');
 
   useEffect(() => {
-    Promise.all([
-      fetch('/api/data/classes').then(r => r.json()),
-      fetch('/api/data/subjects').then(r => r.json()),
-      fetch('/api/data/mentors').then(r => r.json()),
-      fetch('/api/data/timetable').then(r => r.json()),
-    ]).then(([cls, sub, men, tt]) => {
-      setClasses(cls);
-      setSubjects(sub);
-      setMentors(men);
-      setSlots((tt as { slots: TimetableSlot[] }).slots ?? []);
-      if (men.length) setSelected(men[0].id);
-    });
+    const cls = getClasses();
+    const sub = getSubjects();
+    const men = getMentors();
+    const tt  = getTimetable();
+    setClasses(cls);
+    setSubjects(sub);
+    setMentors(men);
+    setSlots(tt.slots ?? []);
+    if (men.length) setSelected(men[0].id);
   }, []);
 
   const subjectMap = Object.fromEntries(subjects.map(s => [s.id, s]));
   const classMap   = Object.fromEntries(classes.map(c => [c.id, c]));
 
-  // Summary: for each mentor, compute total hours + list of classes/subjects
   const mentorSummary = mentors.map(m => {
-    const mySlots   = slots.filter(s => s.mentorId === m.id);
+    const mySlots    = slots.filter(s => s.mentorId === m.id);
     const totalHours = mySlots.length;
-    const classSet  = [...new Set(mySlots.map(s => s.classId))];
+    const classSet   = [...new Set(mySlots.map(s => s.classId))];
     const subjectSet = [...new Set(mySlots.map(s => s.subjectId))];
-    return { ...m, totalHours, classCount: classSet.length, subjectCount: subjectSet.length,
-             classNames: classSet.map(id => classMap[id]?.shortName ?? id),
-             subjectNames: subjectSet.map(id => subjectMap[id]?.name ?? id) };
+    return {
+      ...m, totalHours,
+      classCount:   classSet.length,
+      subjectCount: subjectSet.length,
+      classNames:   classSet.map(id => classMap[id]?.shortName ?? id),
+      subjectNames: subjectSet.map(id => subjectMap[id]?.name ?? id),
+    };
   }).sort((a, b) => b.totalHours - a.totalHours);
 
-  // Individual view
   const mentorSlot = (day: number, session: number) =>
     slots.find(s => s.mentorId === selectedMentor && s.day === day && s.session === session);
 
   const selectedMentorObj = mentors.find(m => m.id === selectedMentor);
+
+  const timetable = { generated: slots.length > 0, generatedAt: null, slots, warnings: [] };
 
   return (
     <div className="space-y-4">
@@ -118,7 +121,7 @@ export default function MentorsPage() {
             </tbody>
           </table>
           <div className="px-6 py-3 border-t flex gap-3">
-            <button onClick={() => window.location.href = '/api/export/excel?view=mentors'}
+            <button onClick={() => exportMentorSummaryExcel(classes, subjects, mentors, timetable)}
               className="px-3 py-1.5 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
               📊 Export Summary Excel
             </button>
@@ -129,7 +132,6 @@ export default function MentorsPage() {
       {/* ── INDIVIDUAL TAB ────────────────────────────────────────────── */}
       {tab === 'individual' && (
         <div className="space-y-4">
-          {/* Mentor selector */}
           <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-wrap gap-2 shadow-sm">
             {mentors.map(m => (
               <button key={m.id} onClick={() => setSelected(m.id)}
@@ -147,7 +149,7 @@ export default function MentorsPage() {
                 <div>
                   <h2 className="font-bold text-lg">{selectedMentorObj.name} ({selectedMentorObj.code})</h2>
                   <p className="text-xs text-gray-500">
-                    {selectedMentorObj.category} · {selectedMentorObj.qualification ?? 'N/A'} ·
+                    {selectedMentorObj.category} · {selectedMentorObj.qualification ?? 'N/A'} ·{' '}
                     {slots.filter(s => s.mentorId === selectedMentor).length} hrs/wk
                     (max {selectedMentorObj.maxHoursPerWeek})
                   </p>

@@ -3,6 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import type { Class, Subject, Mentor, TimetableSlot } from '@/lib/types';
 import { DAYS, CATEGORY_COLORS } from '@/lib/types';
+import {
+  getClasses, getSubjects, getMentors, getTimetable, saveTimetable, clearTimetable,
+} from '@/lib/client-store';
+import { generateTimetable } from '@/lib/generator';
+import { exportTimetableExcel } from '@/lib/client-export';
 
 interface TimetableState {
   generated: boolean;
@@ -22,40 +27,46 @@ const SESSION_INFO = [
 ];
 
 export default function TimetablePage() {
-  const [classes, setClasses]       = useState<Class[]>([]);
-  const [subjects, setSubjects]     = useState<Subject[]>([]);
-  const [mentors, setMentors]       = useState<Mentor[]>([]);
-  const [timetable, setTimetable]   = useState<TimetableState | null>(null);
-  const [selectedClass, setSelected] = useState('');
-  const [generating, setGenerating] = useState(false);
+  const [classes, setClasses]         = useState<Class[]>([]);
+  const [subjects, setSubjects]       = useState<Subject[]>([]);
+  const [mentors, setMentors]         = useState<Mentor[]>([]);
+  const [timetable, setTimetable]     = useState<TimetableState | null>(null);
+  const [selectedClass, setSelected]  = useState('');
+  const [generating, setGenerating]   = useState(false);
   const [showMentors, setShowMentors] = useState(true);
 
   useEffect(() => {
-    Promise.all([
-      fetch('/api/data/classes').then(r => r.json()),
-      fetch('/api/data/subjects').then(r => r.json()),
-      fetch('/api/data/mentors').then(r => r.json()),
-      fetch('/api/data/timetable').then(r => r.json()),
-    ]).then(([cls, sub, men, tt]) => {
+    const cls = getClasses();
+    const sub = getSubjects();
+    const men = getMentors();
+    const tt  = getTimetable();
+    setClasses(cls);
+    setSubjects(sub);
+    setMentors(men);
+    setTimetable(tt);
+    if (cls.length) setSelected(cls[0].id);
+  }, []);
+
+  const generate = () => {
+    setGenerating(true);
+    setTimeout(() => {
+      const cls = getClasses();
+      const sub = getSubjects();
+      const men = getMentors();
+      const tt  = generateTimetable(cls, sub, men);
+      saveTimetable(tt);
+      setTimetable(tt);
       setClasses(cls);
       setSubjects(sub);
       setMentors(men);
-      setTimetable(tt);
-      if (cls.length) setSelected(cls[0].id);
-    });
-  }, []);
-
-  const generate = async () => {
-    setGenerating(true);
-    const res = await fetch('/api/timetable/generate', { method: 'POST' });
-    const tt  = await res.json();
-    setTimetable(tt);
-    setGenerating(false);
+      if (cls.length && !selectedClass) setSelected(cls[0].id);
+      setGenerating(false);
+    }, 10);
   };
 
-  const clearTT = async () => {
+  const handleClear = () => {
     if (!confirm('Clear the generated timetable?')) return;
-    await fetch('/api/timetable/generate', { method: 'DELETE' });
+    clearTimetable();
     setTimetable({ generated: false, generatedAt: null, slots: [], warnings: [] });
   };
 
@@ -65,7 +76,6 @@ export default function TimetablePage() {
   const slot = (day: number, session: number): TimetableSlot | undefined =>
     timetable?.slots.find(s => s.classId === selectedClass && s.day === day && s.session === session);
 
-  // Build timetable rows with break/lunch rows inserted
   function buildRows() {
     const rows: React.ReactNode[] = [];
     for (let i = 0; i < SESSION_INFO.length; i++) {
@@ -140,15 +150,15 @@ export default function TimetablePage() {
                 className="px-3 py-2 rounded-lg text-sm bg-white border border-gray-200 hover:bg-gray-50 transition">
                 🖨 Print
               </button>
-              <button onClick={() => { window.location.href = `/api/export/excel?classId=${selectedClass}`; }}
+              <button onClick={() => exportTimetableExcel(classes, subjects, mentors, timetable, selectedClass)}
                 className="px-3 py-2 rounded-lg text-sm bg-green-600 text-white hover:bg-green-700 transition">
                 📊 Export Class
               </button>
-              <button onClick={() => { window.location.href = '/api/export/excel'; }}
+              <button onClick={() => exportTimetableExcel(classes, subjects, mentors, timetable)}
                 className="px-3 py-2 rounded-lg text-sm bg-green-600 text-white hover:bg-green-700 transition">
                 📊 Export All
               </button>
-              <button onClick={clearTT}
+              <button onClick={handleClear}
                 className="px-3 py-2 rounded-lg text-sm bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition">
                 🗑 Clear
               </button>
@@ -180,7 +190,6 @@ export default function TimetablePage() {
 
       {timetable?.generated && (
         <>
-          {/* Class selector */}
           <div className="flex gap-2 flex-wrap">
             {classes.map(c => (
               <button key={c.id} onClick={() => setSelected(c.id)}
@@ -192,7 +201,6 @@ export default function TimetablePage() {
             ))}
           </div>
 
-          {/* Grid */}
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-auto">
             <div className="px-6 py-4 border-b">
               <h2 className="font-bold text-lg">{classes.find(c => c.id === selectedClass)?.name}</h2>

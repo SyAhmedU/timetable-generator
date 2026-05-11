@@ -1,35 +1,42 @@
-import Link from 'next/link';
-import { getClasses, getSubjects, getMentors, getTimetable } from '@/lib/store';
+'use client';
 
-export default async function DashboardPage() {
-  const [classes, subjects, mentors, timetable] = await Promise.all([
-    getClasses(),
-    getSubjects(),
-    getMentors(),
-    getTimetable(),
-  ]);
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { getClasses, getSubjects, getMentors, getTimetable } from '@/lib/client-store';
+import type { Class, Subject, Mentor, Timetable } from '@/lib/types';
+
+const DEPT_LABELS: Record<string, string> = {
+  ACS:  'Advanced Computing Science',
+  PCOM: 'BCom Fintech with AI',
+  PBF:  'Management (PBF)',
+};
+
+export default function DashboardPage() {
+  const [classes,   setClasses]   = useState<Class[]>([]);
+  const [subjects,  setSubjects]  = useState<Subject[]>([]);
+  const [mentors,   setMentors]   = useState<Mentor[]>([]);
+  const [timetable, setTimetable] = useState<Timetable>({ generated: false, generatedAt: null, slots: [], warnings: [] });
+
+  useEffect(() => {
+    setClasses(getClasses());
+    setSubjects(getSubjects());
+    setMentors(getMentors());
+    setTimetable(getTimetable());
+  }, []);
 
   const deptCounts: Record<string, number> = {};
-  for (const c of classes) {
-    deptCounts[c.departmentId] = (deptCounts[c.departmentId] ?? 0) + 1;
-  }
-
-  const DEPT_LABELS: Record<string, string> = {
-    ACS:  'Advanced Computing Science',
-    PCOM: 'BCom Fintech with AI',
-    PBF:  'Management (PBF)',
-  };
+  for (const c of classes) deptCounts[c.departmentId] = (deptCounts[c.departmentId] ?? 0) + 1;
 
   const cards = [
-    { href: '/setup',     icon: '⚙️', label: 'Setup',           desc: 'Configure hours per subject, add/edit mentors',      color: 'border-blue-400'   },
-    { href: '/timetable', icon: '📅', label: 'Timetable',       desc: 'Generate & view class-wise timetable grid',           color: 'border-green-400'  },
-    { href: '/mentors',   icon: '👥', label: 'Mentors',          desc: 'Individual mentor schedule and full summary',         color: 'border-purple-400' },
-    { href: '/absence',   icon: '🔄', label: 'Absence Manager', desc: 'Mark absences, assign substitutes, view log',         color: 'border-orange-400' },
+    { href: '/setup',     icon: '⚙️', label: 'Setup',           desc: 'Configure hours per subject, add/edit mentors',  color: 'border-blue-400'   },
+    { href: '/timetable', icon: '📅', label: 'Timetable',       desc: 'Generate & view class-wise timetable grid',       color: 'border-green-400'  },
+    { href: '/mentors',   icon: '👥', label: 'Mentors',          desc: 'Individual mentor schedule and full summary',     color: 'border-purple-400' },
+    { href: '/absence',   icon: '🔄', label: 'Absence Manager', desc: 'Mark absences, assign substitutes, view log',     color: 'border-orange-400' },
   ];
 
   return (
     <div className="space-y-8">
-      {/* Status bar */}
+      {/* Status */}
       <div className={`rounded-xl p-5 border-2 ${timetable.generated ? 'bg-green-50 border-green-300' : 'bg-yellow-50 border-yellow-300'}`}>
         <div className="flex items-center gap-3 flex-wrap">
           <span className="text-2xl">{timetable.generated ? '✅' : '⚠️'}</span>
@@ -56,9 +63,9 @@ export default async function DashboardPage() {
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
-          { label: 'Classes',         value: classes.length        },
-          { label: 'Subjects',        value: subjects.length       },
-          { label: 'Mentors',         value: mentors.length        },
+          { label: 'Classes',         value: classes.length         },
+          { label: 'Subjects',        value: subjects.length        },
+          { label: 'Mentors',         value: mentors.length         },
           { label: 'Slots Generated', value: timetable.slots.length },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-xl border border-gray-200 p-5 text-center shadow-sm">
@@ -68,7 +75,7 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      {/* Classes by dept */}
+      {/* Departments */}
       <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
         <h2 className="text-base font-semibold mb-4">Classes by Department</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -84,7 +91,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Quick nav cards */}
+      {/* Nav cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {cards.map(c => (
           <Link key={c.href} href={c.href}
@@ -101,9 +108,7 @@ export default async function DashboardPage() {
         <div className="bg-red-50 border border-red-200 rounded-xl p-5">
           <h3 className="font-semibold text-red-700 mb-2">⚠️ Generation Warnings ({timetable.warnings.length})</h3>
           <ul className="space-y-1 max-h-48 overflow-y-auto">
-            {timetable.warnings.map((w, i) => (
-              <li key={i} className="text-sm text-red-600">• {w}</li>
-            ))}
+            {timetable.warnings.map((w, i) => <li key={i} className="text-sm text-red-600">• {w}</li>)}
           </ul>
         </div>
       )}

@@ -3,6 +3,10 @@
 import { useState, useEffect } from 'react';
 import type { Class, Subject, Mentor, TimetableSlot, AbsenceRecord } from '@/lib/types';
 import { DAYS } from '@/lib/types';
+import {
+  getClasses, getSubjects, getMentors, getTimetable, getAbsenceLog, addAbsenceRecords,
+} from '@/lib/client-store';
+import { exportAbsenceLogExcel } from '@/lib/client-export';
 
 const SESSION_LABELS: Record<number, string> = {
   1: 'S1 (8:30–9:20)', 2: 'S2 (9:20–10:10)', 3: 'S3 (10:20–11:10)',
@@ -17,79 +21,58 @@ export default function AbsencePage() {
   const [log, setLog]             = useState<AbsenceRecord[]>([]);
   const [tab, setTab]             = useState<'mark' | 'log'>('mark');
 
-  // Form state
   const [date, setDate]           = useState(new Date().toISOString().split('T')[0]);
   const [absentMentor, setAbsent] = useState('');
-  const [saving, setSaving]       = useState(false);
 
   useEffect(() => {
-    Promise.all([
-      fetch('/api/data/classes').then(r => r.json()),
-      fetch('/api/data/subjects').then(r => r.json()),
-      fetch('/api/data/mentors').then(r => r.json()),
-      fetch('/api/data/timetable').then(r => r.json()),
-      fetch('/api/data/absence').then(r => r.json()),
-    ]).then(([cls, sub, men, tt, ab]) => {
-      setClasses(cls);
-      setSubjects(sub);
-      setMentors(men);
-      setSlots((tt as { slots: TimetableSlot[] }).slots ?? []);
-      setLog(ab as AbsenceRecord[]);
-      if (men.length) setAbsent(men[0].id);
-    });
+    const cls = getClasses();
+    const men = getMentors();
+    setClasses(cls);
+    setSubjects(getSubjects());
+    setMentors(men);
+    setSlots(getTimetable().slots ?? []);
+    setLog(getAbsenceLog());
+    if (men.length) setAbsent(men[0].id);
   }, []);
 
   const subjectMap = Object.fromEntries(subjects.map(s => [s.id, s]));
   const classMap   = Object.fromEntries(classes.map(c => [c.id, c]));
   const mentorMap  = Object.fromEntries(mentors.map(m => [m.id, m]));
 
-  // Get day of week (1=Mon) from ISO date
   const dayOfWeek = (iso: string): number => {
-    const d = new Date(iso + 'T00:00:00');
-    const js = d.getDay(); // 0=Sun, 1=Mon…
-    return js === 0 ? 5 : js; // treat Sunday as Friday for display safety
+    const d  = new Date(iso + 'T00:00:00');
+    const js = d.getDay();
+    return js === 0 ? 5 : js;
   };
 
   const absenceDay = dayOfWeek(date);
 
-  // Affected slots for the absent mentor on that day
   const affectedSlots = slots.filter(s =>
     s.mentorId === absentMentor && s.day === absenceDay
   ).sort((a, b) => a.session - b.session);
 
-  // Find substitute suggestions for a slot
   const suggestSubs = (slot: TimetableSlot): Mentor[] => {
     const sub = subjectMap[slot.subjectId];
     if (!sub) return [];
-
-    // Mentors free at this slot (not teaching any class at day/session)
     const busyAtSlot = new Set(
       slots.filter(s => s.day === slot.day && s.session === slot.session && s.mentorId)
            .map(s => s.mentorId!)
     );
     busyAtSlot.add(absentMentor);
-
-    const sameCat = mentors.filter(m =>
-      m.category === sub.category && !busyAtSlot.has(m.id)
-    );
-    const otherFree = mentors.filter(m =>
-      m.category !== sub.category && !busyAtSlot.has(m.id) && !sameCat.includes(m)
-    );
-
+    const sameCat  = mentors.filter(m => m.category === sub.category && !busyAtSlot.has(m.id));
+    const otherFree = mentors.filter(m => m.category !== sub.category && !busyAtSlot.has(m.id) && !sameCat.includes(m));
     return [...sameCat, ...otherFree].slice(0, 5);
   };
 
-  const [subMap, setSubMap] = useState<Record<string, string>>({}); // slotKey → subId
-
+  const [subMap, setSubMap] = useState<Record<string, string>>({});
   const slotKey = (s: TimetableSlot) => `${s.classId}-${s.session}`;
-
-  const assignSub = (slot: TimetableSlot, subId: string) => {
+  const assignSub = (slot: TimetableSlot, subId: string) =>
     setSubMap(prev => ({ ...prev, [slotKey(slot)]: subId }));
-  };
 
-  const saveAbsence = async () => {
-    setSaving(true);
-    const records: Omit<AbsenceRecord, 'id' | 'createdAt'>[] = affectedSlots.map(s => ({
+  const saveAbsence = () => {
+    const records: AbsenceRecord[] = affectedSlots.map(s => ({
+      id: `abs_${Date.now()}_${s.session}`,
+      createdAt: new Date().toISOString(),
       date,
       absentMentorId: absentMentor,
       substituteId: subMap[slotKey(s)] ?? null,
@@ -98,15 +81,9 @@ export default function AbsencePage() {
       subjectId: s.subjectId,
       notes: '',
     }));
-
-    const res = await fetch('/api/data/absence', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(records),
-    });
-    const newRecords = await res.json() as AbsenceRecord[];
-    setLog(prev => [...newRecords, ...prev]);
-    setSaving(false);
+    addAbsenceRecords(records);
+    setLog(getAbsenceLog());
+    setSubMap({});
     alert('Absence logged successfully!');
   };
 
@@ -127,7 +104,6 @@ export default function AbsencePage() {
       {/* ── MARK ABSENCE ──────────────────────────────────────────────── */}
       {tab === 'mark' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {/* Form */}
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 space-y-4">
             <h2 className="font-semibold text-gray-700">Absence Details</h2>
             <div>
@@ -151,14 +127,13 @@ export default function AbsencePage() {
               </p>
             </div>
             {affectedSlots.length > 0 && (
-              <button onClick={saveAbsence} disabled={saving}
-                className="w-full bg-red-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-red-700 disabled:opacity-60 transition">
-                {saving ? 'Saving…' : '💾 Log Absence & Save'}
+              <button onClick={saveAbsence}
+                className="w-full bg-red-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition">
+                💾 Log Absence & Save
               </button>
             )}
           </div>
 
-          {/* Affected slots + substitute assignment */}
           <div className="lg:col-span-2 space-y-3">
             {affectedSlots.length === 0 ? (
               <div className="bg-white rounded-xl border border-gray-200 p-8 text-center text-gray-400 shadow-sm">
@@ -210,7 +185,7 @@ export default function AbsencePage() {
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-auto">
           <div className="px-6 py-4 border-b flex items-center justify-between">
             <h2 className="font-semibold">Substitution Log</h2>
-            <button onClick={() => window.location.href = '/api/export/excel?view=absence'}
+            <button onClick={() => exportAbsenceLogExcel(classes, subjects, mentors, log)}
               className="px-3 py-1.5 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
               📊 Export Log
             </button>
