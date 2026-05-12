@@ -183,6 +183,12 @@ export function generateTimetable(
           if (theoryMentor) prefer = theoryMentor;
         }
 
+        // NA-category subjects (PET, Library Hour, Mentor Hour) need no mentor
+        if (sub.category === 'NA' || isLastSessionOnly(sub.name)) {
+          allSlots.push({ classId: cls.id, subjectId, mentorId: null, day, session });
+          continue;
+        }
+
         const { id: mentorId, reason } = findMentor(sub.category, day, session, prefer);
 
         if (mentorId) {

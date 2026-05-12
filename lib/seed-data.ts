@@ -2,7 +2,7 @@ import type { Class, Subject, Mentor, Timetable } from './types';
 
 // Bump this string whenever seed data changes — triggers auto-reset in browsers
 // with stale localStorage from a previous version.
-export const SEED_VERSION = 'v5-capacity-fix';
+export const SEED_VERSION = 'v6-no-na-mentors';
 
 export const SEED_CLASSES: Class[] = [
   { id: 'cls_aiml3',    name: 'III B.Sc. AI-ML',              shortName: 'AIML-III',   year: 3, semester: 5, group: null,      departmentId: 'ACS',  studentCount: null },
@@ -168,12 +168,6 @@ export const SEED_MENTORS: Mentor[] = [
   { id: 'm_apt1',  code: 'APT1',  name: 'Aptitude Mentor 1',   category: 'APTITUDE',   departmentId: null,   maxHoursPerWeek: 20, qualification: 'B.E./M.Sc.' },
   { id: 'm_apt2',  code: 'APT2',  name: 'Aptitude Mentor 2',   category: 'APTITUDE',   departmentId: null,   maxHoursPerWeek: 20, qualification: 'B.E./M.Sc.' },
   { id: 'm_apt3',  code: 'APT3',  name: 'Aptitude Mentor 3',   category: 'APTITUDE',   departmentId: null,   maxHoursPerWeek: 20, qualification: 'B.E./M.Sc.' },
-  // NA mentors — handle PET, Library Hour, Mentor Hour (session 7 only; 11 classes need concurrent coverage)
-  { id: 'm_na1',   code: 'NA1',   name: 'NA Mentor 1',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
-  { id: 'm_na2',   code: 'NA2',   name: 'NA Mentor 2',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
-  { id: 'm_na3',   code: 'NA3',   name: 'NA Mentor 3',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
-  { id: 'm_na4',   code: 'NA4',   name: 'NA Mentor 4',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
-  { id: 'm_na5',   code: 'NA5',   name: 'NA Mentor 5',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
 ];
 
 export const EMPTY_TIMETABLE: Timetable = {
