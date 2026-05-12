@@ -89,11 +89,12 @@ export function exportMentorMappingExcel(
   const CAT_ROLE: Record<MentorCategory, string> = {
     CS:         'Computer Science Mentor',
     DS:         'Data Science Mentor',
-    MTECH:      'M.Tech Mentor',
+    MATH:       'Mathematics Mentor',
     MANAGEMENT: 'Management Mentor',
     ENGLISH:    'English Mentor',
-    MATH:       'Mathematics Mentor',
     COMMERCE:   'Commerce Mentor',
+    NA:         'Mentor',
+    MTECH:      'M.Tech Mentor',
     APTITUDE:   'Aptitude Mentor',
   };
 

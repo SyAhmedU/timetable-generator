@@ -1,12 +1,13 @@
 export type MentorCategory =
-  | 'CS'         // Core CS: Python, DSA, OS, DBMS, Architecture, Design for Dev
-  | 'DS'         // Data Science / AI-ML: GenAI, NLP, Deep Learning, RL, DWM, Analytics
-  | 'MTECH'      // M.Tech qualified (B.Tech programs)
+  | 'CS'
+  | 'DS'
+  | 'MATH'
   | 'MANAGEMENT'
   | 'ENGLISH'
-  | 'MATH'
   | 'COMMERCE'
-  | 'APTITUDE';
+  | 'NA'
+  | 'MTECH'     // legacy — kept so existing subject data stays valid
+  | 'APTITUDE'; // legacy — kept so existing subject data stays valid
 
 export type DepartmentCode = 'ACS' | 'PCOM' | 'PBF';
 
@@ -94,10 +95,11 @@ export const DEPT_LABELS: Record<DepartmentCode, string> = {
 export const CATEGORY_COLORS: Record<MentorCategory, string> = {
   CS:         'bg-blue-100 text-blue-800',
   DS:         'bg-cyan-100 text-cyan-800',
-  MTECH:      'bg-indigo-100 text-indigo-800',
+  MATH:       'bg-purple-100 text-purple-800',
   MANAGEMENT: 'bg-green-100 text-green-800',
   ENGLISH:    'bg-yellow-100 text-yellow-800',
-  MATH:       'bg-purple-100 text-purple-800',
   COMMERCE:   'bg-orange-100 text-orange-800',
+  NA:         'bg-gray-100 text-gray-600',
+  MTECH:      'bg-indigo-100 text-indigo-800',
   APTITUDE:   'bg-pink-100 text-pink-800',
 };

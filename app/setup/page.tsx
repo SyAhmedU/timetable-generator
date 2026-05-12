@@ -10,18 +10,20 @@ import {
   addMentor, updateMentor, deleteMentor, resetToDefaults,
 } from '@/lib/client-store';
 
-const CATEGORIES: MentorCategory[] = ['CS', 'DS', 'MTECH', 'MANAGEMENT', 'ENGLISH', 'MATH', 'COMMERCE', 'APTITUDE'];
+const CATEGORIES: MentorCategory[] = ['CS', 'DS', 'MATH', 'MANAGEMENT', 'ENGLISH', 'COMMERCE', 'NA'];
 const CAT_LABELS: Record<MentorCategory, string> = {
-  CS: 'CS — Core Computing', DS: 'DS — AI / Data Science', MTECH: 'M.Tech (B.Tech)',
-  MANAGEMENT: 'Management', ENGLISH: 'English', MATH: 'Mathematics',
-  COMMERCE: 'Commerce', APTITUDE: 'Aptitude',
+  CS: 'CS — Core Computing', DS: 'DS — AI / Data Science',
+  MATH: 'Mathematics', MANAGEMENT: 'Management',
+  ENGLISH: 'English', COMMERCE: 'Commerce',
+  NA: 'NA — Not Assigned',
+  MTECH: 'M.Tech (B.Tech)', APTITUDE: 'Aptitude',
 };
 const CAT_COLORS: Record<MentorCategory, string> = {
   CS: 'bg-blue-100 text-blue-700', DS: 'bg-cyan-100 text-cyan-700',
-  MTECH: 'bg-indigo-100 text-indigo-700',
-  MANAGEMENT: 'bg-green-100 text-green-700', ENGLISH: 'bg-yellow-100 text-yellow-800',
-  MATH: 'bg-purple-100 text-purple-700', COMMERCE: 'bg-orange-100 text-orange-700',
-  APTITUDE: 'bg-pink-100 text-pink-700',
+  MATH: 'bg-purple-100 text-purple-700', MANAGEMENT: 'bg-green-100 text-green-700',
+  ENGLISH: 'bg-yellow-100 text-yellow-800', COMMERCE: 'bg-orange-100 text-orange-700',
+  NA: 'bg-gray-100 text-gray-600',
+  MTECH: 'bg-indigo-100 text-indigo-700', APTITUDE: 'bg-pink-100 text-pink-700',
 };
 
 export default function SetupPage() {
