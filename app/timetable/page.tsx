@@ -33,6 +33,7 @@ export default function TimetablePage() {
   const [timetable, setTimetable]           = useState<TimetableState | null>(null);
   const [selectedClass, setSelected]        = useState('');
   const [generating, setGenerating]         = useState(false);
+  const [genAttempts, setGenAttempts]       = useState(0);
   const [showMentors, setShowMentors]       = useState(true);
   const [activeIds, setActiveIds]           = useState<Set<string>>(new Set());
   const [showClassPicker, setShowPicker]    = useState(false);
@@ -98,9 +99,20 @@ export default function TimetablePage() {
         return pool.indexOf(m) < needed;
       });
 
-      const tt  = generateTimetable(filteredCls, filteredSub, filteredMen);
-      saveTimetable(tt);
-      setTimetable(tt);
+      // Run up to 100 attempts; stop early if 0 warnings found
+      const MAX_ATTEMPTS = 100;
+      let best = generateTimetable(filteredCls, filteredSub, filteredMen);
+      let attempts = 1;
+      while (best.warnings.length > 0 && attempts < MAX_ATTEMPTS) {
+        const candidate = generateTimetable(filteredCls, filteredSub, filteredMen);
+        if (candidate.warnings.length < best.warnings.length) best = candidate;
+        attempts++;
+        if (best.warnings.length === 0) break;
+      }
+
+      saveTimetable(best);
+      setTimetable(best);
+      setGenAttempts(attempts);
       setClasses(cls);
       setSubjects(sub);
       setMentors(men);
@@ -304,7 +316,7 @@ export default function TimetablePage() {
           <button onClick={generate} disabled={generating || activeIds.size === 0}
             style={!generating && activeIds.size > 0 ? { background: 'var(--navy)' } : undefined}
             className="px-5 py-2 rounded-lg text-sm font-bold text-white hover:opacity-90 disabled:opacity-50 disabled:bg-gray-400 transition">
-            {generating ? '⏳ Generating…' : timetable?.generated ? '🔄 Re-generate' : '⚡ Generate Timetable'}
+            {generating ? '⏳ Optimising…' : timetable?.generated ? '🔄 Re-generate' : '⚡ Generate Timetable'}
           </button>
         </div>
       </div>
@@ -346,14 +358,24 @@ export default function TimetablePage() {
         </div>
       )}
 
-      {/* ── Warnings ─────────────────────────────────────────────────────── */}
-      {timetable?.warnings && timetable.warnings.length > 0 && (
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 no-print">
-          <p className="font-semibold text-amber-700 mb-1">⚠️ {timetable.warnings.length} warning(s) — re-generate for a different arrangement</p>
-          <ul className="text-xs text-amber-700 space-y-0.5 max-h-32 overflow-y-auto">
-            {timetable.warnings.map((w, i) => <li key={i}>• {w}</li>)}
-          </ul>
-        </div>
+      {/* ── Result banner ────────────────────────────────────────────────── */}
+      {timetable?.generated && genAttempts > 0 && (
+        timetable.warnings.length === 0 ? (
+          <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 flex items-center gap-2 no-print">
+            <span className="text-emerald-600 font-bold">✓ No conflicts</span>
+            <span className="text-emerald-500 text-xs">— clean result found in {genAttempts} attempt{genAttempts > 1 ? 's' : ''}</span>
+          </div>
+        ) : (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 no-print">
+            <p className="font-semibold text-amber-700 mb-1">
+              ⚠️ {timetable.warnings.length} conflict{timetable.warnings.length > 1 ? 's' : ''} remaining
+              <span className="ml-2 text-xs font-normal text-amber-500">— best of {genAttempts} attempts; try re-generating or add mentors</span>
+            </p>
+            <ul className="text-xs text-amber-700 space-y-0.5 max-h-32 overflow-y-auto">
+              {timetable.warnings.map((w, i) => <li key={i}>• {w}</li>)}
+            </ul>
+          </div>
+        )
       )}
 
       {/* ── Empty state ──────────────────────────────────────────────────── */}
