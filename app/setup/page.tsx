@@ -49,7 +49,7 @@ export default function SetupPage() {
   const totalHours    = classSubjects.reduce((a, s) => a + s.hoursPerWeek, 0);
 
   const handleHoursChange = (id: string, val: number) => {
-    setSubjects(prev => prev.map(s => s.id === id ? { ...s, hoursPerWeek: Math.max(1, Math.min(7, val)) } : s));
+    setSubjects(prev => prev.map(s => s.id === id ? { ...s, hoursPerWeek: Math.max(1, Math.min(10, val)) } : s));
     setSaved(false);
   };
 
@@ -190,7 +190,7 @@ export default function SetupPage() {
                     </td>
                     <td className="px-4 py-3 text-xs text-gray-400">{sub.isLab ? 'Lab' : '—'}</td>
                     <td className="px-4 py-3 text-center">
-                      <input type="number" min={1} max={7} value={sub.hoursPerWeek}
+                      <input type="number" min={1} max={10} value={sub.hoursPerWeek}
                         onChange={e => handleHoursChange(sub.id, parseInt(e.target.value) || 1)}
                         className="w-16 text-center border border-gray-300 rounded-md py-1 text-sm focus:ring-2 focus:ring-blue-400" />
                     </td>
@@ -362,9 +362,9 @@ export default function SetupPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Hours / Week</label>
-              <input type="number" min={1} max={7}
+              <input type="number" min={1} max={10}
                 value={subjectModal.hoursPerWeek ?? 3}
-                onChange={e => setSubjectModal(p => ({ ...p!, hoursPerWeek: Math.max(1, Math.min(7, parseInt(e.target.value) || 1)) }))}
+                onChange={e => setSubjectModal(p => ({ ...p!, hoursPerWeek: Math.max(1, Math.min(10, parseInt(e.target.value) || 1)) }))}
                 className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400" />
             </div>
             <div className="flex items-center gap-3">
