@@ -2,20 +2,23 @@ import type { Class, Subject, Mentor, Timetable } from './types';
 
 // Bump this string whenever seed data changes — triggers auto-reset in browsers
 // with stale localStorage from a previous version.
-export const SEED_VERSION = 'v8-pet-split-cs-mgmt';
+export const SEED_VERSION = 'v9-reorder-mentor-opt';
 
 export const SEED_CLASSES: Class[] = [
+  // Year 3 first
   { id: 'cls_aiml3',    name: 'III B.Sc. AI-ML',              shortName: 'AIML-III',   year: 3, semester: 5, group: null,      departmentId: 'ACS',  studentCount: null },
+  // Year 2 (confirmed batches)
   { id: 'cls_aiml2',    name: 'II B.Sc. AI-ML',               shortName: 'AIML-II',    year: 2, semester: 3, group: null,      departmentId: 'ACS',  studentCount: null },
   { id: 'cls_aids2',    name: 'II B.Sc. AI-DS',               shortName: 'AIDS-II',    year: 2, semester: 3, group: null,      departmentId: 'ACS',  studentCount: null },
+  { id: 'cls_bcom2',    name: 'II B.Com. FAI',                shortName: 'BCOM-II',    year: 2, semester: 3, group: null,      departmentId: 'PCOM', studentCount: 33   },
+  { id: 'cls_bba2',     name: 'II B.B.A. E-Commerce & DM',   shortName: 'BBA-II',     year: 2, semester: 3, group: null,      departmentId: 'PBF',  studentCount: 12   },
+  // Year 1 (upcoming batches) — B.Com first, then B.Sc. AI-DS, B.Tech last
+  { id: 'cls_bcom1g1',  name: 'I B.Com. FAI (Group 1)',       shortName: 'BCOM-I G1',  year: 1, semester: 1, group: 'Group 1', departmentId: 'PCOM', studentCount: null },
+  { id: 'cls_bcom1g2',  name: 'I B.Com. FAI (Group 2)',       shortName: 'BCOM-I G2',  year: 1, semester: 1, group: 'Group 2', departmentId: 'PCOM', studentCount: null },
   { id: 'cls_aids1g1',  name: 'I B.Sc. AI-DS (Group 1)',      shortName: 'AIDS-I G1',  year: 1, semester: 1, group: 'Group 1', departmentId: 'ACS',  studentCount: null },
   { id: 'cls_aids1g2',  name: 'I B.Sc. AI-DS (Group 2)',      shortName: 'AIDS-I G2',  year: 1, semester: 1, group: 'Group 2', departmentId: 'ACS',  studentCount: null },
   { id: 'cls_btech1g1', name: 'I B.Tech. AI-DS (Group 1)',    shortName: 'BTech-I G1', year: 1, semester: 1, group: 'Group 1', departmentId: 'ACS',  studentCount: null },
   { id: 'cls_btech1g2', name: 'I B.Tech. AI-DS (Group 2)',    shortName: 'BTech-I G2', year: 1, semester: 1, group: 'Group 2', departmentId: 'ACS',  studentCount: null },
-  { id: 'cls_bcom2',    name: 'II B.Com. FAI',                shortName: 'BCOM-II',    year: 2, semester: 3, group: null,      departmentId: 'PCOM', studentCount: 33   },
-  { id: 'cls_bcom1g1',  name: 'I B.Com. FAI (Group 1)',       shortName: 'BCOM-I G1',  year: 1, semester: 1, group: 'Group 1', departmentId: 'PCOM', studentCount: null },
-  { id: 'cls_bcom1g2',  name: 'I B.Com. FAI (Group 2)',       shortName: 'BCOM-I G2',  year: 1, semester: 1, group: 'Group 2', departmentId: 'PCOM', studentCount: null },
-  { id: 'cls_bba2',     name: 'II B.B.A. E-Commerce & DM',   shortName: 'BBA-II',     year: 2, semester: 3, group: null,      departmentId: 'PBF',  studentCount: 12   },
 ];
 
 export const SEED_SUBJECTS: Subject[] = [
@@ -161,45 +164,32 @@ export const SEED_SUBJECTS: Subject[] = [
 ];
 
 export const SEED_MENTORS: Mentor[] = [
-  // CS mentors — 6 needed: ~106 hrs/wk demand across 7 classes (Java alone = 20 hrs)
-  { id: 'm_cs1',   code: 'CS1',   name: 'CS Mentor 1',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
-  { id: 'm_cs2',   code: 'CS2',   name: 'CS Mentor 2',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
-  { id: 'm_cs3',   code: 'CS3',   name: 'CS Mentor 3',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
-  { id: 'm_cs4',   code: 'CS4',   name: 'CS Mentor 4',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
-  { id: 'm_cs5',   code: 'CS5',   name: 'CS Mentor 5',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
-  { id: 'm_cs6',   code: 'CS6',   name: 'CS Mentor 6',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
-  // DS mentors — AI/ML: GenAI, NLP, Deep Learning, RL, DWM, Analytics
+  // CS mentors — 4 (handle ~80 hrs; DS mentors cover CS overflow via fallback)
+  { id: 'm_cs1',   code: 'CS1',   name: 'CS Mentor 1',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
+  { id: 'm_cs2',   code: 'CS2',   name: 'CS Mentor 2',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
+  { id: 'm_cs3',   code: 'CS3',   name: 'CS Mentor 3',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
+  { id: 'm_cs4',   code: 'CS4',   name: 'CS Mentor 4',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
+  // DS mentors — 3 (cover ~27 hrs DS + ~26 hrs CS overflow ≈ 18 hrs/mentor)
   { id: 'm_ds1',   code: 'DS1',   name: 'DS Mentor 1',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
   { id: 'm_ds2',   code: 'DS2',   name: 'DS Mentor 2',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
   { id: 'm_ds3',   code: 'DS3',   name: 'DS Mentor 3',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
-  // M.Tech mentors (B.Tech programs)
-  { id: 'm_mt1',   code: 'MT1',   name: 'MTech Mentor 1',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
-  { id: 'm_mt2',   code: 'MT2',   name: 'MTech Mentor 2',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
-  { id: 'm_mt3',   code: 'MT3',   name: 'MTech Mentor 3',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
-  // Management mentors (3 — BBA-II alone has 25 hrs; total demand ~45 hrs/wk)
-  { id: 'm_mg1',   code: 'MG1',   name: 'Management Mentor 1', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
-  { id: 'm_mg2',   code: 'MG2',   name: 'Management Mentor 2', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
-  { id: 'm_mg3',   code: 'MG3',   name: 'Management Mentor 3', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
-  // English mentors (5 — 11 classes × up to 6 hrs each; 3 caused frequent concurrency failures)
-  { id: 'm_eng1',  code: 'ENG1',  name: 'English Mentor 1',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
-  { id: 'm_eng2',  code: 'ENG2',  name: 'English Mentor 2',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
-  { id: 'm_eng3',  code: 'ENG3',  name: 'English Mentor 3',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
-  { id: 'm_eng4',  code: 'ENG4',  name: 'English Mentor 4',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
-  { id: 'm_eng5',  code: 'ENG5',  name: 'English Mentor 5',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
-  // Math mentors (4 — G1/G2 pairs from 3 courses can clash; 2 was insufficient)
-  { id: 'm_math1', code: 'MATH1', name: 'Math Mentor 1',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math' },
-  { id: 'm_math2', code: 'MATH2', name: 'Math Mentor 2',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math' },
-  { id: 'm_math3', code: 'MATH3', name: 'Math Mentor 3',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math' },
-  { id: 'm_math4', code: 'MATH4', name: 'Math Mentor 4',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math' },
-  // Commerce mentors (4 — 79 h/wk demand across BCOM/BBA)
-  { id: 'm_com1',  code: 'COM1',  name: 'Commerce Mentor 1',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'     },
-  { id: 'm_com2',  code: 'COM2',  name: 'Commerce Mentor 2',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'     },
-  { id: 'm_com3',  code: 'COM3',  name: 'Commerce Mentor 3',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'     },
-  { id: 'm_com4',  code: 'COM4',  name: 'Commerce Mentor 4',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'     },
-  // Aptitude mentors (3 — 9 classes with aptitude; 2 caused slot clashes)
-  { id: 'm_apt1',  code: 'APT1',  name: 'Aptitude Mentor 1',   category: 'APTITUDE',   departmentId: null,   maxHoursPerWeek: 20, qualification: 'B.E./M.Sc.' },
-  { id: 'm_apt2',  code: 'APT2',  name: 'Aptitude Mentor 2',   category: 'APTITUDE',   departmentId: null,   maxHoursPerWeek: 20, qualification: 'B.E./M.Sc.' },
-  { id: 'm_apt3',  code: 'APT3',  name: 'Aptitude Mentor 3',   category: 'APTITUDE',   departmentId: null,   maxHoursPerWeek: 20, qualification: 'B.E./M.Sc.' },
+  // Management mentors — 3 (~45 hrs/wk demand; ~15 hrs/mentor)
+  { id: 'm_mg1',   code: 'MG1',   name: 'Management Mentor 1', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'          },
+  { id: 'm_mg2',   code: 'MG2',   name: 'Management Mentor 2', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'          },
+  { id: 'm_mg3',   code: 'MG3',   name: 'Management Mentor 3', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'          },
+  // English mentors — 4 (~63 hrs/wk demand; ~16 hrs/mentor)
+  { id: 'm_eng1',  code: 'ENG1',  name: 'English Mentor 1',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
+  { id: 'm_eng2',  code: 'ENG2',  name: 'English Mentor 2',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
+  { id: 'm_eng3',  code: 'ENG3',  name: 'English Mentor 3',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
+  { id: 'm_eng4',  code: 'ENG4',  name: 'English Mentor 4',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
+  // Math mentors — 3 (~50 hrs/wk demand; ~17 hrs/mentor)
+  { id: 'm_math1', code: 'MATH1', name: 'Math Mentor 1',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math'   },
+  { id: 'm_math2', code: 'MATH2', name: 'Math Mentor 2',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math'   },
+  { id: 'm_math3', code: 'MATH3', name: 'Math Mentor 3',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math'   },
+  // Commerce mentors — 3 (~55 hrs/wk demand; ~18 hrs/mentor)
+  { id: 'm_com1',  code: 'COM1',  name: 'Commerce Mentor 1',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
+  { id: 'm_com2',  code: 'COM2',  name: 'Commerce Mentor 2',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
+  { id: 'm_com3',  code: 'COM3',  name: 'Commerce Mentor 3',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
 ];
 
 export const EMPTY_TIMETABLE: Timetable = {

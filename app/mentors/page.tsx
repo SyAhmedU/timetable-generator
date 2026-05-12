@@ -116,9 +116,8 @@ export default function MentorsPage() {
                   <td className="px-4 py-3 text-xs text-gray-500">
                     {m.classNames.join(', ') || '—'}
                   </td>
-                  <td className="px-4 py-3 text-xs text-gray-500 max-w-xs">
-                    {m.subjectNames.slice(0, 3).join(', ')}{m.subjectNames.length > 3 ? ` +${m.subjectNames.length - 3} more` : ''}
-                    {m.subjectNames.length === 0 && '—'}
+                  <td className="px-4 py-3 text-xs text-gray-500">
+                    {m.subjectNames.join(', ') || '—'}
                   </td>
                 </tr>
               ))}
