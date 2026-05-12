@@ -21,28 +21,57 @@ export function exportTimetableExcel(
   const wb        = XLSX.utils.book_new();
   const targets   = classId ? classes.filter(c => c.id === classId) : classes;
 
+  // Sessions in order with break/lunch separators
+  // columns: Day | S1 | S2 | Break | S3 | S4 | Lunch | S5 | S6 | S7
+  const SESSION_COLS = [1, 2, null, 3, 4, null, 5, 6, 7] as const; // null = break/lunch
+
+  const cellContent = (cls: Class, day: number, session: number): string => {
+    const slot = timetable.slots.find(
+      s => s.classId === cls.id && s.day === day && s.session === session
+    );
+    if (!slot) return '';
+    const sub = subMap[slot.subjectId];
+    const m   = slot.mentorId ? mentorMap[slot.mentorId] : null;
+    return sub ? `${sub.name}${m ? ` [${m.code}]` : ' [TBA]'}` : '';
+  };
+
   for (const cls of targets) {
-    const rows: (string | undefined)[][] = [['Session', ...DAYS]];
-    for (let session = 1; session <= 7; session++) {
-      if (session === 3) rows.push(['── Break 10:10–10:20 ──', '', '', '', '', '']);
-      if (session === 5) rows.push(['── Lunch 12:00–12:45 ──', '', '', '', '', '']);
-      const row = [`S${session} ${SESSION_LABELS[session]}`];
-      for (let day = 1; day <= 5; day++) {
-        const slot = timetable.slots.find(
-          s => s.classId === cls.id && s.day === day && s.session === session
-        );
-        if (slot) {
-          const sub = subMap[slot.subjectId];
-          const m   = slot.mentorId ? mentorMap[slot.mentorId] : null;
-          row.push(sub ? `${sub.name}${m ? ` [${m.code}]` : ' [TBA]'}` : '');
-        } else {
-          row.push('');
-        }
+    // Header row: Day + session timing labels + separator labels
+    const header: string[] = ['Day'];
+    let breakDone = false;
+    for (const col of SESSION_COLS) {
+      if (col === null) {
+        header.push(breakDone ? 'Lunch 12:00–12:45' : 'Break 10:10–10:20');
+        breakDone = true;
+      } else {
+        header.push(`S${col}\n${SESSION_LABELS[col]}`);
+      }
+    }
+
+    const rows: string[][] = [header];
+
+    for (let day = 1; day <= 5; day++) {
+      const row: string[] = [DAYS[day - 1]];
+      for (const col of SESSION_COLS) {
+        row.push(col === null ? '' : cellContent(cls, day, col));
       }
       rows.push(row);
     }
+
     const ws = XLSX.utils.aoa_to_sheet(rows);
-    ws['!cols'] = [{ wch: 22 }, ...Array(5).fill({ wch: 30 })];
+    // Day col = 14, session cols = 30, separator cols = 16
+    ws['!cols'] = [
+      { wch: 14 },  // Day
+      { wch: 30 },  // S1
+      { wch: 30 },  // S2
+      { wch: 16 },  // Break
+      { wch: 30 },  // S3
+      { wch: 30 },  // S4
+      { wch: 16 },  // Lunch
+      { wch: 30 },  // S5
+      { wch: 30 },  // S6
+      { wch: 30 },  // S7
+    ];
     XLSX.utils.book_append_sheet(wb, ws, cls.shortName.slice(0, 31));
   }
 
