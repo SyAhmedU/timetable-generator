@@ -2,7 +2,7 @@ import type { Class, Subject, Mentor, Timetable } from './types';
 
 // Bump this string whenever seed data changes — triggers auto-reset in browsers
 // with stale localStorage from a previous version.
-export const SEED_VERSION = 'v7-subject-update';
+export const SEED_VERSION = 'v8-pet-split-cs-mgmt';
 
 export const SEED_CLASSES: Class[] = [
   { id: 'cls_aiml3',    name: 'III B.Sc. AI-ML',              shortName: 'AIML-III',   year: 3, semester: 5, group: null,      departmentId: 'ACS',  studentCount: null },
@@ -29,7 +29,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aiml3_rl',    classId: 'cls_aiml3', name: 'Reinforcement Learning',                             category: 'DS',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
   { id: 's_aiml3_rta',   classId: 'cls_aiml3', name: 'Fundamentals of Recruitment and Talent Acquisition', category: 'MANAGEMENT', hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
   { id: 's_aiml3_apt',   classId: 'cls_aiml3', name: 'Aptitude Training',                                  category: 'MATH',       hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
-  { id: 's_aiml3_pet',   classId: 'cls_aiml3', name: 'PET/Library/Mentor',                                 category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_pet',   classId: 'cls_aiml3', name: 'PET',          category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_lib',   classId: 'cls_aiml3', name: 'Library',      category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_mhr',   classId: 'cls_aiml3', name: 'Mentor Hour',  category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 
   // ── II B.Sc. AI-ML  (total 35) ───────────────────────────────────────────────
   { id: 's_aiml2_es',    classId: 'cls_aiml2', name: 'Environmental Studies',                              category: 'ENGLISH',    hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
@@ -40,7 +42,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aiml2_dbms',  classId: 'cls_aiml2', name: 'Database Management Systems',                        category: 'CS',         hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
   { id: 's_aiml2_ba',    classId: 'cls_aiml2', name: 'Business Analytics',                                 category: 'DS',         hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
   { id: 's_aiml2_apt',   classId: 'cls_aiml2', name: 'Aptitude Training',                                  category: 'MATH',       hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
-  { id: 's_aiml2_pet',   classId: 'cls_aiml2', name: 'PET/Library/Mentor',                                 category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_aiml2_pet',   classId: 'cls_aiml2', name: 'PET',          category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aiml2_lib',   classId: 'cls_aiml2', name: 'Library',      category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aiml2_mhr',   classId: 'cls_aiml2', name: 'Mentor Hour',  category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 
   // ── II B.Sc. AI-DS  (total 35) ───────────────────────────────────────────────
   { id: 's_aids2_es',    classId: 'cls_aids2', name: 'Environmental Studies',                              category: 'ENGLISH',    hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
@@ -51,7 +55,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aids2_dbms',  classId: 'cls_aids2', name: 'Database Management Systems',                        category: 'CS',         hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
   { id: 's_aids2_ba',    classId: 'cls_aids2', name: 'Business Analytics',                                 category: 'DS',         hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
   { id: 's_aids2_apt',   classId: 'cls_aids2', name: 'Aptitude Training',                                  category: 'MATH',       hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
-  { id: 's_aids2_pet',   classId: 'cls_aids2', name: 'PET/Library/Mentor',                                 category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_aids2_pet',   classId: 'cls_aids2', name: 'PET',          category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aids2_lib',   classId: 'cls_aids2', name: 'Library',      category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aids2_mhr',   classId: 'cls_aids2', name: 'Mentor Hour',  category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 
   // ── I B.Sc. AI-DS Group 1  (total 35) ────────────────────────────────────────
   { id: 's_aids1g1_math', classId: 'cls_aids1g1', name: 'Mathematics for AI',                              category: 'MATH',       hoursPerWeek: 5,  isLab: false, labForSubjectId: null },
@@ -60,7 +66,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aids1g1_comm', classId: 'cls_aids1g1', name: 'Effective Communication for Professionals',       category: 'ENGLISH',    hoursPerWeek: 5,  isLab: false, labForSubjectId: null },
   { id: 's_aids1g1_ux',   classId: 'cls_aids1g1', name: 'Design for Developers (UI and UX)',               category: 'CS',         hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
   { id: 's_aids1g1_apt',  classId: 'cls_aids1g1', name: 'Problem Solving through Aptitude – I',            category: 'MATH',       hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
-  { id: 's_aids1g1_pet',  classId: 'cls_aids1g1', name: 'PET/Library/Mentor',                              category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_aids1g1_pet',  classId: 'cls_aids1g1', name: 'PET',         category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aids1g1_lib',  classId: 'cls_aids1g1', name: 'Library',     category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aids1g1_mhr',  classId: 'cls_aids1g1', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 
   // ── I B.Sc. AI-DS Group 2  (total 30) ────────────────────────────────────────
   { id: 's_aids1g2_math', classId: 'cls_aids1g2', name: 'Mathematics for AI',                              category: 'MATH',       hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
@@ -69,7 +77,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aids1g2_comm', classId: 'cls_aids1g2', name: 'Effective Communication for Professionals',       category: 'ENGLISH',    hoursPerWeek: 5,  isLab: false, labForSubjectId: null },
   { id: 's_aids1g2_ux',   classId: 'cls_aids1g2', name: 'Design for Developers (UI and UX)',               category: 'CS',         hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
   { id: 's_aids1g2_apt',  classId: 'cls_aids1g2', name: 'Problem Solving through Aptitude – I',            category: 'MATH',       hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
-  { id: 's_aids1g2_pet',  classId: 'cls_aids1g2', name: 'PET/Library/Mentor',                              category: 'NA',         hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
+  { id: 's_aids1g2_pet',  classId: 'cls_aids1g2', name: 'PET',         category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aids1g2_lib',  classId: 'cls_aids1g2', name: 'Library',     category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_aids1g2_mhr',  classId: 'cls_aids1g2', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 2, isLab: false, labForSubjectId: null },
 
   // ── I B.Tech. AI-DS Group 1  (total 35) ──────────────────────────────────────
   { id: 's_bt1g1_eng',   classId: 'cls_btech1g1', name: 'Workplace English for Engineers',                 category: 'ENGLISH',    hoursPerWeek: 5,  isLab: false, labForSubjectId: null },
@@ -80,7 +90,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_bt1g1_lc',    classId: 'cls_btech1g1', name: 'Low Code and No Code App Development',            category: 'CS',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
   { id: 's_bt1g1_soft',  classId: 'cls_btech1g1', name: 'Softskills',                                      category: 'ENGLISH',    hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
   { id: 's_bt1g1_apt',   classId: 'cls_btech1g1', name: 'Aptitude',                                        category: 'MATH',       hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
-  { id: 's_bt1g1_pet',   classId: 'cls_btech1g1', name: 'PET/Library/Mentor',                              category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_bt1g1_pet',   classId: 'cls_btech1g1', name: 'PET',         category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bt1g1_lib',   classId: 'cls_btech1g1', name: 'Library',     category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bt1g1_mhr',   classId: 'cls_btech1g1', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 
   // ── I B.Tech. AI-DS Group 2  (total 35) ──────────────────────────────────────
   { id: 's_bt1g2_eng',   classId: 'cls_btech1g2', name: 'Workplace English for Engineers',                 category: 'ENGLISH',    hoursPerWeek: 5,  isLab: false, labForSubjectId: null },
@@ -91,7 +103,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_bt1g2_lc',    classId: 'cls_btech1g2', name: 'Low Code and No Code App Development',            category: 'CS',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
   { id: 's_bt1g2_soft',  classId: 'cls_btech1g2', name: 'Softskills',                                      category: 'ENGLISH',    hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
   { id: 's_bt1g2_apt',   classId: 'cls_btech1g2', name: 'Aptitude',                                        category: 'MATH',       hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
-  { id: 's_bt1g2_pet',   classId: 'cls_btech1g2', name: 'PET/Library/Mentor',                              category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_bt1g2_pet',   classId: 'cls_btech1g2', name: 'PET',         category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bt1g2_lib',   classId: 'cls_btech1g2', name: 'Library',     category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bt1g2_mhr',   classId: 'cls_btech1g2', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 
   // ── II B.Com. FAI  (total 35) ────────────────────────────────────────────────
   { id: 's_bcom2_ent',   classId: 'cls_bcom2', name: 'Entrepreneurship and Startup Fundamentals',          category: 'MANAGEMENT', hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
@@ -103,7 +117,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_bcom2_comm',  classId: 'cls_bcom2', name: 'Effective Communication',                            category: 'ENGLISH',    hoursPerWeek: 5,  isLab: false, labForSubjectId: null },
   { id: 's_bcom2_dm',    classId: 'cls_bcom2', name: 'Digital Marketing and E-Commerce',                   category: 'MANAGEMENT', hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
   { id: 's_bcom2_apt',   classId: 'cls_bcom2', name: 'Aptitude Training',                                  category: 'MATH',       hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
-  { id: 's_bcom2_pet',   classId: 'cls_bcom2', name: 'PET/Library/Mentor',                                 category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_bcom2_pet',   classId: 'cls_bcom2', name: 'PET',         category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bcom2_lib',   classId: 'cls_bcom2', name: 'Library',     category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bcom2_mhr',   classId: 'cls_bcom2', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 
   // ── I B.Com. FAI Group 1  (total 35) ─────────────────────────────────────────
   { id: 's_bcom1g1_math', classId: 'cls_bcom1g1', name: 'Business Mathematics and Statistics',             category: 'MATH',       hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
@@ -113,7 +129,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_bcom1g1_eco',  classId: 'cls_bcom1g1', name: 'Business Economics',                              category: 'COMMERCE',   hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
   { id: 's_bcom1g1_comm', classId: 'cls_bcom1g1', name: 'Effective Communication for Professionals',       category: 'ENGLISH',    hoursPerWeek: 5,  isLab: false, labForSubjectId: null },
   { id: 's_bcom1g1_apt',  classId: 'cls_bcom1g1', name: 'Problem Solving through Aptitude – I',            category: 'MATH',       hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
-  { id: 's_bcom1g1_pet',  classId: 'cls_bcom1g1', name: 'PET/Library/Mentor',                              category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_bcom1g1_pet',  classId: 'cls_bcom1g1', name: 'PET',         category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bcom1g1_lib',  classId: 'cls_bcom1g1', name: 'Library',     category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bcom1g1_mhr',  classId: 'cls_bcom1g1', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 
   // ── I B.Com. FAI Group 2  (total 35) ─────────────────────────────────────────
   { id: 's_bcom1g2_math', classId: 'cls_bcom1g2', name: 'Business Mathematics and Statistics',             category: 'MATH',       hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
@@ -123,7 +141,9 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_bcom1g2_eco',  classId: 'cls_bcom1g2', name: 'Business Economics',                              category: 'COMMERCE',   hoursPerWeek: 4,  isLab: false, labForSubjectId: null },
   { id: 's_bcom1g2_comm', classId: 'cls_bcom1g2', name: 'Effective Communication for Professionals',       category: 'ENGLISH',    hoursPerWeek: 5,  isLab: false, labForSubjectId: null },
   { id: 's_bcom1g2_apt',  classId: 'cls_bcom1g2', name: 'Problem Solving through Aptitude – I',            category: 'MATH',       hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
-  { id: 's_bcom1g2_pet',  classId: 'cls_bcom1g2', name: 'PET/Library/Mentor',                              category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_bcom1g2_pet',  classId: 'cls_bcom1g2', name: 'PET',         category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bcom1g2_lib',  classId: 'cls_bcom1g2', name: 'Library',     category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bcom1g2_mhr',  classId: 'cls_bcom1g2', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 
   // ── II B.B.A. EDM  (total 35) ────────────────────────────────────────────────
   { id: 's_bba2_ps',    classId: 'cls_bba2', name: 'Product Sourcing and Inventory Management',             category: 'MANAGEMENT', hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
@@ -135,15 +155,19 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_bba2_cap',   classId: 'cls_bba2', name: 'Capstone Projects – II',                                category: 'MANAGEMENT', hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
   { id: 's_bba2_comm',  classId: 'cls_bba2', name: 'Effective Communication Skills',                        category: 'ENGLISH',    hoursPerWeek: 5,  isLab: false, labForSubjectId: null },
   { id: 's_bba2_apt',   classId: 'cls_bba2', name: 'Aptitude Training',                                     category: 'MATH',       hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
-  { id: 's_bba2_pet',   classId: 'cls_bba2', name: 'PET/Library/Mentor',                                    category: 'NA',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_bba2_pet',   classId: 'cls_bba2', name: 'PET',         category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bba2_lib',   classId: 'cls_bba2', name: 'Library',     category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
+  { id: 's_bba2_mhr',   classId: 'cls_bba2', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 ];
 
 export const SEED_MENTORS: Mentor[] = [
-  // CS mentors — core: Python, DSA, OS, DBMS, Architecture, Design for Dev
+  // CS mentors — 6 needed: ~106 hrs/wk demand across 7 classes (Java alone = 20 hrs)
   { id: 'm_cs1',   code: 'CS1',   name: 'CS Mentor 1',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
   { id: 'm_cs2',   code: 'CS2',   name: 'CS Mentor 2',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
   { id: 'm_cs3',   code: 'CS3',   name: 'CS Mentor 3',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
   { id: 'm_cs4',   code: 'CS4',   name: 'CS Mentor 4',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
+  { id: 'm_cs5',   code: 'CS5',   name: 'CS Mentor 5',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
+  { id: 'm_cs6',   code: 'CS6',   name: 'CS Mentor 6',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'  },
   // DS mentors — AI/ML: GenAI, NLP, Deep Learning, RL, DWM, Analytics
   { id: 'm_ds1',   code: 'DS1',   name: 'DS Mentor 1',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
   { id: 'm_ds2',   code: 'DS2',   name: 'DS Mentor 2',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
@@ -152,9 +176,10 @@ export const SEED_MENTORS: Mentor[] = [
   { id: 'm_mt1',   code: 'MT1',   name: 'MTech Mentor 1',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
   { id: 'm_mt2',   code: 'MT2',   name: 'MTech Mentor 2',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
   { id: 'm_mt3',   code: 'MT3',   name: 'MTech Mentor 3',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
-  // Management mentors (2 — AIML-III RTA + BBA-II PS/SM/CAP can clash simultaneously)
+  // Management mentors (3 — BBA-II alone has 25 hrs; total demand ~45 hrs/wk)
   { id: 'm_mg1',   code: 'MG1',   name: 'Management Mentor 1', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
   { id: 'm_mg2',   code: 'MG2',   name: 'Management Mentor 2', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
+  { id: 'm_mg3',   code: 'MG3',   name: 'Management Mentor 3', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
   // English mentors (5 — 11 classes × up to 6 hrs each; 3 caused frequent concurrency failures)
   { id: 'm_eng1',  code: 'ENG1',  name: 'English Mentor 1',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
   { id: 'm_eng2',  code: 'ENG2',  name: 'English Mentor 2',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },

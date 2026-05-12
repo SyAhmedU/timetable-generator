@@ -109,8 +109,32 @@ export function generateTimetable(
       clsSubjects.map(s => [s.id, new Map()])
     );
 
-    // Place regular subjects in sessions 1–7, but session 7 slots already
-    // reserved by NA subjects are blocked by the grid check.
+    // Step A: place NA subjects in session 7 FIRST to reserve their slots
+    const lastQueue = shuffle(
+      lastOnlySubs.flatMap(sub => Array.from({ length: sub.hoursPerWeek }, () => sub.id))
+    );
+    for (const subjectId of lastQueue) {
+      const sub = lastOnlySubs.find(s => s.id === subjectId)!;
+      const dayCount = subjectDayCount.get(subjectId)!;
+      const days = [1, 2, 3, 4, 5].sort(
+        (a, b) => (dayCount.get(a) ?? 0) - (dayCount.get(b) ?? 0)
+      );
+      let placed = false;
+      for (const day of days) {
+        if (!grid[day][7]) {
+          grid[day][7] = subjectId;
+          dayCount.set(day, (dayCount.get(day) ?? 0) + 1);
+          placed = true;
+          break;
+        }
+      }
+      if (!placed) {
+        warnings.push(`${cls.shortName}: could not place "${sub.name}" in session 7 — all 5 days' session 7 slots are taken`);
+      }
+    }
+
+    // Step B: place regular subjects in sessions 1–7; session 7 slots already
+    // taken by NA subjects are blocked by the grid check automatically.
     const regularQueue = shuffle(
       regularSubs.flatMap(sub => Array.from({ length: sub.hoursPerWeek }, () => sub.id))
     );
@@ -132,30 +156,6 @@ export function generateTimetable(
       }
       if (!placed) {
         warnings.push(`${cls.shortName}: could not place all sessions for "${subjectId}" — reduce hours`);
-      }
-    }
-
-    // Place last-session-only subjects strictly in session 7
-    const lastQueue = shuffle(
-      lastOnlySubs.flatMap(sub => Array.from({ length: sub.hoursPerWeek }, () => sub.id))
-    );
-    for (const subjectId of lastQueue) {
-      const sub = lastOnlySubs.find(s => s.id === subjectId)!;
-      const dayCount = subjectDayCount.get(subjectId)!;
-      const days = [1, 2, 3, 4, 5].sort(
-        (a, b) => (dayCount.get(a) ?? 0) - (dayCount.get(b) ?? 0)
-      );
-      let placed = false;
-      for (const day of days) {
-        if (!grid[day][7]) {
-          grid[day][7] = subjectId;
-          dayCount.set(day, (dayCount.get(day) ?? 0) + 1);
-          placed = true;
-          break;
-        }
-      }
-      if (!placed) {
-        warnings.push(`${cls.shortName}: could not place "${sub.name}" in session 7 — all 5 days' session 7 slots are taken`);
       }
     }
 
