@@ -43,6 +43,11 @@ export const saveTimetable  = (t: Timetable)     => write('tt_timetable', t);
 export const clearTimetable = ()                 => write('tt_timetable', EMPTY_TIMETABLE);
 export const saveAbsenceLog = (l: AbsenceRecord[]) => write('tt_absence', l);
 
+// ── Subject helpers ───────────────────────────────────────────────────────────
+export function addSubject(s: Subject)     { write('tt_subjects', [...getSubjects(), s]); }
+export function updateSubject(s: Subject)  { write('tt_subjects', getSubjects().map(x => x.id === s.id ? s : x)); }
+export function deleteSubject(id: string)  { write('tt_subjects', getSubjects().filter(s => s.id !== id)); }
+
 // ── Mentor helpers ────────────────────────────────────────────────────────────
 export function addMentor(m: Mentor)     { const ms = getMentors(); write('tt_mentors', [...ms, m]); }
 export function updateMentor(m: Mentor)  { write('tt_mentors', getMentors().map(x => x.id === m.id ? m : x)); }

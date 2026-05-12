@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import type { Class, Subject, Mentor, MentorCategory, DepartmentCode } from '@/lib/types';
+type SubjectModal = Partial<Subject> & { classId: string };
 import { DEPT_LABELS } from '@/lib/types';
 import {
   getClasses, getSubjects, getMentors,
-  saveSubjects, addMentor, updateMentor, deleteMentor, resetToDefaults,
+  saveSubjects, addSubject, updateSubject, deleteSubject,
+  addMentor, updateMentor, deleteMentor, resetToDefaults,
 } from '@/lib/client-store';
 
 const CATEGORIES: MentorCategory[] = ['CS', 'DS', 'MTECH', 'MANAGEMENT', 'ENGLISH', 'MATH', 'COMMERCE', 'APTITUDE'];
@@ -28,9 +30,10 @@ export default function SetupPage() {
   const [mentors,     setMentors]     = useState<Mentor[]>([]);
   const [activeClass, setActiveClass] = useState('');
   const [tab,         setTab]         = useState<'subjects' | 'mentors' | 'capacity'>('subjects');
-  const [saved,       setSaved]       = useState(false);
-  const [mentorModal, setMentorModal] = useState<Partial<Mentor> | null>(null);
-  const [isNew,       setIsNew]       = useState(false);
+  const [saved,         setSaved]         = useState(false);
+  const [mentorModal,   setMentorModal]   = useState<Partial<Mentor> | null>(null);
+  const [subjectModal,  setSubjectModal]  = useState<SubjectModal | null>(null);
+  const [isNew,         setIsNew]         = useState(false);
 
   useEffect(() => {
     const cls = getClasses();
@@ -52,6 +55,31 @@ export default function SetupPage() {
     saveSubjects(subjects);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
+  };
+
+  const handleSaveSubject = () => {
+    if (!subjectModal?.name || !subjectModal?.category) return;
+    const s = subjectModal as Subject;
+    if (isNew) {
+      const newS: Subject = {
+        ...s,
+        id: `s_custom_${Date.now()}`,
+        hoursPerWeek: s.hoursPerWeek ?? 3,
+        isLab: s.isLab ?? false,
+        labForSubjectId: s.labForSubjectId ?? null,
+      };
+      addSubject(newS);
+    } else {
+      updateSubject(s);
+    }
+    setSubjects(getSubjects());
+    setSubjectModal(null);
+  };
+
+  const handleDeleteSubject = (id: string) => {
+    if (!confirm('Remove this subject from the class?')) return;
+    deleteSubject(id);
+    setSubjects(getSubjects());
   };
 
   const handleSaveMentor = () => {
@@ -119,18 +147,27 @@ export default function SetupPage() {
           </div>
 
           <div className="flex-1 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-            <div className="px-6 py-4 bg-gray-50 border-b flex items-center justify-between">
+            <div className="px-6 py-4 bg-gray-50 border-b flex items-center justify-between gap-3 flex-wrap">
               <div>
                 <p className="font-semibold">{classes.find(c => c.id === activeClass)?.name}</p>
                 <p className={`text-xs mt-0.5 ${totalHours > 35 ? 'text-red-600 font-medium' : 'text-gray-500'}`}>
                   Total: {totalHours}/35 hrs/wk {totalHours > 35 ? '⚠️ exceeds limit' : '✓'}
                 </p>
               </div>
-              <button onClick={handleSave}
-                style={!saved ? { background: 'var(--navy)' } : undefined}
-                className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${saved ? 'bg-emerald-600 text-white' : 'text-white hover:opacity-90'}`}>
-                {saved ? '✓ Saved' : 'Save Changes'}
-              </button>
+              <div className="flex gap-2">
+                <button onClick={() => {
+                  setIsNew(true);
+                  setSubjectModal({ classId: activeClass, category: 'CS', hoursPerWeek: 3, isLab: false, labForSubjectId: null });
+                }}
+                  className="px-3 py-2 rounded-lg text-sm font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition">
+                  + Add Subject
+                </button>
+                <button onClick={handleSave}
+                  style={!saved ? { background: 'var(--navy)' } : undefined}
+                  className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${saved ? 'bg-emerald-600 text-white' : 'text-white hover:opacity-90'}`}>
+                  {saved ? '✓ Saved' : 'Save Changes'}
+                </button>
+              </div>
             </div>
             <table className="w-full text-sm">
               <thead className="bg-gray-50 border-b">
@@ -139,6 +176,7 @@ export default function SetupPage() {
                   <th className="text-left px-4 py-3 font-medium text-gray-600">Category</th>
                   <th className="text-left px-4 py-3 font-medium text-gray-600">Lab?</th>
                   <th className="text-center px-4 py-3 font-medium text-gray-600">Hrs/Wk</th>
+                  <th className="px-4 py-3"></th>
                 </tr>
               </thead>
               <tbody>
@@ -153,6 +191,14 @@ export default function SetupPage() {
                       <input type="number" min={1} max={7} value={sub.hoursPerWeek}
                         onChange={e => handleHoursChange(sub.id, parseInt(e.target.value) || 1)}
                         className="w-16 text-center border border-gray-300 rounded-md py-1 text-sm focus:ring-2 focus:ring-blue-400" />
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex gap-2 justify-end">
+                        <button onClick={() => { setIsNew(false); setSubjectModal({ ...sub }); }}
+                          className="text-blue-600 hover:underline text-xs">Edit</button>
+                        <button onClick={() => handleDeleteSubject(sub.id)}
+                          className="text-red-500 hover:underline text-xs">Remove</button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -292,7 +338,54 @@ export default function SetupPage() {
         );
       })()}
 
-      {/* ── Modal ──────────────────────────────────────────────────────── */}
+      {/* ── Subject Modal ─────────────────────────────────────────────── */}
+      {subjectModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md space-y-4">
+            <h2 className="text-lg font-bold">{isNew ? 'Add Subject' : 'Edit Subject'}</h2>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Subject Name</label>
+              <input type="text" placeholder="e.g. Machine Learning"
+                value={subjectModal.name ?? ''}
+                onChange={e => setSubjectModal(p => ({ ...p!, name: e.target.value }))}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <select value={subjectModal.category ?? 'CS'}
+                onChange={e => setSubjectModal(p => ({ ...p!, category: e.target.value as MentorCategory }))}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400">
+                {CATEGORIES.map(c => <option key={c} value={c}>{CAT_LABELS[c]}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Hours / Week</label>
+              <input type="number" min={1} max={7}
+                value={subjectModal.hoursPerWeek ?? 3}
+                onChange={e => setSubjectModal(p => ({ ...p!, hoursPerWeek: Math.max(1, Math.min(7, parseInt(e.target.value) || 1)) }))}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400" />
+            </div>
+            <div className="flex items-center gap-3">
+              <input type="checkbox" id="isLab" checked={subjectModal.isLab ?? false}
+                onChange={e => setSubjectModal(p => ({ ...p!, isLab: e.target.checked }))}
+                className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-400" />
+              <label htmlFor="isLab" className="text-sm font-medium text-gray-700">This is a Lab session</label>
+            </div>
+            <div className="flex gap-3 pt-2">
+              <button onClick={handleSaveSubject}
+                className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+                {isNew ? 'Add Subject' : 'Save Changes'}
+              </button>
+              <button onClick={() => setSubjectModal(null)}
+                className="flex-1 bg-gray-100 text-gray-700 py-2 rounded-lg text-sm font-medium hover:bg-gray-200 transition">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Mentor Modal ───────────────────────────────────────────────── */}
       {mentorModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-md space-y-4">
