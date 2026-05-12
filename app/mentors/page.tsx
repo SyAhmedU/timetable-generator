@@ -39,6 +39,8 @@ export default function MentorsPage() {
   const subjectMap = Object.fromEntries(subjects.map(s => [s.id, s]));
   const classMap   = Object.fromEntries(classes.map(c => [c.id, c]));
 
+  const hasGenerated = slots.length > 0;
+
   const mentorSummary = mentors.map(m => {
     const mySlots    = slots.filter(s => s.mentorId === m.id);
     const totalHours = mySlots.length;
@@ -52,6 +54,10 @@ export default function MentorsPage() {
       subjectNames: subjectSet.map(id => subjectMap[id]?.name ?? id),
     };
   }).sort((a, b) => b.totalHours - a.totalHours);
+
+  // When a timetable is generated, only mentors with ≥1 assigned hour are "required"
+  const activeSummary  = hasGenerated ? mentorSummary.filter(m => m.totalHours > 0) : mentorSummary;
+  const activeMentors  = hasGenerated ? mentors.filter(m => mentorSummary.find(ms => ms.id === m.id && ms.totalHours > 0)) : mentors;
 
   const mentorSlot = (day: number, session: number) =>
     slots.find(s => s.mentorId === selectedMentor && s.day === day && s.session === session);
@@ -81,8 +87,14 @@ export default function MentorsPage() {
       {/* ── SUMMARY TAB ───────────────────────────────────────────────── */}
       {tab === 'summary' && (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-auto">
-          <div className="px-6 py-4 border-b">
+          <div className="px-6 py-4 border-b flex items-center gap-4 flex-wrap">
             <h2 className="font-semibold">All Mentor Workload Summary</h2>
+            {hasGenerated && (
+              <span className="ml-auto text-sm text-gray-500">
+                <span className="font-bold text-gray-900 text-base">{activeSummary.length}</span>
+                <span className="text-gray-400"> / {mentors.length} mentors required</span>
+              </span>
+            )}
           </div>
           <table className="w-full text-sm min-w-[900px]">
             <thead className="bg-gray-50 border-b">
@@ -97,7 +109,7 @@ export default function MentorsPage() {
               </tr>
             </thead>
             <tbody>
-              {mentorSummary.map((m, i) => (
+              {activeSummary.map((m, i) => (
                 <tr key={m.id} className={i % 2 === 0 ? '' : 'bg-gray-50'}>
                   <td className="px-5 py-3 font-mono font-semibold text-blue-700">{m.code}</td>
                   <td className="px-4 py-3">{m.name}</td>
@@ -140,7 +152,7 @@ export default function MentorsPage() {
       {tab === 'individual' && (
         <div className="space-y-4">
           <div className="bg-white rounded-xl border border-gray-200 p-4 flex flex-wrap gap-2 shadow-sm">
-            {mentors.map(m => (
+            {activeMentors.map(m => (
               <button key={m.id} onClick={() => setSelected(m.id)}
                 style={selectedMentor === m.id ? { background: 'var(--navy)', color: 'white' } : undefined}
                 className={`px-3 py-1.5 rounded-lg text-sm font-mono font-semibold transition ${
@@ -149,6 +161,11 @@ export default function MentorsPage() {
                 {m.code}
               </button>
             ))}
+            {hasGenerated && activeMentors.length < mentors.length && (
+              <span className="self-center text-xs text-gray-400 ml-1">
+                {mentors.length - activeMentors.length} mentor(s) not required for this selection
+              </span>
+            )}
           </div>
 
           {selectedMentorObj && (
