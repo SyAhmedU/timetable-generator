@@ -1,5 +1,13 @@
 import type { Class, Subject, Mentor, TimetableSlot, Timetable } from './types';
 
+// Subjects that must only occupy session 7 (the last period) each day
+const LAST_SESSION_KEYWORDS = ['mentor hour', 'pet', 'library hour', 'library'];
+
+function isLastSessionOnly(name: string): boolean {
+  const lower = name.toLowerCase().trim();
+  return LAST_SESSION_KEYWORDS.some(kw => lower === kw || lower.includes(kw));
+}
+
 interface ClassWithSubjects extends Class {
   subjects: Subject[];
 }
@@ -92,28 +100,27 @@ export function generateTimetable(
       Array<string | null>(8).fill(null)
     );
 
-    // Build expanded queue and shuffle for randomness
-    const queue = shuffle(
-      clsSubjects.flatMap(sub =>
-        Array.from({ length: sub.hoursPerWeek }, () => sub.id)
-      )
-    );
+    // Split subjects: those locked to session 7 vs regular
+    const lastOnlySubs = clsSubjects.filter(s => isLastSessionOnly(s.name));
+    const regularSubs  = clsSubjects.filter(s => !isLastSessionOnly(s.name));
 
     // Track how many times each subject appears per day (for spreading)
     const subjectDayCount = new Map<string, Map<number, number>>(
       clsSubjects.map(s => [s.id, new Map()])
     );
 
-    for (const subjectId of queue) {
+    // Place regular subjects in sessions 1–6 only
+    const regularQueue = shuffle(
+      regularSubs.flatMap(sub => Array.from({ length: sub.hoursPerWeek }, () => sub.id))
+    );
+    for (const subjectId of regularQueue) {
       const dayCount = subjectDayCount.get(subjectId)!;
-      // Sort days by how often this subject already appears there (prefer low-count days)
       const days = [1, 2, 3, 4, 5].sort(
         (a, b) => (dayCount.get(a) ?? 0) - (dayCount.get(b) ?? 0)
       );
-
       let placed = false;
       outer: for (const day of days) {
-        for (let session = 1; session <= 7; session++) {
+        for (let session = 1; session <= 6; session++) {  // sessions 1–6 only
           if (!grid[day][session]) {
             grid[day][session] = subjectId;
             dayCount.set(day, (dayCount.get(day) ?? 0) + 1);
@@ -124,6 +131,30 @@ export function generateTimetable(
       }
       if (!placed) {
         warnings.push(`${cls.shortName}: could not place all sessions for "${subjectId}" — reduce hours`);
+      }
+    }
+
+    // Place last-session-only subjects strictly in session 7
+    const lastQueue = shuffle(
+      lastOnlySubs.flatMap(sub => Array.from({ length: sub.hoursPerWeek }, () => sub.id))
+    );
+    for (const subjectId of lastQueue) {
+      const sub = lastOnlySubs.find(s => s.id === subjectId)!;
+      const dayCount = subjectDayCount.get(subjectId)!;
+      const days = [1, 2, 3, 4, 5].sort(
+        (a, b) => (dayCount.get(a) ?? 0) - (dayCount.get(b) ?? 0)
+      );
+      let placed = false;
+      for (const day of days) {
+        if (!grid[day][7]) {
+          grid[day][7] = subjectId;
+          dayCount.set(day, (dayCount.get(day) ?? 0) + 1);
+          placed = true;
+          break;
+        }
+      }
+      if (!placed) {
+        warnings.push(`${cls.shortName}: could not place "${sub.name}" in session 7 — all 5 days' session 7 slots are taken`);
       }
     }
 
