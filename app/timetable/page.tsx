@@ -27,13 +27,15 @@ const SESSION_INFO = [
 ];
 
 export default function TimetablePage() {
-  const [classes, setClasses]         = useState<Class[]>([]);
-  const [subjects, setSubjects]       = useState<Subject[]>([]);
-  const [mentors, setMentors]         = useState<Mentor[]>([]);
-  const [timetable, setTimetable]     = useState<TimetableState | null>(null);
-  const [selectedClass, setSelected]  = useState('');
-  const [generating, setGenerating]   = useState(false);
-  const [showMentors, setShowMentors] = useState(true);
+  const [classes, setClasses]               = useState<Class[]>([]);
+  const [subjects, setSubjects]             = useState<Subject[]>([]);
+  const [mentors, setMentors]               = useState<Mentor[]>([]);
+  const [timetable, setTimetable]           = useState<TimetableState | null>(null);
+  const [selectedClass, setSelected]        = useState('');
+  const [generating, setGenerating]         = useState(false);
+  const [showMentors, setShowMentors]       = useState(true);
+  const [activeIds, setActiveIds]           = useState<Set<string>>(new Set());
+  const [showClassPicker, setShowPicker]    = useState(false);
 
   useEffect(() => {
     const cls = getClasses();
@@ -41,8 +43,16 @@ export default function TimetablePage() {
     setSubjects(getSubjects());
     setMentors(getMentors());
     setTimetable(getTimetable());
+    setActiveIds(new Set(cls.map(c => c.id)));
     if (cls.length) setSelected(cls[0].id);
   }, []);
+
+  const toggleClass = (id: string) =>
+    setActiveIds(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
 
   const generate = () => {
     setGenerating(true);
@@ -50,13 +60,16 @@ export default function TimetablePage() {
       const cls = getClasses();
       const sub = getSubjects();
       const men = getMentors();
-      const tt  = generateTimetable(cls, sub, men);
+      const filteredCls = cls.filter(c => activeIds.has(c.id));
+      const filteredSub = sub.filter(s => activeIds.has(s.classId));
+      const tt  = generateTimetable(filteredCls, filteredSub, men);
       saveTimetable(tt);
       setTimetable(tt);
       setClasses(cls);
       setSubjects(sub);
       setMentors(men);
-      if (cls.length && !selectedClass) setSelected(cls[0].id);
+      const firstActive = filteredCls[0];
+      if (firstActive) setSelected(firstActive.id);
       setGenerating(false);
     }, 10);
   };
@@ -238,13 +251,64 @@ export default function TimetablePage() {
               </button>
             </>
           )}
-          <button onClick={generate} disabled={generating}
-            style={!generating ? { background: 'var(--navy)' } : undefined}
+          <button
+            onClick={() => setShowPicker(v => !v)}
+            className={`px-3 py-2 rounded-lg text-sm font-semibold border transition ${
+              showClassPicker
+                ? 'bg-indigo-50 border-indigo-300 text-indigo-700'
+                : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+            }`}>
+            🏫 Classes&nbsp;
+            <span className={`text-xs px-1.5 py-0.5 rounded-full font-bold ${
+              activeIds.size < classes.length ? 'bg-amber-400 text-white' : 'bg-gray-200 text-gray-600'
+            }`}>
+              {activeIds.size}/{classes.length}
+            </span>
+          </button>
+          <button onClick={generate} disabled={generating || activeIds.size === 0}
+            style={!generating && activeIds.size > 0 ? { background: 'var(--navy)' } : undefined}
             className="px-5 py-2 rounded-lg text-sm font-bold text-white hover:opacity-90 disabled:opacity-50 disabled:bg-gray-400 transition">
             {generating ? '⏳ Generating…' : timetable?.generated ? '🔄 Re-generate' : '⚡ Generate Timetable'}
           </button>
         </div>
       </div>
+
+      {/* ── Class picker panel ───────────────────────────────────────────── */}
+      {showClassPicker && (
+        <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm no-print">
+          <div className="flex items-center justify-between mb-3">
+            <p className="font-semibold text-sm text-gray-700">Select classes to include in generation</p>
+            <div className="flex gap-2">
+              <button onClick={() => setActiveIds(new Set(classes.map(c => c.id)))}
+                className="text-xs text-indigo-600 hover:underline">Select all</button>
+              <span className="text-gray-300">|</span>
+              <button onClick={() => setActiveIds(new Set())}
+                className="text-xs text-gray-400 hover:underline">Clear all</button>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {classes.map(c => (
+              <label key={c.id}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm cursor-pointer select-none transition ${
+                  activeIds.has(c.id)
+                    ? 'bg-indigo-50 border-indigo-300 text-indigo-800 font-semibold'
+                    : 'bg-gray-50 border-gray-200 text-gray-400'
+                }`}>
+                <input
+                  type="checkbox"
+                  checked={activeIds.has(c.id)}
+                  onChange={() => toggleClass(c.id)}
+                  className="accent-indigo-600"
+                />
+                {c.shortName}
+              </label>
+            ))}
+          </div>
+          {activeIds.size === 0 && (
+            <p className="text-xs text-red-500 mt-2">Select at least one class to generate.</p>
+          )}
+        </div>
+      )}
 
       {/* ── Warnings ─────────────────────────────────────────────────────── */}
       {timetable?.warnings && timetable.warnings.length > 0 && (
@@ -291,17 +355,19 @@ export default function TimetablePage() {
             </div>
           </div>
 
-          {/* Class tabs */}
+          {/* Class tabs — only show classes included in this generation */}
           <div className="flex gap-1.5 flex-wrap no-print">
-            {classes.map(c => (
-              <button key={c.id} onClick={() => setSelected(c.id)}
-                style={selectedClass === c.id ? { background: 'var(--navy)', color: 'white' } : undefined}
-                className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition ${
-                  selectedClass === c.id ? '' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-                }`}>
-                {c.shortName}
-              </button>
-            ))}
+            {classes
+              .filter(c => timetable.slots.some(s => s.classId === c.id))
+              .map(c => (
+                <button key={c.id} onClick={() => setSelected(c.id)}
+                  style={selectedClass === c.id ? { background: 'var(--navy)', color: 'white' } : undefined}
+                  className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition ${
+                    selectedClass === c.id ? '' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
+                  }`}>
+                  {c.shortName}
+                </button>
+              ))}
           </div>
 
           {/* Calendar grid */}
