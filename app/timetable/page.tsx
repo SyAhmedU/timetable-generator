@@ -62,7 +62,43 @@ export default function TimetablePage() {
       const men = getMentors();
       const filteredCls = cls.filter(c => activeIds.has(c.id));
       const filteredSub = sub.filter(s => activeIds.has(s.classId));
-      const tt  = generateTimetable(filteredCls, filteredSub, men);
+
+      // Calculate demand per category from selected subjects only
+      const demand: Record<string, number> = {};
+      for (const s of filteredSub) {
+        if (s.category === 'NA') continue;
+        demand[s.category] = (demand[s.category] ?? 0) + s.hoursPerWeek;
+      }
+
+      // Minimum mentors per category = ceil(demand / maxHoursPerWeek)
+      // DS mentors also cover CS overflow — give them a combined budget
+      const csDemand = demand['CS'] ?? 0;
+      const dsDemand = demand['DS'] ?? 0;
+      const combinedCsDs = csDemand + dsDemand;
+
+      const filteredMen = men.filter(m => {
+        if (m.category === 'NA') return false;
+
+        if (m.category === 'CS' || m.category === 'DS') {
+          // Pool CS+DS mentors together; take enough to cover combined demand
+          const pool = men.filter(x => x.category === 'CS' || x.category === 'DS');
+          if (combinedCsDs === 0) return false;
+          const needed = Math.min(pool.length, Math.ceil(combinedCsDs / m.maxHoursPerWeek));
+          // Keep DS mentors first (they handle both), then CS
+          const sorted = [...pool].sort((a, b) =>
+            (a.category === 'DS' ? 0 : 1) - (b.category === 'DS' ? 0 : 1)
+          );
+          return sorted.indexOf(m) < needed;
+        }
+
+        const catDemand = demand[m.category] ?? 0;
+        if (catDemand === 0) return false;
+        const pool = men.filter(x => x.category === m.category);
+        const needed = Math.min(pool.length, Math.ceil(catDemand / m.maxHoursPerWeek));
+        return pool.indexOf(m) < needed;
+      });
+
+      const tt  = generateTimetable(filteredCls, filteredSub, filteredMen);
       saveTimetable(tt);
       setTimetable(tt);
       setClasses(cls);
