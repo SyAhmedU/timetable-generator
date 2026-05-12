@@ -109,7 +109,8 @@ export function generateTimetable(
       clsSubjects.map(s => [s.id, new Map()])
     );
 
-    // Place regular subjects in sessions 1–6 only
+    // Place regular subjects in sessions 1–7, but session 7 slots already
+    // reserved by NA subjects are blocked by the grid check.
     const regularQueue = shuffle(
       regularSubs.flatMap(sub => Array.from({ length: sub.hoursPerWeek }, () => sub.id))
     );
@@ -120,7 +121,7 @@ export function generateTimetable(
       );
       let placed = false;
       outer: for (const day of days) {
-        for (let session = 1; session <= 6; session++) {  // sessions 1–6 only
+        for (let session = 1; session <= 7; session++) {
           if (!grid[day][session]) {
             grid[day][session] = subjectId;
             dayCount.set(day, (dayCount.get(day) ?? 0) + 1);
