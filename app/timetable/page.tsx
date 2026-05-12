@@ -71,23 +71,34 @@ export default function TimetablePage() {
         demand[s.category] = (demand[s.category] ?? 0) + s.hoursPerWeek;
       }
 
-      // Minimum mentors per category = ceil(demand / maxHoursPerWeek)
-      // DS mentors also cover CS overflow — give them a combined budget
-      const csDemand = demand['CS'] ?? 0;
-      const dsDemand = demand['DS'] ?? 0;
-      const combinedCsDs = csDemand + dsDemand;
+      // Minimum mentors = ceil(demand / maxHoursPerWeek) per category.
+      // Fallback pools (mirrors generator fallback logic):
+      //   CS + DS share a combined budget (DS covers both)
+      //   MANAGEMENT + COMMERCE share a combined budget (COMMERCE covers both)
+      const combinedCsDs   = (demand['CS'] ?? 0) + (demand['DS'] ?? 0);
+      const combinedMgmCom = (demand['MANAGEMENT'] ?? 0) + (demand['COMMERCE'] ?? 0);
 
       const filteredMen = men.filter(m => {
         if (m.category === 'NA') return false;
 
         if (m.category === 'CS' || m.category === 'DS') {
-          // Pool CS+DS mentors together; take enough to cover combined demand
           const pool = men.filter(x => x.category === 'CS' || x.category === 'DS');
           if (combinedCsDs === 0) return false;
           const needed = Math.min(pool.length, Math.ceil(combinedCsDs / m.maxHoursPerWeek));
-          // Keep DS mentors first (they handle both), then CS
+          // DS mentors first (handle both CS and DS)
           const sorted = [...pool].sort((a, b) =>
             (a.category === 'DS' ? 0 : 1) - (b.category === 'DS' ? 0 : 1)
+          );
+          return sorted.indexOf(m) < needed;
+        }
+
+        if (m.category === 'MANAGEMENT' || m.category === 'COMMERCE') {
+          const pool = men.filter(x => x.category === 'MANAGEMENT' || x.category === 'COMMERCE');
+          if (combinedMgmCom === 0) return false;
+          const needed = Math.min(pool.length, Math.ceil(combinedMgmCom / m.maxHoursPerWeek));
+          // MANAGEMENT mentors first (primary), then COMMERCE
+          const sorted = [...pool].sort((a, b) =>
+            (a.category === 'MANAGEMENT' ? 0 : 1) - (b.category === 'MANAGEMENT' ? 0 : 1)
           );
           return sorted.indexOf(m) < needed;
         }

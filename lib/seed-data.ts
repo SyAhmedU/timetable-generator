@@ -2,7 +2,7 @@ import type { Class, Subject, Mentor, Timetable } from './types';
 
 // Bump this string whenever seed data changes — triggers auto-reset in browsers
 // with stale localStorage from a previous version.
-export const SEED_VERSION = 'v9-reorder-mentor-opt';
+export const SEED_VERSION = 'v10-commerce-mgmt-fallback';
 
 export const SEED_CLASSES: Class[] = [
   // Year 3 first
@@ -173,10 +173,8 @@ export const SEED_MENTORS: Mentor[] = [
   { id: 'm_ds1',   code: 'DS1',   name: 'DS Mentor 1',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
   { id: 'm_ds2',   code: 'DS2',   name: 'DS Mentor 2',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
   { id: 'm_ds3',   code: 'DS3',   name: 'DS Mentor 3',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
-  // Management mentors — 3 (~45 hrs/wk demand; ~15 hrs/mentor)
+  // Management mentor — 1 (covers ~20 hrs; commerce mentors handle remaining ~25 hrs via fallback)
   { id: 'm_mg1',   code: 'MG1',   name: 'Management Mentor 1', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'          },
-  { id: 'm_mg2',   code: 'MG2',   name: 'Management Mentor 2', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'          },
-  { id: 'm_mg3',   code: 'MG3',   name: 'Management Mentor 3', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'          },
   // English mentors — 4 (~63 hrs/wk demand; ~16 hrs/mentor)
   { id: 'm_eng1',  code: 'ENG1',  name: 'English Mentor 1',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
   { id: 'm_eng2',  code: 'ENG2',  name: 'English Mentor 2',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
@@ -186,10 +184,11 @@ export const SEED_MENTORS: Mentor[] = [
   { id: 'm_math1', code: 'MATH1', name: 'Math Mentor 1',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math'   },
   { id: 'm_math2', code: 'MATH2', name: 'Math Mentor 2',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math'   },
   { id: 'm_math3', code: 'MATH3', name: 'Math Mentor 3',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math'   },
-  // Commerce mentors — 3 (~55 hrs/wk demand; ~18 hrs/mentor)
+  // Commerce mentors — 4 (~55 hrs commerce + ~25 hrs management overflow = ~80 hrs; ~20 hrs/mentor)
   { id: 'm_com1',  code: 'COM1',  name: 'Commerce Mentor 1',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
   { id: 'm_com2',  code: 'COM2',  name: 'Commerce Mentor 2',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
   { id: 'm_com3',  code: 'COM3',  name: 'Commerce Mentor 3',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
+  { id: 'm_com4',  code: 'COM4',  name: 'Commerce Mentor 4',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
 ];
 
 export const EMPTY_TIMETABLE: Timetable = {

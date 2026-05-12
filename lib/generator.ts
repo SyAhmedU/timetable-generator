@@ -59,12 +59,16 @@ export function generateTimetable(
       }
     }
 
-    // Build candidate pool: primary category first, then DS mentors as fallback for CS
+    // Build candidate pool: primary category first, then fallback:
+    //   CS  → DS mentors as fallback
+    //   MANAGEMENT → COMMERCE mentors as fallback
     const primaryMentors = mentors.filter(m => m.category === category);
     const candidatePool =
       category === 'CS'
         ? [...primaryMentors, ...mentors.filter(m => m.category === 'DS')]
-        : primaryMentors;
+        : category === 'MANAGEMENT'
+          ? [...primaryMentors, ...mentors.filter(m => m.category === 'COMMERCE')]
+          : primaryMentors;
 
     const eligible = candidatePool
       .filter(m =>
@@ -77,14 +81,18 @@ export function generateTimetable(
     if (primaryMentors.length === 0) {
       return { id: null, reason: `no ${category} mentors exist on roster` };
     }
+    const fallbackLabel =
+      category === 'CS' ? `${category}/DS` :
+      category === 'MANAGEMENT' ? `${category}/COMMERCE` :
+      category;
     const atCapacity = candidatePool.filter(
       m => (mentorHours.get(m.id) ?? 0) >= m.maxHoursPerWeek
     );
     const busyAtSlot = candidatePool.filter(m => isBusy(m.id, day, session));
     if (atCapacity.length === candidatePool.length) {
-      return { id: null, reason: `all ${candidatePool.length} ${category}/DS mentor(s) have reached weekly capacity` };
+      return { id: null, reason: `all ${candidatePool.length} ${fallbackLabel} mentor(s) have reached weekly capacity` };
     }
-    return { id: null, reason: `all ${busyAtSlot.length}/${candidatePool.length} ${category}/DS mentor(s) are booked at this slot` };
+    return { id: null, reason: `all ${busyAtSlot.length}/${candidatePool.length} ${fallbackLabel} mentor(s) are booked at this slot` };
   };
 
   // Group subjects by class
