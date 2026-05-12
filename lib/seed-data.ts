@@ -2,7 +2,7 @@ import type { Class, Subject, Mentor, Timetable } from './types';
 
 // Bump this string whenever seed data changes — triggers auto-reset in browsers
 // with stale localStorage from a previous version.
-export const SEED_VERSION = 'v4-extra-mentors';
+export const SEED_VERSION = 'v5-capacity-fix';
 
 export const SEED_CLASSES: Class[] = [
   { id: 'cls_aiml3',    name: 'III B.Sc. AI-ML',              shortName: 'AIML-III',   year: 3, semester: 5, group: null,      departmentId: 'ACS',  studentCount: null },
@@ -145,23 +145,35 @@ export const SEED_MENTORS: Mentor[] = [
   { id: 'm_mt1',   code: 'MT1',   name: 'MTech Mentor 1',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
   { id: 'm_mt2',   code: 'MT2',   name: 'MTech Mentor 2',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
   { id: 'm_mt3',   code: 'MT3',   name: 'MTech Mentor 3',      category: 'MTECH',      departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech'     },
-  // Management mentor (single — handles BBA strategic/operational subjects + cross-dept RTA)
-  { id: 'm_mg1',   code: 'MG1',   name: 'Management Mentor',   category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
-  // English mentors (3 needed — 11 classes, high concurrency risk with only 2)
+  // Management mentors (2 — AIML-III RTA + BBA-II PS/SM/CAP can clash simultaneously)
+  { id: 'm_mg1',   code: 'MG1',   name: 'Management Mentor 1', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
+  { id: 'm_mg2',   code: 'MG2',   name: 'Management Mentor 2', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'        },
+  // English mentors (5 — 11 classes × up to 6 hrs each; 3 caused frequent concurrency failures)
   { id: 'm_eng1',  code: 'ENG1',  name: 'English Mentor 1',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
   { id: 'm_eng2',  code: 'ENG2',  name: 'English Mentor 2',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
   { id: 'm_eng3',  code: 'ENG3',  name: 'English Mentor 3',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
-  // Math mentors
+  { id: 'm_eng4',  code: 'ENG4',  name: 'English Mentor 4',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
+  { id: 'm_eng5',  code: 'ENG5',  name: 'English Mentor 5',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'  },
+  // Math mentors (4 — G1/G2 pairs from 3 courses can clash; 2 was insufficient)
   { id: 'm_math1', code: 'MATH1', name: 'Math Mentor 1',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math' },
   { id: 'm_math2', code: 'MATH2', name: 'Math Mentor 2',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math' },
-  // Commerce mentors (4 needed — 79 h/wk demand, 3 mentors only cover 60 h)
+  { id: 'm_math3', code: 'MATH3', name: 'Math Mentor 3',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math' },
+  { id: 'm_math4', code: 'MATH4', name: 'Math Mentor 4',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math' },
+  // Commerce mentors (4 — 79 h/wk demand across BCOM/BBA)
   { id: 'm_com1',  code: 'COM1',  name: 'Commerce Mentor 1',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'     },
   { id: 'm_com2',  code: 'COM2',  name: 'Commerce Mentor 2',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'     },
   { id: 'm_com3',  code: 'COM3',  name: 'Commerce Mentor 3',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'     },
   { id: 'm_com4',  code: 'COM4',  name: 'Commerce Mentor 4',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'     },
-  // Aptitude mentors
+  // Aptitude mentors (3 — 9 classes with aptitude; 2 caused slot clashes)
   { id: 'm_apt1',  code: 'APT1',  name: 'Aptitude Mentor 1',   category: 'APTITUDE',   departmentId: null,   maxHoursPerWeek: 20, qualification: 'B.E./M.Sc.' },
   { id: 'm_apt2',  code: 'APT2',  name: 'Aptitude Mentor 2',   category: 'APTITUDE',   departmentId: null,   maxHoursPerWeek: 20, qualification: 'B.E./M.Sc.' },
+  { id: 'm_apt3',  code: 'APT3',  name: 'Aptitude Mentor 3',   category: 'APTITUDE',   departmentId: null,   maxHoursPerWeek: 20, qualification: 'B.E./M.Sc.' },
+  // NA mentors — handle PET, Library Hour, Mentor Hour (session 7 only; 11 classes need concurrent coverage)
+  { id: 'm_na1',   code: 'NA1',   name: 'NA Mentor 1',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
+  { id: 'm_na2',   code: 'NA2',   name: 'NA Mentor 2',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
+  { id: 'm_na3',   code: 'NA3',   name: 'NA Mentor 3',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
+  { id: 'm_na4',   code: 'NA4',   name: 'NA Mentor 4',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
+  { id: 'm_na5',   code: 'NA5',   name: 'NA Mentor 5',         category: 'NA',         departmentId: null,   maxHoursPerWeek: 20, qualification: null         },
 ];
 
 export const EMPTY_TIMETABLE: Timetable = {
