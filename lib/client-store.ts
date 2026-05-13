@@ -34,6 +34,7 @@ export const getClasses    = (): Class[]         => read('tt_classes',     SEED_
 export const getSubjects   = (): Subject[]        => read('tt_subjects',    SEED_SUBJECTS);
 export const getMentors    = (): Mentor[]          => read('tt_mentors',     SEED_MENTORS);
 export const getTimetable  = (): Timetable         => read('tt_timetable',   EMPTY_TIMETABLE);
+export const getPrevTimetable = (): Timetable | null => read<Timetable | null>('tt_timetable_prev', null);
 export const getAbsenceLog = (): AbsenceRecord[]   => read('tt_absence',     []);
 
 // ── Writers ──────────────────────────────────────────────────────────────────
@@ -41,6 +42,8 @@ export const saveSubjects   = (s: Subject[])    => write('tt_subjects',  s);
 export const saveMentors    = (m: Mentor[])      => write('tt_mentors',   m);
 export const saveTimetable  = (t: Timetable)     => write('tt_timetable', t);
 export const clearTimetable = ()                 => write('tt_timetable', EMPTY_TIMETABLE);
+export const backupTimetable = ()                => { const t = getTimetable(); if (t.generated) write('tt_timetable_prev', t); };
+export const restorePrevTimetable = ()           => { const p = getPrevTimetable(); if (p) write('tt_timetable', p); };
 export const saveAbsenceLog = (l: AbsenceRecord[]) => write('tt_absence', l);
 
 // ── Subject helpers ───────────────────────────────────────────────────────────

@@ -5,6 +5,7 @@ import type { Class, Subject, Mentor, TimetableSlot, DepartmentCode } from '@/li
 import { DAYS, CATEGORY_COLORS, DEPT_LABELS } from '@/lib/types';
 import {
   getClasses, getSubjects, getMentors, getTimetable, saveTimetable, clearTimetable,
+  backupTimetable, getPrevTimetable,
 } from '@/lib/client-store';
 import { generateTimetable } from '@/lib/generator';
 import { exportTimetableExcel } from '@/lib/client-export';
@@ -34,6 +35,7 @@ export default function TimetablePage() {
   const [selectedClass, setSelected]        = useState('');
   const [generating, setGenerating]         = useState(false);
   const [genAttempts, setGenAttempts]       = useState(0);
+  const [hasPrev, setHasPrev]               = useState(false);
   const [showMentors, setShowMentors]       = useState(true);
   const [activeIds, setActiveIds]           = useState<Set<string>>(new Set());
   const [showClassPicker, setShowPicker]    = useState(false);
@@ -45,6 +47,7 @@ export default function TimetablePage() {
     setMentors(getMentors());
     setTimetable(getTimetable());
     setActiveIds(new Set(cls.map(c => c.id)));
+    setHasPrev(!!getPrevTimetable()?.generated);
     if (cls.length) setSelected(cls[0].id);
   }, []);
 
@@ -55,7 +58,24 @@ export default function TimetablePage() {
       return next;
     });
 
+  const restorePrev = () => {
+    const prev = getPrevTimetable();
+    if (!prev) return;
+    saveTimetable(prev);
+    setTimetable(prev);
+    setGenAttempts(0);
+    const cls = getClasses();
+    setClasses(cls);
+    setSubjects(getSubjects());
+    setMentors(getMentors());
+    const firstWithSlot = cls.find(c => prev.slots.some(s => s.classId === c.id));
+    if (firstWithSlot) setSelected(firstWithSlot.id);
+  };
+
   const generate = () => {
+    // Backup current timetable before overwriting
+    backupTimetable();
+    setHasPrev(true);
     setGenerating(true);
     setTimeout(() => {
       const cls = getClasses();
@@ -309,6 +329,12 @@ export default function TimetablePage() {
                 🗑 Clear
               </button>
             </>
+          )}
+          {hasPrev && (
+            <button onClick={restorePrev}
+              className="px-3 py-2 rounded-lg text-sm font-semibold border border-amber-300 bg-amber-50 text-amber-700 hover:bg-amber-100 transition">
+              ↩ Restore Previous
+            </button>
           )}
           <button
             onClick={() => setShowPicker(v => !v)}
