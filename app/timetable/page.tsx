@@ -76,13 +76,22 @@ export default function TimetablePage() {
     // Backup current timetable before overwriting
     backupTimetable();
     setHasPrev(true);
+    // Clear the display immediately so no stale slots show during generation
+    setTimetable({ generated: false, generatedAt: null, slots: [], warnings: [] });
     setGenerating(true);
     setTimeout(() => {
+      // Read fresh from localStorage so any Setup edits are picked up
       const cls = getClasses();
       const sub = getSubjects();
       const men = getMentors();
+
+      // Sync React state immediately so subjectMap/mentorMap are up to date
+      setClasses(cls);
+      setSubjects(sub);
+      setMentors(men);
+
       const filteredCls = cls.filter(c => activeIds.has(c.id));
-      const filteredSub = sub.filter(s => activeIds.has(s.classId));
+      const filteredSub = sub.filter(s => activeIds.has(s.classId) && s.hoursPerWeek > 0);
 
       // Calculate demand per category from selected subjects only
       const demand: Record<string, number> = {};
@@ -131,9 +140,6 @@ export default function TimetablePage() {
       saveTimetable(best);
       setTimetable(best);
       setGenAttempts(attempts);
-      setClasses(cls);
-      setSubjects(sub);
-      setMentors(men);
       const firstActive = filteredCls[0];
       if (firstActive) setSelected(firstActive.id);
       setGenerating(false);
