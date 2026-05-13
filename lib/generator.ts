@@ -175,9 +175,11 @@ export function generateTimetable(
     }
 
     // ── Phase 2: assign mentors per slot ────────────────────────────────────
-    // classSubjectMentor: tracks which mentor was assigned to each subject so far
-    // (enables consistency and theory→lab linking)
-    const classSubjectMentor = new Map<string, string | null>();
+    // classSubjectMentor: per-subject-id consistency within this class
+    // classCategoryMentor: once a mentor is picked for a category in this class,
+    //   all remaining subjects of that category go to the same mentor
+    const classSubjectMentor  = new Map<string, string | null>();
+    const classCategoryMentor = new Map<string, string>();
 
     for (let day = 1; day <= 5; day++) {
       for (let session = 1; session <= 7; session++) {
@@ -187,19 +189,19 @@ export function generateTimetable(
         const sub = clsSubjects.find(s => s.id === subjectId);
         if (!sub) continue;
 
-        // Determine preferred mentor:
-        // 1. Cross-class: same subject name already assigned elsewhere → reuse that mentor
-        // 2. Within-class: previously assigned for this subject → keep consistent
-        // 3. Lab: prefer theory subject's mentor
+        // Preference priority:
+        // 1. Same category already assigned in this class → concentrate subjects on one mentor
+        // 2. Same subject name assigned in another class → cross-class consistency
+        // 3. Lab → prefer theory subject's mentor
         let prefer: string | undefined;
         const normName = sub.name.toLowerCase().trim();
-        const crossClass = subjectNameMentor.get(normName);
-        if (crossClass) {
-          prefer = crossClass;
+        const catMentor = classCategoryMentor.get(sub.category);
+        if (catMentor) {
+          prefer = catMentor;
         } else {
-          const prev = classSubjectMentor.get(subjectId);
-          if (prev) {
-            prefer = prev;
+          const crossClass = subjectNameMentor.get(normName);
+          if (crossClass) {
+            prefer = crossClass;
           } else if (sub.isLab && sub.labForSubjectId) {
             const theoryMentor = classSubjectMentor.get(sub.labForSubjectId);
             if (theoryMentor) prefer = theoryMentor;
@@ -218,6 +220,10 @@ export function generateTimetable(
           markBusy(mentorId, day, session);
           if (!classSubjectMentor.has(subjectId)) {
             classSubjectMentor.set(subjectId, mentorId);
+          }
+          // Lock this mentor as the category mentor for this class
+          if (!classCategoryMentor.has(sub.category)) {
+            classCategoryMentor.set(sub.category, mentorId);
           }
           // Record cross-class assignment so same mentor is preferred in later classes
           if (!subjectNameMentor.has(normName)) {
