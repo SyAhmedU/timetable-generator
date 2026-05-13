@@ -98,6 +98,10 @@ export function generateTimetable(
     subjectsByClass.get(sub.classId)?.push(sub);
   }
 
+  // Cross-class consistency: subject name (lowercase) → mentorId
+  // Once a mentor teaches "Operating Systems" for one class, they're preferred for all others.
+  const subjectNameMentor = new Map<string, string>();
+
   for (const cls of classes) {
     const clsSubjects = subjectsByClass.get(cls.id) ?? [];
     const totalHours = clsSubjects.reduce((s, sub) => s + sub.hoursPerWeek, 0);
@@ -184,15 +188,22 @@ export function generateTimetable(
         if (!sub) continue;
 
         // Determine preferred mentor:
-        // 1. If previously assigned in this class, prefer consistency
-        // 2. If lab, prefer theory subject's mentor
+        // 1. Cross-class: same subject name already assigned elsewhere → reuse that mentor
+        // 2. Within-class: previously assigned for this subject → keep consistent
+        // 3. Lab: prefer theory subject's mentor
         let prefer: string | undefined;
-        const prev = classSubjectMentor.get(subjectId);
-        if (prev) {
-          prefer = prev;
-        } else if (sub.isLab && sub.labForSubjectId) {
-          const theoryMentor = classSubjectMentor.get(sub.labForSubjectId);
-          if (theoryMentor) prefer = theoryMentor;
+        const normName = sub.name.toLowerCase().trim();
+        const crossClass = subjectNameMentor.get(normName);
+        if (crossClass) {
+          prefer = crossClass;
+        } else {
+          const prev = classSubjectMentor.get(subjectId);
+          if (prev) {
+            prefer = prev;
+          } else if (sub.isLab && sub.labForSubjectId) {
+            const theoryMentor = classSubjectMentor.get(sub.labForSubjectId);
+            if (theoryMentor) prefer = theoryMentor;
+          }
         }
 
         // NA-category subjects (PET, Library Hour, Mentor Hour) need no mentor
@@ -205,9 +216,12 @@ export function generateTimetable(
 
         if (mentorId) {
           markBusy(mentorId, day, session);
-          // Only record first assignment for consistency tracking
           if (!classSubjectMentor.has(subjectId)) {
             classSubjectMentor.set(subjectId, mentorId);
+          }
+          // Record cross-class assignment so same mentor is preferred in later classes
+          if (!subjectNameMentor.has(normName)) {
+            subjectNameMentor.set(normName, mentorId);
           }
         } else {
           if (!classSubjectMentor.has(subjectId)) {
