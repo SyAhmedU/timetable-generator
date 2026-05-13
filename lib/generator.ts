@@ -60,15 +60,12 @@ export function generateTimetable(
     }
 
     // Build candidate pool: primary category first, then fallback:
-    //   CS  → DS mentors as fallback
     //   MANAGEMENT → COMMERCE mentors as fallback
     const primaryMentors = mentors.filter(m => m.category === category);
     const candidatePool =
-      category === 'CS'
-        ? [...primaryMentors, ...mentors.filter(m => m.category === 'DS')]
-        : category === 'MANAGEMENT'
-          ? [...primaryMentors, ...mentors.filter(m => m.category === 'COMMERCE')]
-          : primaryMentors;
+      category === 'MANAGEMENT'
+        ? [...primaryMentors, ...mentors.filter(m => m.category === 'COMMERCE')]
+        : primaryMentors;
 
     const eligible = candidatePool
       .filter(m =>
@@ -82,7 +79,6 @@ export function generateTimetable(
       return { id: null, reason: `no ${category} mentors exist on roster` };
     }
     const fallbackLabel =
-      category === 'CS' ? `${category}/DS` :
       category === 'MANAGEMENT' ? `${category}/COMMERCE` :
       category;
     const atCapacity = candidatePool.filter(

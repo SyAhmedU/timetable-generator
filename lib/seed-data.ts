@@ -2,7 +2,7 @@ import type { Class, Subject, Mentor, Timetable } from './types';
 
 // Bump this string whenever seed data changes — triggers auto-reset in browsers
 // with stale localStorage from a previous version.
-export const SEED_VERSION = 'v11-aiml3-icp';
+export const SEED_VERSION = 'v12-strict-cs-ds-separation';
 
 export const SEED_CLASSES: Class[] = [
   // Year 3 first
@@ -165,12 +165,14 @@ export const SEED_SUBJECTS: Subject[] = [
 ];
 
 export const SEED_MENTORS: Mentor[] = [
-  // CS mentors — 4 (handle ~80 hrs; DS mentors cover CS overflow via fallback)
+  // CS mentors — 6 (106 hrs demand / 20 = ceil(5.3) = 6; CS-only, no DS cross-assignment)
   { id: 'm_cs1',   code: 'CS1',   name: 'CS Mentor 1',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
   { id: 'm_cs2',   code: 'CS2',   name: 'CS Mentor 2',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
   { id: 'm_cs3',   code: 'CS3',   name: 'CS Mentor 3',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
   { id: 'm_cs4',   code: 'CS4',   name: 'CS Mentor 4',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
-  // DS mentors — 3 (cover ~27 hrs DS + ~26 hrs CS overflow ≈ 18 hrs/mentor)
+  { id: 'm_cs5',   code: 'CS5',   name: 'CS Mentor 5',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
+  { id: 'm_cs6',   code: 'CS6',   name: 'CS Mentor 6',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
+  // DS mentors — 2 (27 hrs demand / 20 = ceil(1.35) = 2; DS-only, no CS cross-assignment)
   { id: 'm_ds1',   code: 'DS1',   name: 'DS Mentor 1',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
   { id: 'm_ds2',   code: 'DS2',   name: 'DS Mentor 2',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
   { id: 'm_ds3',   code: 'DS3',   name: 'DS Mentor 3',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },

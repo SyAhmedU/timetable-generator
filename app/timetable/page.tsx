@@ -92,25 +92,12 @@ export default function TimetablePage() {
       }
 
       // Minimum mentors = ceil(demand / maxHoursPerWeek) per category.
-      // Fallback pools (mirrors generator fallback logic):
-      //   CS + DS share a combined budget (DS covers both)
-      //   MANAGEMENT + COMMERCE share a combined budget (COMMERCE covers both)
-      const combinedCsDs   = (demand['CS'] ?? 0) + (demand['DS'] ?? 0);
+      // MANAGEMENT + COMMERCE share a combined budget (COMMERCE covers MANAGEMENT overflow).
+      // CS and DS are strictly separate — no cross-assignment.
       const combinedMgmCom = (demand['MANAGEMENT'] ?? 0) + (demand['COMMERCE'] ?? 0);
 
       const filteredMen = men.filter(m => {
         if (m.category === 'NA') return false;
-
-        if (m.category === 'CS' || m.category === 'DS') {
-          const pool = men.filter(x => x.category === 'CS' || x.category === 'DS');
-          if (combinedCsDs === 0) return false;
-          const needed = Math.min(pool.length, Math.ceil(combinedCsDs / m.maxHoursPerWeek));
-          // DS mentors first (handle both CS and DS)
-          const sorted = [...pool].sort((a, b) =>
-            (a.category === 'DS' ? 0 : 1) - (b.category === 'DS' ? 0 : 1)
-          );
-          return sorted.indexOf(m) < needed;
-        }
 
         if (m.category === 'MANAGEMENT' || m.category === 'COMMERCE') {
           const pool = men.filter(x => x.category === 'MANAGEMENT' || x.category === 'COMMERCE');
