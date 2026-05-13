@@ -2,7 +2,7 @@ import type { Class, Subject, Mentor, Timetable } from './types';
 
 // Bump this string whenever seed data changes — triggers auto-reset in browsers
 // with stale localStorage from a previous version.
-export const SEED_VERSION = 'v10-commerce-mgmt-fallback';
+export const SEED_VERSION = 'v11-aiml3-icp';
 
 export const SEED_CLASSES: Class[] = [
   // Year 3 first
@@ -32,6 +32,7 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_aiml3_rl',    classId: 'cls_aiml3', name: 'Reinforcement Learning',                             category: 'DS',         hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
   { id: 's_aiml3_rta',   classId: 'cls_aiml3', name: 'Fundamentals of Recruitment and Talent Acquisition', category: 'MANAGEMENT', hoursPerWeek: 2,  isLab: false, labForSubjectId: null },
   { id: 's_aiml3_apt',   classId: 'cls_aiml3', name: 'Aptitude Training',                                  category: 'MATH',       hoursPerWeek: 3,  isLab: false, labForSubjectId: null },
+  { id: 's_aiml3_icp',   classId: 'cls_aiml3', name: 'Industry Connect Program',                           category: 'DS',         hoursPerWeek: 0,  isLab: false, labForSubjectId: null },
   { id: 's_aiml3_pet',   classId: 'cls_aiml3', name: 'PET',          category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
   { id: 's_aiml3_lib',   classId: 'cls_aiml3', name: 'Library',      category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
   { id: 's_aiml3_mhr',   classId: 'cls_aiml3', name: 'Mentor Hour',  category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
