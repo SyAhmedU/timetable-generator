@@ -23,18 +23,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${geist.variable} h-full`}>
       <body className="min-h-full flex flex-col" style={{ background: 'var(--bg)', color: '#1a202c', fontFamily: 'var(--font-geist), sans-serif' }}>
-        {/* Syed brand bar */}
-        <div style={{ display:'flex',alignItems:'center',gap:10,padding:'0 20px',height:34,background:'#0f172a',borderBottom:'1px solid #1e293b',fontFamily:'inherit',position:'sticky',top:0,zIndex:9999,flexShrink:0 }} className="print:hidden">
-          <a href="https://syahmedu.github.io/nexus/" target="_blank" rel="noopener noreferrer" style={{ display:'flex',alignItems:'center',gap:8,textDecoration:'none',flexShrink:0 }}>
-            <span style={{ width:20,height:20,background:'linear-gradient(135deg,#2563eb,#7c3aed)',borderRadius:5,display:'inline-flex',alignItems:'center',justifyContent:'center',fontSize:'0.68rem',fontWeight:800,color:'#fff' }}>S</span>
-            <span style={{ fontSize:'0.8rem',fontWeight:700,color:'#f8fafc',letterSpacing:'-0.01em' }}>Syed</span>
+        {/* Syed brand bar — Fire */}
+        <style>{`@keyframes syed-glow{0%,100%{box-shadow:0 0 8px rgba(99,102,241,.55),0 0 20px rgba(99,102,241,.2)}50%{box-shadow:0 0 15px rgba(99,102,241,.85),0 0 34px rgba(139,92,246,.4)}}`}</style>
+        <div style={{ display:'flex',alignItems:'center',gap:12,padding:'0 22px',height:42,background:'linear-gradient(135deg,#06090f 0%,#0a0e1a 60%,#08091a 100%)',position:'sticky',top:0,zIndex:9999,flexShrink:0,fontFamily:"'Inter',system-ui,sans-serif",boxShadow:'0 1px 0 rgba(99,102,241,.35),0 2px 16px rgba(99,102,241,.07)' }} className="print:hidden">
+          <a href="https://syahmedu.github.io/nexus/" target="_blank" rel="noopener noreferrer" style={{ display:'flex',alignItems:'center',gap:9,textDecoration:'none',flexShrink:0 }}>
+            <span style={{ width:24,height:24,background:'linear-gradient(135deg,#3b82f6,#8b5cf6)',borderRadius:7,display:'inline-flex',alignItems:'center',justifyContent:'center',fontSize:'0.73rem',fontWeight:800,color:'#fff',flexShrink:0,animation:'syed-glow 3s ease-in-out infinite' }}>S</span>
+            <span style={{ fontSize:'0.85rem',fontWeight:700,background:'linear-gradient(90deg,#e2e8f0,#93c5fd)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text',letterSpacing:'-0.01em' }}>Syed</span>
           </a>
-          <span style={{ color:'#1e293b',margin:'0 2px' }}>·</span>
-          <span style={{ fontSize:'0.73rem',color:'#475569',flex:1,minWidth:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>Timetable Manager</span>
-          <nav style={{ display:'flex',alignItems:'center',marginLeft:'auto',gap:0 }}>
-            <a href="https://syahmedu.github.io/journaltime/" target="_blank" rel="noopener noreferrer" style={{ fontSize:'0.68rem',color:'#334155',textDecoration:'none',padding:'3px 8px',borderRadius:4,whiteSpace:'nowrap' }}>JournalTime</a>
-            <a href="https://scalescope.vercel.app" target="_blank" rel="noopener noreferrer" style={{ fontSize:'0.68rem',color:'#334155',textDecoration:'none',padding:'3px 8px',borderRadius:4,whiteSpace:'nowrap' }}>ScaleScope</a>
-            <a href="https://syahmedu.github.io/nexus/" target="_blank" rel="noopener noreferrer" style={{ fontSize:'0.68rem',color:'#60a5fa',fontWeight:600,textDecoration:'none',padding:'3px 8px',borderRadius:4,whiteSpace:'nowrap' }}>All Projects →</a>
+          <span style={{ width:1,height:16,background:'#1a2d48',flexShrink:0,margin:'0 4px' }} />
+          <span style={{ fontSize:'0.74rem',color:'#607090',fontWeight:500,flex:1,minWidth:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap' }}>Timetable Manager</span>
+          <nav style={{ display:'flex',alignItems:'center',marginLeft:'auto',gap:2 }}>
+            <a href="https://syahmedu.github.io/journaltime/" target="_blank" rel="noopener noreferrer" style={{ fontSize:'0.71rem',color:'#7090b0',textDecoration:'none',padding:'5px 10px',borderRadius:6,whiteSpace:'nowrap',fontWeight:500 }}>JournalTime</a>
+            <a href="https://scalescope.vercel.app" target="_blank" rel="noopener noreferrer" style={{ fontSize:'0.71rem',color:'#7090b0',textDecoration:'none',padding:'5px 10px',borderRadius:6,whiteSpace:'nowrap',fontWeight:500 }}>ScaleScope</a>
+            <a href="https://syahmedu.github.io/nexus/" target="_blank" rel="noopener noreferrer" style={{ fontSize:'0.71rem',fontWeight:700,textDecoration:'none',padding:'5px 10px',borderRadius:6,background:'linear-gradient(90deg,#60a5fa,#a78bfa)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text',whiteSpace:'nowrap' }}>All Projects →</a>
           </nav>
         </div>
         <header style={{ background: 'var(--navy)' }} className="shadow-xl print:hidden">
