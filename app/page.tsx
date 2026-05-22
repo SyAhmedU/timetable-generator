@@ -30,6 +30,32 @@ export default function DashboardPage() {
   const deptCounts: Partial<Record<DepartmentCode, number>> = {};
   for (const c of classes) deptCounts[c.departmentId] = (deptCounts[c.departmentId] ?? 0) + 1;
 
+  // Mentor workload & double-booking detection
+  const mentorHours: Record<string, number> = {};
+  const doubleBookings: Array<{ mentorId: string; day: number; session: number }> = [];
+  if (timetable.generated) {
+    for (const slot of timetable.slots) {
+      if (slot.mentorId) mentorHours[slot.mentorId] = (mentorHours[slot.mentorId] ?? 0) + 1;
+    }
+    const seen: Record<string, string> = {};
+    for (const slot of timetable.slots) {
+      if (!slot.mentorId) continue;
+      const key = `${slot.mentorId}-${slot.day}-${slot.session}`;
+      if (seen[key] !== undefined && seen[key] !== slot.classId) {
+        if (!doubleBookings.find(d => d.mentorId === slot.mentorId && d.day === slot.day && d.session === slot.session))
+          doubleBookings.push({ mentorId: slot.mentorId, day: slot.day, session: slot.session });
+      } else {
+        seen[key] = slot.classId;
+      }
+    }
+  }
+  const overloadedMentors = mentors.filter(m => (mentorHours[m.id] ?? 0) > m.maxHoursPerWeek);
+  const nearLimitMentors  = mentors.filter(m => {
+    const h = mentorHours[m.id] ?? 0;
+    return h > 0 && h <= m.maxHoursPerWeek && h / m.maxHoursPerWeek >= 0.85;
+  });
+  const DAYS_SHORT = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+
   const kpis = [
     { label: 'Classes',          value: classes.length,         sub: '11 total'           },
     { label: 'Subjects',         value: subjects.length,        sub: 'across all classes'  },
@@ -134,6 +160,94 @@ export default function DashboardPage() {
               </li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {/* ── Mentor Workload Analysis ──────────────────────────────────────── */}
+      {timetable.generated && mentors.length > 0 && (
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-sm font-bold uppercase tracking-widest text-gray-400">Mentor Workload</h2>
+            <div className="flex items-center gap-3 text-xs text-gray-500">
+              {overloadedMentors.length > 0 && (
+                <span className="bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-full">
+                  {overloadedMentors.length} overloaded
+                </span>
+              )}
+              {doubleBookings.length > 0 && (
+                <span className="bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full">
+                  {doubleBookings.length} conflict{doubleBookings.length > 1 ? 's' : ''}
+                </span>
+              )}
+              {overloadedMentors.length === 0 && doubleBookings.length === 0 && (
+                <span className="bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full">
+                  All clear
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Double-booking alerts */}
+          {doubleBookings.length > 0 && (
+            <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-xl">
+              <p className="text-xs font-bold text-amber-700 mb-2">🔴 Double-Bookings Detected</p>
+              <div className="space-y-1">
+                {doubleBookings.map((db, i) => {
+                  const m = mentors.find(x => x.id === db.mentorId);
+                  return (
+                    <p key={i} className="text-xs text-amber-700">
+                      <span className="font-semibold">{m?.name ?? db.mentorId}</span> is assigned to 2+ classes on{' '}
+                      <span className="font-semibold">{DAYS_SHORT[db.day - 1]}</span> Session {db.session}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Workload bars */}
+          <div className="space-y-2.5">
+            {mentors
+              .filter(m => (mentorHours[m.id] ?? 0) > 0)
+              .sort((a, b) => {
+                const ra = (mentorHours[a.id] ?? 0) / a.maxHoursPerWeek;
+                const rb = (mentorHours[b.id] ?? 0) / b.maxHoursPerWeek;
+                return rb - ra;
+              })
+              .map(m => {
+                const hours = mentorHours[m.id] ?? 0;
+                const pct   = Math.min(hours / m.maxHoursPerWeek, 1);
+                const over  = hours > m.maxHoursPerWeek;
+                const near  = !over && pct >= 0.85;
+                const barColor = over ? 'bg-red-500' : near ? 'bg-amber-400' : 'bg-emerald-500';
+                const textColor = over ? 'text-red-600' : near ? 'text-amber-600' : 'text-gray-500';
+                return (
+                  <div key={m.id}>
+                    <div className="flex items-center justify-between mb-0.5">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="text-xs font-semibold text-gray-700 truncate">{m.name}</span>
+                        <span className="text-[10px] text-gray-400 shrink-0">{m.code}</span>
+                      </div>
+                      <span className={`text-[11px] font-bold tabular-nums shrink-0 ml-3 ${textColor}`}>
+                        {hours}/{m.maxHoursPerWeek}h {over ? '⚠' : ''}
+                      </span>
+                    </div>
+                    <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full transition-all duration-500 ${barColor}`}
+                        style={{ width: `${pct * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+
+          {nearLimitMentors.length > 0 && (
+            <p className="text-xs text-amber-600 mt-4">
+              {nearLimitMentors.length} mentor{nearLimitMentors.length > 1 ? 's are' : ' is'} within 15% of their weekly limit.
+            </p>
+          )}
         </div>
       )}
     </div>
