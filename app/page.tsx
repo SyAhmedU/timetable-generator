@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { getClasses, getSubjects, getMentors, getTimetable } from '@/lib/client-store';
 import type { Class, Subject, Mentor, Timetable, DepartmentCode } from '@/lib/types';
@@ -27,34 +27,49 @@ export default function DashboardPage() {
     setTimetable(getTimetable());
   }, []);
 
-  const deptCounts: Partial<Record<DepartmentCode, number>> = {};
-  for (const c of classes) deptCounts[c.departmentId] = (deptCounts[c.departmentId] ?? 0) + 1;
+  const deptCounts = useMemo(() => {
+    const counts: Partial<Record<DepartmentCode, number>> = {};
+    for (const c of classes) counts[c.departmentId] = (counts[c.departmentId] ?? 0) + 1;
+    return counts;
+  }, [classes]);
 
-  // Mentor workload & double-booking detection
-  const mentorHours: Record<string, number> = {};
-  const doubleBookings: Array<{ mentorId: string; day: number; session: number }> = [];
-  if (timetable.generated) {
-    for (const slot of timetable.slots) {
-      if (slot.mentorId) mentorHours[slot.mentorId] = (mentorHours[slot.mentorId] ?? 0) + 1;
-    }
-    const seen: Record<string, string> = {};
-    for (const slot of timetable.slots) {
-      if (!slot.mentorId) continue;
-      const key = `${slot.mentorId}-${slot.day}-${slot.session}`;
-      if (seen[key] !== undefined && seen[key] !== slot.classId) {
-        if (!doubleBookings.find(d => d.mentorId === slot.mentorId && d.day === slot.day && d.session === slot.session))
-          doubleBookings.push({ mentorId: slot.mentorId, day: slot.day, session: slot.session });
-      } else {
-        seen[key] = slot.classId;
+  // Mentor workload & double-booking detection — single pass through slots
+  const { mentorHours, doubleBookings, overloadedMentors, nearLimitMentors } = useMemo(() => {
+    const hours: Record<string, number> = {};
+    const bookings: Array<{ mentorId: string; day: number; session: number }> = [];
+    if (timetable.generated) {
+      const seen: Record<string, string> = {};
+      for (const slot of timetable.slots) {
+        if (!slot.mentorId) continue;
+        hours[slot.mentorId] = (hours[slot.mentorId] ?? 0) + 1;
+        const key = `${slot.mentorId}-${slot.day}-${slot.session}`;
+        if (seen[key] !== undefined && seen[key] !== slot.classId) {
+          if (!bookings.find(d => d.mentorId === slot.mentorId && d.day === slot.day && d.session === slot.session))
+            bookings.push({ mentorId: slot.mentorId, day: slot.day, session: slot.session });
+        } else {
+          seen[key] = slot.classId;
+        }
       }
     }
-  }
-  const overloadedMentors = mentors.filter(m => (mentorHours[m.id] ?? 0) > m.maxHoursPerWeek);
-  const nearLimitMentors  = mentors.filter(m => {
-    const h = mentorHours[m.id] ?? 0;
-    return h > 0 && h <= m.maxHoursPerWeek && h / m.maxHoursPerWeek >= 0.85;
-  });
+    const overloaded = mentors.filter(m => (hours[m.id] ?? 0) > m.maxHoursPerWeek);
+    const nearLimit  = mentors.filter(m => {
+      const h = hours[m.id] ?? 0;
+      return h > 0 && h <= m.maxHoursPerWeek && h / m.maxHoursPerWeek >= 0.85;
+    });
+    return { mentorHours: hours, doubleBookings: bookings, overloadedMentors: overloaded, nearLimitMentors: nearLimit };
+  }, [timetable, mentors]);
+
   const DAYS_SHORT = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+
+  const sortedMentorLoad = useMemo(() =>
+    mentors
+      .filter(m => (mentorHours[m.id] ?? 0) > 0)
+      .sort((a, b) => {
+        const ra = (mentorHours[a.id] ?? 0) / a.maxHoursPerWeek;
+        const rb = (mentorHours[b.id] ?? 0) / b.maxHoursPerWeek;
+        return rb - ra;
+      }),
+  [mentors, mentorHours]);
 
   const kpis = [
     { label: 'Classes',          value: classes.length,         sub: '11 total'           },
@@ -207,14 +222,7 @@ export default function DashboardPage() {
 
           {/* Workload bars */}
           <div className="space-y-2.5">
-            {mentors
-              .filter(m => (mentorHours[m.id] ?? 0) > 0)
-              .sort((a, b) => {
-                const ra = (mentorHours[a.id] ?? 0) / a.maxHoursPerWeek;
-                const rb = (mentorHours[b.id] ?? 0) / b.maxHoursPerWeek;
-                return rb - ra;
-              })
-              .map(m => {
+            {sortedMentorLoad.map(m => {
                 const hours = mentorHours[m.id] ?? 0;
                 const pct   = Math.min(hours / m.maxHoursPerWeek, 1);
                 const over  = hours > m.maxHoursPerWeek;
