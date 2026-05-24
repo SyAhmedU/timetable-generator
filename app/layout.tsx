@@ -6,10 +6,30 @@ import ThemeToggle from './ThemeToggle';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist' });
 
+const SITE_URL = 'https://syahmedu.github.io/timetable-generator';
+const OG_URL   = `${SITE_URL}/og.svg`;
+
 export const metadata: Metadata = {
-  title: 'Timetable Manager — Syed',
-  description: 'AY 2026-27 Odd Semester timetable for all 11 classes',
+  metadataBase: new URL(SITE_URL),
+  title: 'Timetable Manager — AY 2026-27 Odd Sem',
+  description: 'Constraint-based academic timetable generator for 11 classes across 3 departments. Mentor categories, max-hours-per-week, CSV + Excel + print export.',
+  alternates: { canonical: SITE_URL + '/' },
+  themeColor: '#FBF7EF',
   icons: { icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232563eb'/><text x='16' y='23' text-anchor='middle' font-family='system-ui' font-weight='800' font-size='19' fill='white'>S</text></svg>" },
+  openGraph: {
+    type: 'website',
+    title: 'Timetable Manager — AY 2026-27 Odd Sem',
+    description: 'Constraint-based academic timetable. 11 classes · 3 departments · CSV + Excel + print.',
+    url: SITE_URL + '/',
+    siteName: 'Syed Asrar',
+    images: [{ url: OG_URL, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Timetable Manager — AY 2026-27',
+    description: '11 classes · 3 departments · CSV + Excel + print.',
+    images: [OG_URL],
+  },
 };
 
 const NAV = [
