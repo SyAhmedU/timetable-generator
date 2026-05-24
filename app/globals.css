@@ -3,7 +3,9 @@
 :root {
   --navy:  #1e3a5f;
   --gold:  #d4a017;
-  --bg:    #f4f6fb;
+  --bg:    #FBF7EF;
+  --ink:   #0E0E18;
+  --grad-warm: linear-gradient(135deg, #FF9656 0%, #F14575 55%, #9270F4 100%);
 }
 
 @theme inline {
@@ -12,5 +14,6 @@
 
 body {
   background: var(--bg);
-  color: #1a202c;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
 }
