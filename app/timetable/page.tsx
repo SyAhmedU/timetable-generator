@@ -8,7 +8,7 @@ import {
   backupTimetable, getPrevTimetable,
 } from '@/lib/client-store';
 import { generateTimetable } from '@/lib/generator';
-import { exportTimetableExcel } from '@/lib/client-export';
+import { exportTimetableExcel, exportTimetableCSV, exportMentorScheduleCSV } from '@/lib/client-export';
 
 interface TimetableState {
   generated: boolean;
@@ -316,6 +316,16 @@ export default function TimetablePage() {
               <button onClick={() => exportTimetableExcel(classes, subjects, mentors, timetable)}
                 className="px-3 py-2 rounded-lg text-sm bg-emerald-600 text-white hover:bg-emerald-700 transition">
                 📊 Export All
+              </button>
+              <button onClick={() => exportTimetableCSV(classes, subjects, mentors, timetable, selectedClass)}
+                className="px-3 py-2 rounded-lg text-sm bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-50 transition"
+                title="Plain CSV (class) — universal, scriptable, emailable">
+                📄 CSV Class
+              </button>
+              <button onClick={() => exportMentorScheduleCSV(classes, subjects, mentors, timetable)}
+                className="px-3 py-2 rounded-lg text-sm bg-white border border-emerald-300 text-emerald-700 hover:bg-emerald-50 transition"
+                title="One row per mentor across the whole week">
+                📄 CSV Mentors
               </button>
               <button onClick={handleClear}
                 className="px-3 py-2 rounded-lg text-sm bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition">

@@ -158,6 +158,87 @@ export function exportMentorMappingExcel(
   XLSX.writeFile(wb, 'AMET-mentor-subject-mapping.xlsx');
 }
 
+// ── CSV exports ──────────────────────────────────────────────────────────────
+function csvEscape(v: unknown): string {
+  const s = String(v ?? '');
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+function downloadCSV(filename: string, rows: (string | number)[][]) {
+  const body = rows.map(r => r.map(csvEscape).join(',')).join('\r\n');
+  // BOM so Excel auto-detects UTF-8 (preserves diacritics in mentor names)
+  const blob = new Blob(['﻿' + body], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+export function exportTimetableCSV(
+  classes: Class[],
+  subjects: Subject[],
+  mentors: Mentor[],
+  timetable: Timetable,
+  classId?: string,
+) {
+  const subMap    = Object.fromEntries(subjects.map(s => [s.id, s]));
+  const mentorMap = Object.fromEntries(mentors.map(m => [m.id, m]));
+  const targets   = classId ? classes.filter(c => c.id === classId) : classes;
+
+  const sessionHeaders = [1, 2, 3, 4, 5, 6, 7].map(n => `S${n} ${SESSION_LABELS[n]}`);
+  const rows: (string | number)[][] = [];
+  // Long-form: one CSV with a Class column so it stays useful when multiple classes are exported.
+  rows.push(['Class', 'Day', ...sessionHeaders]);
+
+  for (const cls of targets) {
+    for (let day = 1; day <= 5; day++) {
+      const row: (string | number)[] = [cls.shortName, DAYS[day - 1]];
+      for (let s = 1; s <= 7; s++) {
+        const slot = timetable.slots.find(x => x.classId === cls.id && x.day === day && x.session === s);
+        if (!slot) { row.push(''); continue; }
+        const sub = subMap[slot.subjectId];
+        const m   = slot.mentorId ? mentorMap[slot.mentorId] : null;
+        row.push(sub ? `${sub.name}${m ? ` [${m.code}]` : ' [TBA]'}` : '');
+      }
+      rows.push(row);
+    }
+  }
+  downloadCSV(classId ? `${classes.find(c => c.id === classId)?.shortName ?? classId}.csv` : 'all-timetables.csv', rows);
+}
+
+export function exportMentorScheduleCSV(
+  classes: Class[],
+  subjects: Subject[],
+  mentors: Mentor[],
+  timetable: Timetable,
+) {
+  const subMap    = Object.fromEntries(subjects.map(s => [s.id, s]));
+  const classMap  = Object.fromEntries(classes.map(c => [c.id, c]));
+
+  const sessionHeaders: string[] = [];
+  for (const day of DAYS) {
+    for (let s = 1; s <= 7; s++) sessionHeaders.push(`${day.slice(0, 3)} S${s}`);
+  }
+  const rows: (string | number)[][] = [];
+  rows.push(['Mentor Code', 'Mentor Name', 'Hrs/Wk', ...sessionHeaders]);
+
+  for (const m of mentors) {
+    const mySlots = timetable.slots.filter(s => s.mentorId === m.id);
+    const row: (string | number)[] = [m.code, m.name, mySlots.length];
+    for (let day = 1; day <= 5; day++) {
+      for (let s = 1; s <= 7; s++) {
+        const slot = mySlots.find(x => x.day === day && x.session === s);
+        if (!slot) { row.push(''); continue; }
+        const sub = subMap[slot.subjectId];
+        const cls = classMap[slot.classId];
+        row.push(`${sub?.name ?? '?'} (${cls?.shortName ?? '?'})`);
+      }
+    }
+    rows.push(row);
+  }
+  downloadCSV('mentor-schedules.csv', rows);
+}
+
 export function exportAbsenceLogExcel(
   classes: Class[],
   subjects: Subject[],
