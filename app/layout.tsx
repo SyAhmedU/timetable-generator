@@ -23,19 +23,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${geist.variable} h-full`}>
       <body className="min-h-full flex flex-col" style={{ background: 'var(--bg)', color: '#1a202c', fontFamily: 'var(--font-geist), sans-serif' }}>
-        {/* Syed brand bar — Gen Z Fire */}
-        <style>{`@keyframes syed-glow{0%,100%{box-shadow:0 0 0 0 rgba(168,85,247,0),0 2px 8px rgba(34,211,238,.2)}50%{box-shadow:0 0 0 3px rgba(168,85,247,.2),0 2px 20px rgba(34,211,238,.4)}}`}</style>
-        <div style={{ display:'flex',alignItems:'center',gap:10,padding:'0 18px',height:44,background:'rgba(6,6,16,.9)',backdropFilter:'blur(20px) saturate(160%)',WebkitBackdropFilter:'blur(20px) saturate(160%)',borderBottom:'1px solid rgba(139,92,246,.18)',position:'sticky',top:0,zIndex:9999,flexShrink:0,fontFamily:"'Inter',system-ui,sans-serif",boxShadow:'0 1px 24px rgba(139,92,246,.06)' }} className="print:hidden">
-          <a href="https://syahmedu.github.io/nexus/" target="_blank" rel="noopener noreferrer" style={{ display:'flex',alignItems:'center',gap:8,textDecoration:'none',flexShrink:0 }}>
-            <span style={{ width:26,height:26,background:'linear-gradient(135deg,#22d3ee,#a855f7)',borderRadius:7,display:'inline-flex',alignItems:'center',justifyContent:'center',fontSize:'.75rem',fontWeight:900,color:'#fff',flexShrink:0,animation:'syed-glow 4s ease-in-out infinite' }}>S</span>
-            <span style={{ fontSize:'.84rem',fontWeight:700,color:'#fff',letterSpacing:'-.02em' }}>Syed</span>
+        {/* Syed brand bar — storytale palette */}
+        <style>{`@keyframes syed-glow{0%,100%{box-shadow:0 4px 14px -4px rgba(241,69,117,.45)}50%{box-shadow:0 6px 22px -4px rgba(146,112,244,.55)}}`}</style>
+        <div style={{ position:'sticky',top:0,zIndex:9999,display:'flex',alignItems:'center',gap:12,padding:'0 18px',height:48,background:'rgba(255,255,255,.82)',backdropFilter:'blur(20px) saturate(150%)',WebkitBackdropFilter:'blur(20px) saturate(150%)',borderBottom:'1px solid rgba(14,14,24,.08)',flexShrink:0,fontFamily:"'Plus Jakarta Sans','Inter',system-ui,sans-serif" }} className="print:hidden">
+          <a href="https://syahmedu.github.io/nexus/" target="_blank" rel="noopener noreferrer" style={{ display:'flex',alignItems:'center',gap:9,textDecoration:'none',flexShrink:0 }}>
+            <span style={{ width:28,height:28,background:'linear-gradient(135deg,#FF9656 0%,#F14575 55%,#9270F4 100%)',borderRadius:8,display:'inline-flex',alignItems:'center',justifyContent:'center',fontSize:'.78rem',fontWeight:800,color:'#fff',flexShrink:0,boxShadow:'0 4px 14px -4px rgba(241,69,117,.55)',animation:'syed-glow 5s ease-in-out infinite' }}>S</span>
+            <span style={{ fontSize:'.9rem',fontWeight:800,color:'#0E0E18',letterSpacing:'-.02em' }}>Syed</span>
           </a>
-          <span style={{ width:1,height:14,background:'rgba(255,255,255,.08)',flexShrink:0,margin:'0 2px' }} />
-          <span style={{ fontSize:'.71rem',color:'rgba(255,255,255,.3)',fontWeight:500,flex:1,minWidth:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',letterSpacing:'.01em' }}>Timetable Manager</span>
-          <nav style={{ display:'flex',alignItems:'center',marginLeft:'auto',gap:1 }}>
-            <a href="https://syahmedu.github.io/journaltime/" target="_blank" rel="noopener noreferrer" style={{ fontSize:'.69rem',color:'rgba(255,255,255,.35)',textDecoration:'none',padding:'4px 10px',borderRadius:99,whiteSpace:'nowrap',fontWeight:500,letterSpacing:'.01em' }}>JournalTime</a>
-            <a href="https://scalescope.vercel.app" target="_blank" rel="noopener noreferrer" style={{ fontSize:'.69rem',color:'rgba(255,255,255,.35)',textDecoration:'none',padding:'4px 10px',borderRadius:99,whiteSpace:'nowrap',fontWeight:500,letterSpacing:'.01em' }}>ScaleScope</a>
-            <a href="https://syahmedu.github.io/nexus/" target="_blank" rel="noopener noreferrer" style={{ fontSize:'.69rem',fontWeight:600,textDecoration:'none',padding:'4px 12px',borderRadius:99,background:'linear-gradient(135deg,rgba(34,211,238,.12),rgba(168,85,247,.12))',border:'1px solid rgba(168,85,247,.25)',color:'rgba(255,255,255,.7)',whiteSpace:'nowrap',letterSpacing:'.01em' }}>All Projects →</a>
+          <span style={{ width:1,height:16,background:'rgba(14,14,24,.10)',flexShrink:0,margin:'0 3px' }} />
+          <span style={{ fontSize:'.74rem',color:'#6F6F7E',fontWeight:500,flex:1,minWidth:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',letterSpacing:'.01em' }}>Timetable Manager</span>
+          <nav style={{ display:'flex',alignItems:'center',marginLeft:'auto',gap:2 }}>
+            <a href="https://syahmedu.github.io/journaltime/" target="_blank" rel="noopener noreferrer" style={{ fontSize:'.74rem',color:'#6F6F7E',textDecoration:'none',padding:'5px 11px',borderRadius:999,whiteSpace:'nowrap',fontWeight:600,letterSpacing:'.01em' }}>JournalTime</a>
+            <a href="https://scalescope.vercel.app" target="_blank" rel="noopener noreferrer" style={{ fontSize:'.74rem',color:'#6F6F7E',textDecoration:'none',padding:'5px 11px',borderRadius:999,whiteSpace:'nowrap',fontWeight:600,letterSpacing:'.01em' }}>ScaleScope</a>
+            <a href="https://syahmedu.github.io/nexus/" target="_blank" rel="noopener noreferrer" style={{ fontSize:'.74rem',fontWeight:700,textDecoration:'none',padding:'5px 13px',borderRadius:999,background:'linear-gradient(135deg,#FF9656 0%,#F14575 55%,#9270F4 100%)',color:'#fff',whiteSpace:'nowrap',letterSpacing:'.01em',boxShadow:'0 6px 16px -6px rgba(241,69,117,.55)' }}>All Projects →</a>
           </nav>
         </div>
         <header style={{ background: 'var(--navy)' }} className="shadow-xl print:hidden">
