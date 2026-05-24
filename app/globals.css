@@ -1,11 +1,30 @@
 @import "tailwindcss";
 
-:root {
+:root, [data-theme="light"] {
   --navy:  #1e3a5f;
   --gold:  #d4a017;
   --bg:    #FBF7EF;
+  --bg-2:  #F3EEE3;
+  --surface: #FFFFFF;
   --ink:   #0E0E18;
+  --border: rgba(14,14,24,.08);
+  --bar-bg: rgba(255,255,255,.82);
+  --bar-text: #0E0E18;
+  --bar-muted: #6F6F7E;
   --grad-warm: linear-gradient(135deg, #FF9656 0%, #F14575 55%, #9270F4 100%);
+}
+
+[data-theme="dark"] {
+  --navy:  #11131c;
+  --gold:  #E0B53B;
+  --bg:    #0A0A12;
+  --bg-2:  #11111C;
+  --surface: #15151F;
+  --ink:   #F4F2EC;
+  --border: rgba(255,255,255,.09);
+  --bar-bg: rgba(10,10,18,.82);
+  --bar-text: #F4F2EC;
+  --bar-muted: #8B8A93;
 }
 
 @theme inline {
@@ -17,3 +36,51 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
 }
+
+/* ── Dark-mode utility remap ──────────────────────────────────────────
+   Attribute+class selectors (0,2,0) outrank bare Tailwind utilities (0,1,0),
+   so these flip surfaces/text/borders without editing component markup.
+   Inline styles using var(--bg)/var(--ink) adapt automatically. */
+[data-theme="dark"] .bg-white      { background-color: var(--surface) !important; }
+[data-theme="dark"] .bg-gray-50    { background-color: #11111C !important; }
+[data-theme="dark"] .bg-gray-50\/60{ background-color: rgba(17,17,28,.6) !important; }
+[data-theme="dark"] .bg-gray-100   { background-color: #1b1b27 !important; }
+[data-theme="dark"] .bg-gray-200   { background-color: #232333 !important; }
+
+[data-theme="dark"] .text-gray-400 { color: #8B8A93 !important; }
+[data-theme="dark"] .text-gray-500 { color: #9C9AA4 !important; }
+[data-theme="dark"] .text-gray-600 { color: #C2C0BA !important; }
+[data-theme="dark"] .text-gray-700 { color: #D6D4CC !important; }
+[data-theme="dark"] .text-gray-800 { color: #E8E6DF !important; }
+
+[data-theme="dark"] .border-gray-100,
+[data-theme="dark"] .border-gray-200,
+[data-theme="dark"] .border-gray-300 { border-color: var(--border) !important; }
+
+/* Semantic accent pairs (alert/success/danger/info chips) re-tuned for dark */
+[data-theme="dark"] .bg-amber-50,
+[data-theme="dark"] .bg-amber-100   { background-color: rgba(245,158,11,.13) !important; }
+[data-theme="dark"] .bg-emerald-50,
+[data-theme="dark"] .bg-emerald-100 { background-color: rgba(52,211,153,.13) !important; }
+[data-theme="dark"] .bg-red-50,
+[data-theme="dark"] .bg-red-100     { background-color: rgba(248,113,113,.13) !important; }
+[data-theme="dark"] .bg-blue-50     { background-color: rgba(96,165,250,.13) !important; }
+[data-theme="dark"] .bg-indigo-50   { background-color: rgba(129,140,248,.13) !important; }
+
+[data-theme="dark"] .text-amber-600,
+[data-theme="dark"] .text-amber-700 { color: #FBBF24 !important; }
+[data-theme="dark"] .text-emerald-700,
+[data-theme="dark"] .text-green-700 { color: #34D399 !important; }
+[data-theme="dark"] .text-red-600,
+[data-theme="dark"] .text-red-700   { color: #F87171 !important; }
+[data-theme="dark"] .text-blue-600,
+[data-theme="dark"] .text-blue-700  { color: #60A5FA !important; }
+[data-theme="dark"] .text-indigo-700{ color: #A5B4FC !important; }
+[data-theme="dark"] .text-purple-700{ color: #C4B5FD !important; }
+
+[data-theme="dark"] .border-amber-200,
+[data-theme="dark"] .border-amber-300   { border-color: rgba(245,158,11,.32) !important; }
+[data-theme="dark"] .border-emerald-200,
+[data-theme="dark"] .border-emerald-300 { border-color: rgba(52,211,153,.32) !important; }
+[data-theme="dark"] .border-red-200     { border-color: rgba(248,113,113,.32) !important; }
+[data-theme="dark"] .border-indigo-300  { border-color: rgba(129,140,248,.32) !important; }
