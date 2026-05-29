@@ -1,4 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
+
+/* ═══ Throughline identity + mobile-native (timetable) ═══ */
+:root{ --font-display:'Fraunces',Georgia,'Times New Roman',serif; --font-mono:'IBM Plex Mono',ui-monospace,monospace; }
+html h1, html h2, html h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -.02em; }
+html, body { overflow-x: clip; }
+* { -webkit-tap-highlight-color: transparent; }
 
 :root, [data-theme="light"] {
   --navy:  #1e3a5f;
