@@ -69,6 +69,20 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
 }
+/* ambient wash + paper grain — calm, static; never printed */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(58vmax 58vmax at 10% -10%, rgba(255,150,86,.05), transparent 60%),
+    radial-gradient(52vmax 52vmax at 108% 14%, rgba(146,112,244,.06), transparent 60%);
+}
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  opacity: .03; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] body::before { mix-blend-mode: screen; opacity: .045; }
+@media print { body::before, body::after { display: none !important; } }
 
 /* ── Dark-mode utility remap ──────────────────────────────────────────
    Attribute+class selectors (0,2,0) outrank bare Tailwind utilities (0,1,0),
