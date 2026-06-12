@@ -72,7 +72,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ThemeToggle />
         </div>
         <header style={{ background: 'var(--navy)' }} className="shadow-xl print:hidden">
-          <div className="max-w-screen-2xl mx-auto px-6 h-16 flex items-center gap-6">
+          {/* overflow-x-auto: the row's ~850px min-content must scroll internally
+              on phones instead of widening the page (457px overflow at 390px) */}
+          <div className="max-w-screen-2xl mx-auto px-6 h-16 flex items-center gap-6 overflow-x-auto">
             {/* Branding */}
             <div className="flex flex-col leading-none select-none shrink-0">
               <span style={{ color: 'var(--gold)' }} className="font-bold text-base tracking-tight">
@@ -87,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="h-7 w-px bg-white/10 shrink-0" />
 
             {/* Nav */}
-            <nav className="flex gap-0.5">
+            <nav className="flex gap-0.5 shrink-0">
               {NAV.map(n => (
                 <Link
                   key={n.href}
@@ -100,7 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
 
             {/* Right badge */}
-            <div className="ml-auto flex items-center gap-2 shrink-0">
+            <div className="ml-auto hidden sm:flex items-center gap-2 shrink-0">
               <span style={{ background: 'rgba(212,160,23,0.15)', color: 'var(--gold)', border: '1px solid rgba(212,160,23,0.3)' }}
                 className="text-xs font-semibold px-2.5 py-1 rounded-full tracking-wide">
                 AY 2026–27 · Odd Sem
