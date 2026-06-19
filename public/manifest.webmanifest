@@ -1,0 +1,13 @@
+{
+  "name": "Timetable Manager — AMET",
+  "short_name": "Timetable",
+  "description": "Constraint-based academic timetable generator for AMET University — 11 classes across 3 departments, with CSV + Excel + print export.",
+  "start_url": "/timetable-generator/",
+  "scope": "/timetable-generator/",
+  "display": "standalone",
+  "background_color": "#FBF7EF",
+  "theme_color": "#FBF7EF",
+  "icons": [
+    { "src": "/timetable-generator/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
