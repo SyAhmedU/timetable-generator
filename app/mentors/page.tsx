@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import type { Class, Subject, Mentor, TimetableSlot } from '@/lib/types';
 import { CATEGORY_COLORS, DAYS } from '@/lib/types';
 import { getClasses, getSubjects, getMentors, getTimetable } from '@/lib/client-store';
@@ -17,6 +18,15 @@ const SESSION_INFO = [
 ];
 
 export default function MentorsPage() {
+  return (
+    <Suspense fallback={null}>
+      <MentorsPageInner />
+    </Suspense>
+  );
+}
+
+function MentorsPageInner() {
+  const searchParams = useSearchParams();
   const [classes, setClasses]     = useState<Class[]>([]);
   const [subjects, setSubjects]   = useState<Subject[]>([]);
   const [mentors, setMentors]     = useState<Mentor[]>([]);
@@ -33,8 +43,16 @@ export default function MentorsPage() {
     setSubjects(sub);
     setMentors(men);
     setSlots(tt.slots ?? []);
-    if (men.length) setSelected(men[0].id);
-  }, []);
+    // A dashboard link (?id=<mentorId>) jumps straight to that mentor's
+    // individual schedule instead of leaving the visitor to hunt for them.
+    const wantId = searchParams.get('id');
+    if (wantId && men.some(m => m.id === wantId)) {
+      setSelected(wantId);
+      setTab('individual');
+    } else if (men.length) {
+      setSelected(men[0].id);
+    }
+  }, [searchParams]);
 
   const subjectMap = Object.fromEntries(subjects.map(s => [s.id, s]));
   const classMap   = Object.fromEntries(classes.map(c => [c.id, c]));

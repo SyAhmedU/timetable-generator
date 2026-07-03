@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist } from 'next/font/google';
-import Link from 'next/link';
 import './globals.css';
 import ThemeToggle from './ThemeToggle';
 import SWRegister from './SWRegister';
+import NavLinks from './NavLinks';
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-geist' });
 
@@ -41,14 +41,6 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: '#FBF7EF',
 };
-
-const NAV = [
-  { href: '/',          label: 'Dashboard' },
-  { href: '/setup',     label: 'Setup'     },
-  { href: '/timetable', label: 'Timetable' },
-  { href: '/mentors',   label: 'Mentors'   },
-  { href: '/absence',   label: 'Absence'   },
-];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -101,17 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="h-7 w-px bg-white/10 shrink-0" />
 
             {/* Nav */}
-            <nav className="flex gap-0.5 shrink-0">
-              {NAV.map(n => (
-                <Link
-                  key={n.href}
-                  href={n.href}
-                  className="px-4 py-2 rounded-md text-sm font-medium text-white/70 hover:text-white hover:bg-white/10 transition-all duration-150"
-                >
-                  {n.label}
-                </Link>
-              ))}
-            </nav>
+            <NavLinks />
 
             {/* Right badge */}
             <div className="ml-auto hidden sm:flex items-center gap-2 shrink-0">

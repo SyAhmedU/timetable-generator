@@ -2,9 +2,23 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { getClasses, getSubjects, getMentors, getTimetable } from '@/lib/client-store';
 import type { Class, Subject, Mentor, Timetable, DepartmentCode } from '@/lib/types';
 import { DEPT_LABELS } from '@/lib/types';
+
+// Relative "X minutes/hours/days ago" for the generated timestamp — cheaper
+// to scan at a glance than a full localized date string.
+function timeAgo(iso: string): string {
+  const diffMs = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diffMs / 60000);
+  if (mins < 1) return 'just now';
+  if (mins < 60) return `${mins} minute${mins === 1 ? '' : 's'} ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return `${hrs} hour${hrs === 1 ? '' : 's'} ago`;
+  const days = Math.floor(hrs / 24);
+  return `${days} day${days === 1 ? '' : 's'} ago`;
+}
 
 const DEPT_COLORS: Record<DepartmentCode, string> = {
   ACS:  'bg-blue-50  border-blue-300  text-blue-700',
@@ -15,6 +29,7 @@ const DEPT_COLORS: Record<DepartmentCode, string> = {
 const KPI_ICONS = ['🏛️', '📘', '👤', '📋'];
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [classes,   setClasses]   = useState<Class[]>([]);
   const [subjects,  setSubjects]  = useState<Subject[]>([]);
   const [mentors,   setMentors]   = useState<Mentor[]>([]);
@@ -72,10 +87,10 @@ export default function DashboardPage() {
   [mentors, mentorHours]);
 
   const kpis = [
-    { label: 'Classes',          value: classes.length,         sub: '11 total'           },
-    { label: 'Subjects',         value: subjects.length,        sub: 'across all classes'  },
-    { label: 'Mentors',          value: mentors.length,         sub: 'on roster'           },
-    { label: 'Slots Generated',  value: timetable.slots.length, sub: 'sessions assigned'   },
+    { label: 'Classes',          value: classes.length,         sub: '11 total',            href: '/setup'     },
+    { label: 'Subjects',         value: subjects.length,        sub: 'across all classes',   href: '/setup'     },
+    { label: 'Mentors',          value: mentors.length,         sub: 'on roster',            href: '/mentors'   },
+    { label: 'Slots Generated',  value: timetable.slots.length, sub: 'sessions assigned',    href: '/timetable' },
   ];
 
   const navCards = [
@@ -84,6 +99,22 @@ export default function DashboardPage() {
     { href: '/mentors',   label: 'Mentors',          desc: 'Individual mentor schedule and full summary',     icon: '👥',  border: 'border-l-purple-500'       },
     { href: '/absence',   label: 'Absence Manager',  desc: 'Mark absences, assign substitutes, view log',     icon: '🔄',  border: 'border-l-orange-500'       },
   ];
+
+  if (classes.length === 0) {
+    return (
+      <div className="max-w-lg mx-auto mt-16 text-center bg-white rounded-2xl border border-gray-200 shadow-sm p-10">
+        <div className="text-4xl mb-3">🏛️</div>
+        <h1 className="text-xl font-extrabold" style={{ color: 'var(--navy)' }}>No classes configured yet</h1>
+        <p className="text-sm text-gray-500 mt-2 leading-relaxed">
+          Head to Setup to add classes and subject hours, then come back here to generate the timetable.
+        </p>
+        <Link href="/setup" style={{ background: 'var(--navy)' }}
+          className="inline-block mt-6 text-white px-6 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition">
+          Go to Setup →
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-7">
@@ -99,12 +130,12 @@ export default function DashboardPage() {
           <div>
             <p className="font-bold text-base text-gray-800">
               {timetable.generated
-                ? `Timetable generated on ${new Date(timetable.generatedAt!).toLocaleString('en-IN')}`
+                ? `Generated ${timeAgo(timetable.generatedAt!)}`
                 : 'Timetable not yet generated'}
             </p>
             <p className="text-sm text-gray-500 mt-0.5">
               {timetable.generated
-                ? `${timetable.slots.length} slots assigned · ${timetable.warnings.length} warning(s)`
+                ? `${timetable.slots.length} slots assigned · ${timetable.warnings.length} warning(s) · ${new Date(timetable.generatedAt!).toLocaleString('en-IN')}`
                 : 'Go to Setup to configure hours, then generate the timetable'}
             </p>
           </div>
@@ -115,13 +146,31 @@ export default function DashboardPage() {
               Generate Now →
             </Link>
           )}
+          {timetable.generated && (
+            <button
+              onClick={() => {
+                const lines = [
+                  `Timetable status — ${new Date(timetable.generatedAt!).toLocaleString('en-IN')}`,
+                  `${classes.length} classes · ${subjects.length} subjects · ${mentors.length} mentors`,
+                  `${timetable.slots.length} slots assigned · ${timetable.warnings.length} warning(s)`,
+                  overloadedMentors.length ? `${overloadedMentors.length} mentor(s) overloaded: ${overloadedMentors.map(m => m.name).join(', ')}` : 'No mentors overloaded',
+                  doubleBookings.length ? `${doubleBookings.length} double-booking(s) detected` : 'No double-bookings',
+                ];
+                navigator.clipboard?.writeText(lines.join('\n')).catch(() => {});
+              }}
+              className="ml-auto text-sm font-semibold px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-50 transition print:hidden"
+              title="Copy a plain-text status summary to the clipboard"
+            >
+              📋 Copy Summary
+            </button>
+          )}
         </div>
       </div>
 
       {/* ── KPI Cards ────────────────────────────────────────────────────── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {kpis.map((k, i) => (
-          <div key={k.label} className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <Link key={k.label} href={k.href} className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all block">
             <div style={{ background: 'var(--navy)' }} className="h-1.5 w-full" />
             <div className="p-5">
               <div className="flex items-start justify-between">
@@ -133,7 +182,7 @@ export default function DashboardPage() {
                 <span className="text-2xl opacity-60 mt-1">{KPI_ICONS[i]}</span>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -167,7 +216,16 @@ export default function DashboardPage() {
       {/* ── Warnings ─────────────────────────────────────────────────────── */}
       {timetable.generated && timetable.warnings.length > 0 && (
         <div className="bg-red-50 border border-red-200 rounded-2xl p-5">
-          <h3 className="font-bold text-red-700 mb-2">⚠️ Generation Warnings ({timetable.warnings.length})</h3>
+          <div className="flex items-center justify-between mb-2">
+            <h3 className="font-bold text-red-700">⚠️ Generation Warnings ({timetable.warnings.length})</h3>
+            <button
+              onClick={() => navigator.clipboard?.writeText(timetable.warnings.join('\n')).catch(() => {})}
+              className="text-xs font-semibold text-red-600 hover:underline print:hidden"
+              title="Copy all warnings to clipboard"
+            >
+              📋 Copy all
+            </button>
+          </div>
           <ul className="space-y-1 max-h-48 overflow-y-auto">
             {timetable.warnings.map((w, i) => (
               <li key={i} className="text-sm text-red-600 flex gap-2">
@@ -210,10 +268,12 @@ export default function DashboardPage() {
                 {doubleBookings.map((db, i) => {
                   const m = mentors.find(x => x.id === db.mentorId);
                   return (
-                    <p key={i} className="text-xs text-amber-700">
+                    <button key={i}
+                      onClick={() => router.push(`/mentors?id=${db.mentorId}`)}
+                      className="block text-left w-full text-xs text-amber-700 hover:underline">
                       <span className="font-semibold">{m?.name ?? db.mentorId}</span> is assigned to 2+ classes on{' '}
                       <span className="font-semibold">{DAYS_SHORT[db.day - 1]}</span> Session {db.session}
-                    </p>
+                    </button>
                   );
                 })}
               </div>
@@ -230,7 +290,8 @@ export default function DashboardPage() {
                 const barColor = over ? 'bg-red-500' : near ? 'bg-amber-400' : 'bg-emerald-500';
                 const textColor = over ? 'text-red-600' : near ? 'text-amber-600' : 'text-gray-500';
                 return (
-                  <div key={m.id}>
+                  <button key={m.id} onClick={() => router.push(`/mentors?id=${m.id}`)}
+                    className="block w-full text-left hover:bg-gray-50 rounded-lg px-1 -mx-1 py-0.5 transition">
                     <div className="flex items-center justify-between mb-0.5">
                       <div className="flex items-center gap-2 min-w-0">
                         <span className="text-xs font-semibold text-gray-700 truncate">{m.name}</span>
@@ -246,7 +307,7 @@ export default function DashboardPage() {
                         style={{ width: `${pct * 100}%` }}
                       />
                     </div>
-                  </div>
+                  </button>
                 );
               })}
           </div>
