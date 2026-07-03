@@ -6,9 +6,15 @@ import { DAYS, CATEGORY_COLORS, DEPT_LABELS } from '@/lib/types';
 import {
   getClasses, getSubjects, getMentors, getTimetable, saveTimetable, clearTimetable,
   backupTimetable, getPrevTimetable,
+  getTimetableHistory, pushTimetableHistory,
+  getMigrationReceipt, dismissMigrationReceipt, type MigrationReceipt,
 } from '@/lib/client-store';
 import { generateTimetable } from '@/lib/generator';
 import { exportTimetableExcel, exportTimetableCSV, exportMentorScheduleCSV } from '@/lib/client-export';
+import { diffTimetables, explainCell, warningCells } from '@/lib/analytics';
+import {
+  PreflightPanel, AnalysisPanel, HistoryCompare, MentorWeekView, AllClassesOverview,
+} from './AnalysisPanels';
 
 interface TimetableState {
   generated: boolean;
@@ -39,6 +45,13 @@ export default function TimetablePage() {
   const [showMentors, setShowMentors]       = useState(true);
   const [activeIds, setActiveIds]           = useState<Set<string>>(new Set());
   const [showClassPicker, setShowPicker]    = useState(false);
+  const [viewMode, setViewMode]             = useState<'class' | 'mentor' | 'overview'>('class');
+  const [mentorPick, setMentorPick]         = useState('');
+  const [showDiff, setShowDiff]             = useState(false);
+  const [changedCells, setChangedCells]     = useState<Set<string>>(new Set());
+  const [explain, setExplain]               = useState<{ slot: TimetableSlot; notes: string[] } | null>(null);
+  const [history, setHistory]               = useState<TimetableState[]>([]);
+  const [migration, setMigration]           = useState<MigrationReceipt | null>(null);
 
   useEffect(() => {
     const cls = getClasses();
@@ -48,6 +61,8 @@ export default function TimetablePage() {
     setTimetable(getTimetable());
     setActiveIds(new Set(cls.map(c => c.id)));
     setHasPrev(!!getPrevTimetable()?.generated);
+    setHistory(getTimetableHistory());
+    setMigration(getMigrationReceipt());
     if (cls.length) setSelected(cls[0].id);
   }, []);
 
@@ -138,6 +153,14 @@ export default function TimetablePage() {
       }
 
       saveTimetable(best);
+      pushTimetableHistory(best);
+      setHistory(getTimetableHistory());
+      // Diff vs the run we just backed up: "what moved?" is the real question
+      // after a regeneration.
+      const prev = getPrevTimetable();
+      setChangedCells(diffTimetables(prev, best));
+      setShowDiff(!!prev?.generated);
+      setExplain(null);
       setTimetable(best);
       setGenAttempts(attempts);
       const firstActive = filteredCls[0];
@@ -160,17 +183,31 @@ export default function TimetablePage() {
 
   const selectedClass_ = classes.find(c => c.id === selectedClass);
 
+  // Solver warnings mapped onto cells (Day X S Y mentions), for the
+  // violation overlay — the solver's compromises made visible.
+  const warnCellMap = timetable?.generated
+    ? warningCells(timetable, classes)
+    : new Map<string, string[]>();
+
   const renderCell = (day: number, n: number) => {
     const s      = slot(day, n);
     const sub    = s ? subjectMap[s.subjectId] : null;
     const mentor = s?.mentorId ? mentorMap[s.mentorId] : null;
+    const changed = showDiff && changedCells.has(`${selectedClass}|${day}|${n}`);
+    const warnsHere = warnCellMap.get(`${selectedClass}|${day}|${n}`) ?? warnCellMap.get(`*|${day}|${n}`) ?? [];
     return (
       <td key={n} className="p-1.5 align-top border-r border-b border-gray-100">
-        {sub ? (
-          <div className={`print-cell rounded-xl px-2.5 pt-2.5 pb-2 min-h-[72px] flex flex-col justify-between shadow-sm ${CATEGORY_COLORS[sub.category]}`}>
+        {sub && s ? (
+          <div
+            onClick={() => timetable && setExplain({ slot: s, notes: explainCell(s, classes, subjects, mentors, timetable) })}
+            title="Click for why this cell looks the way it does"
+            className={`print-cell rounded-xl px-2.5 pt-2.5 pb-2 min-h-[72px] flex flex-col justify-between shadow-sm cursor-pointer ${CATEGORY_COLORS[sub.category]} ${
+              changed ? 'ring-2 ring-indigo-400 ring-offset-1' : ''
+            } ${warnsHere.length ? 'ring-2 ring-red-400 ring-offset-1' : ''}`}>
             <div>
               <p className="font-semibold text-[11.5px] leading-snug">{sub.name}</p>
               <span className="cat-label">[{sub.category}]</span>
+              {changed && <span className="no-print text-[8px] font-bold text-indigo-500 ml-1" title="Changed from the previous generation">Δ moved</span>}
             </div>
             <div className="flex items-center justify-between mt-2 gap-1">
               {/* Always in DOM so print can show mentor even when toggled off on screen */}
@@ -187,7 +224,8 @@ export default function TimetablePage() {
             </div>
           </div>
         ) : (
-          <div className="min-h-[72px] flex items-center justify-center">
+          <div className={`min-h-[72px] flex items-center justify-center ${changed ? 'rounded-xl ring-2 ring-indigo-300 ring-offset-1' : ''}`}
+            title={changed ? 'A session was here in the previous generation' : undefined}>
             <span className="text-gray-200 text-lg">·</span>
           </div>
         )}
@@ -198,8 +236,9 @@ export default function TimetablePage() {
   return (
     <div className="space-y-5">
       <style>{`
-        /* Screen: hide print-only helpers */
-        .cat-label  { display: none; }
+        /* Category code stays visible on screen too (small, muted) so colour
+           is never the only channel carrying the subject category. */
+        .cat-label  { display: inline; font-size: 8.5px; opacity: 0.55; font-weight: 600; }
         .print-only { display: none; }
         .print-header { display: none; }
 
@@ -292,6 +331,18 @@ export default function TimetablePage() {
         }
       `}</style>
 
+      {/* ── Migration receipt: what the silent seed auto-migration did ──── */}
+      {migration && (
+        <div className="bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-2.5 flex items-center gap-3 no-print text-xs text-indigo-700">
+          <span>
+            ℹ Seed data was updated ({migration.from} → {migration.to}) on {new Date(migration.at).toLocaleDateString('en-IN')} —
+            subjects, mentors and the old timetable were reset to the new seed. Re-generate to get a fresh schedule.
+          </span>
+          <button onClick={() => { dismissMigrationReceipt(); setMigration(null); }}
+            className="ml-auto font-bold text-indigo-500 hover:text-indigo-700">✕</button>
+        </div>
+      )}
+
       {/* ── Toolbar ──────────────────────────────────────────────────────── */}
       <div className="flex items-center gap-3 flex-wrap no-print">
         <div>
@@ -301,6 +352,24 @@ export default function TimetablePage() {
         <div className="ml-auto flex gap-2 flex-wrap">
           {timetable?.generated && (
             <>
+              <div className="flex rounded-lg border border-gray-200 overflow-hidden text-sm">
+                {([['class', '🏫 Class'], ['mentor', '👤 Mentor'], ['overview', '▦ All']] as const).map(([mode, label]) => (
+                  <button key={mode} onClick={() => setViewMode(mode)}
+                    style={viewMode === mode ? { background: 'var(--navy)', color: 'white' } : undefined}
+                    className={viewMode === mode ? 'px-3 py-2 font-semibold' : 'px-3 py-2 bg-white text-gray-600 hover:bg-gray-50 transition'}>
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {changedCells.size > 0 && (
+                <button onClick={() => setShowDiff(v => !v)}
+                  className={`px-3 py-2 rounded-lg text-sm border transition ${
+                    showDiff ? 'bg-indigo-50 border-indigo-300 text-indigo-700 font-semibold' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+                  }`}
+                  title="Highlight cells that changed from the previous generation">
+                  Δ What moved ({changedCells.size})
+                </button>
+              )}
               <button onClick={() => setShowMentors(v => !v)}
                 className="px-3 py-2 rounded-lg text-sm bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 transition">
                 {showMentors ? 'Hide Mentors' : 'Show Mentors'}
@@ -398,6 +467,11 @@ export default function TimetablePage() {
         </div>
       )}
 
+      {/* ── Pre-flight: most bad timetables are bad inputs ───────────────── */}
+      {classes.length > 0 && (
+        <PreflightPanel classes={classes} subjects={subjects} mentors={mentors} />
+      )}
+
       {/* ── Result banner ────────────────────────────────────────────────── */}
       {timetable?.generated && genAttempts > 0 && (
         timetable.warnings.length === 0 ? (
@@ -453,6 +527,19 @@ export default function TimetablePage() {
             </div>
           </div>
 
+          {/* Mentor view — the mentor's journey is different from the coordinator's */}
+          {viewMode === 'mentor' && (
+            <MentorWeekView classes={classes} subjects={subjects} mentors={mentors}
+              timetable={timetable} mentorId={mentorPick} onPick={setMentorPick} />
+          )}
+
+          {/* All-classes overview — the coordinator's "is everyone sane" scan */}
+          {viewMode === 'overview' && (
+            <AllClassesOverview classes={classes} subjects={subjects} timetable={timetable}
+              onSelect={id => { setSelected(id); setViewMode('class'); }} />
+          )}
+
+          {viewMode === 'class' && (<>
           {/* Class tabs — only show classes included in this generation */}
           <div className="flex gap-1.5 flex-wrap no-print">
             {classes
@@ -560,14 +647,63 @@ export default function TimetablePage() {
               </table>
             </div>
 
-            {/* Legend */}
+            {/* Legend — with per-class counts, so it doubles as an audit line */}
             <div className="px-5 py-3 border-t border-gray-100 bg-gray-50 flex flex-wrap gap-2 items-center no-print">
-              <span className="text-xs text-gray-400 font-semibold mr-1 uppercase tracking-wider">Legend:</span>
-              {(Object.entries(CATEGORY_COLORS) as [keyof typeof CATEGORY_COLORS, string][]).map(([cat, cls]) => (
-                <span key={cat} className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${cls}`}>{cat}</span>
-              ))}
+              <span className="text-xs text-gray-400 font-semibold mr-1 uppercase tracking-wider">This class:</span>
+              {(() => {
+                const counts = new Map<string, number>();
+                for (const s of timetable.slots.filter(x => x.classId === selectedClass)) {
+                  const cat = subjectMap[s.subjectId]?.category;
+                  if (cat) counts.set(cat, (counts.get(cat) ?? 0) + 1);
+                }
+                const labs = timetable.slots.filter(x => x.classId === selectedClass && subjectMap[x.subjectId]?.isLab).length;
+                return (
+                  <>
+                    {(Object.entries(CATEGORY_COLORS) as [keyof typeof CATEGORY_COLORS, string][])
+                      .filter(([cat]) => counts.has(cat))
+                      .map(([cat, cls]) => (
+                        <span key={cat} className={`px-2.5 py-0.5 rounded-full text-[11px] font-semibold ${cls}`}>
+                          {cat} ×{counts.get(cat)}
+                        </span>
+                      ))}
+                    {labs > 0 && (
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-gray-200 text-gray-600">
+                        {labs} lab session{labs > 1 ? 's' : ''}/week
+                      </span>
+                    )}
+                  </>
+                );
+              })()}
             </div>
           </div>
+          </>)}
+
+          {/* Cell explanation — converts “the tool did something weird” into
+              “the tool had no choice” */}
+          {explain && viewMode === 'class' && (
+            <div className="bg-white border border-indigo-200 rounded-2xl shadow-sm p-4 no-print">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-xs font-bold text-indigo-600 mb-1">
+                    Why this cell — {DAYS[explain.slot.day - 1]} S{explain.slot.session}: {subjectMap[explain.slot.subjectId]?.name}
+                  </p>
+                  {explain.notes.length ? (
+                    <ul className="text-xs text-gray-600 space-y-0.5">
+                      {explain.notes.map((n, i) => <li key={i}>• {n}</li>)}
+                    </ul>
+                  ) : (
+                    <p className="text-xs text-gray-400">No special constraints — this placement was free.</p>
+                  )}
+                </div>
+                <button onClick={() => setExplain(null)} className="text-gray-300 hover:text-gray-500">✕</button>
+              </div>
+            </div>
+          )}
+
+          {/* Post-solve analysis + version comparison */}
+          <AnalysisPanel classes={classes} subjects={subjects} mentors={mentors} timetable={timetable} />
+          <HistoryCompare mentors={mentors} history={history}
+            onRestore={t => { saveTimetable(t); setTimetable(t); setGenAttempts(0); setChangedCells(new Set()); }} />
         </>
       )}
     </div>

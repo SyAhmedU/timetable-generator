@@ -126,6 +126,32 @@ export default function AbsencePage() {
                 <span className="font-medium">{affectedSlots.length}</span> class sessions affected
               </p>
             </div>
+
+            {/* Ripple strip: one absence propagates — show the propagation,
+                not just the hole. */}
+            {affectedSlots.length > 0 && (
+              <div>
+                <p className="text-xs font-medium text-gray-500 mb-1.5">{mentorMap[absentMentor]?.code}'s {DAYS[absenceDay - 1]}:</p>
+                <div className="flex gap-1">
+                  {[1, 2, 3, 4, 5, 6, 7].map(n => {
+                    const s = slots.find(x => x.mentorId === absentMentor && x.day === absenceDay && x.session === n);
+                    const covered = s && subMap[`${s.classId}-${s.session}`];
+                    return (
+                      <div key={n}
+                        title={s ? `S${n}: ${classMap[s.classId]?.shortName} — ${covered ? 'substitute assigned' : 'uncovered'}` : `S${n}: free`}
+                        className={`flex-1 h-9 rounded flex flex-col items-center justify-center text-[9px] font-bold border ${
+                          s ? (covered ? 'bg-emerald-50 border-emerald-300 text-emerald-700' : 'bg-red-50 border-red-300 text-red-600')
+                            : 'bg-gray-50 border-gray-200 text-gray-300'
+                        }`}>
+                        <span>S{n}</span>
+                        {s && <span className="font-medium">{classMap[s.classId]?.shortName?.slice(0, 6)}</span>}
+                      </div>
+                    );
+                  })}
+                </div>
+                <p className="text-[10px] text-gray-400 mt-1">red = still uncovered · green = substitute assigned</p>
+              </div>
+            )}
             {affectedSlots.length > 0 && (
               <button onClick={saveAbsence}
                 className="w-full bg-red-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition">
@@ -170,6 +196,21 @@ export default function AbsencePage() {
                           ))}
                         </select>
                         {subs.length === 0 && <p className="text-xs text-red-500">No free mentors found</p>}
+                        {/* Substitution chain: what this pick does to the
+                            substitute's own day */}
+                        {subMap[key] && (() => {
+                          const chosen = mentorMap[subMap[key]];
+                          if (!chosen) return null;
+                          const theirDay = slots
+                            .filter(x => x.mentorId === chosen.id && x.day === absenceDay)
+                            .map(x => `S${x.session} (${classMap[x.classId]?.shortName})`);
+                          return (
+                            <p className="text-[11px] text-gray-500 mt-0.5">
+                              {chosen.code} that day: {theirDay.length ? theirDay.join(', ') : 'otherwise free'}
+                              {' '}→ takes this as session #{theirDay.length + 1}
+                            </p>
+                          );
+                        })()}
                       </div>
                     </div>
                   </div>

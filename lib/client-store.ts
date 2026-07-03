@@ -5,12 +5,21 @@ import type { Class, Subject, Mentor, Timetable, AbsenceRecord } from './types';
 // Auto-migrate: if stored version doesn't match current seed, wipe stale data.
 // Runs once at module load time in the browser (before any reads).
 if (typeof window !== 'undefined') {
-  if (localStorage.getItem('tt_version') !== SEED_VERSION) {
+  const stored = localStorage.getItem('tt_version');
+  if (stored !== SEED_VERSION) {
     localStorage.setItem('tt_subjects',  JSON.stringify(SEED_SUBJECTS));
     localStorage.setItem('tt_mentors',   JSON.stringify(SEED_MENTORS));
     localStorage.setItem('tt_timetable', JSON.stringify(EMPTY_TIMETABLE));
     localStorage.setItem('tt_absence',   JSON.stringify([]));
     localStorage.setItem('tt_version',   SEED_VERSION);
+    // Receipt for the migration banner: silent auto-migration is correct
+    // behaviour but invisible behaviour — record what happened so the UI can
+    // say it once.
+    if (stored !== null) {
+      localStorage.setItem('tt_migrated', JSON.stringify({
+        from: stored, to: SEED_VERSION, at: new Date().toISOString(),
+      }));
+    }
   }
 }
 
@@ -45,6 +54,22 @@ export const clearTimetable = ()                 => write('tt_timetable', EMPTY_
 export const backupTimetable = ()                => { const t = getTimetable(); if (t.generated) write('tt_timetable_prev', t); };
 export const restorePrevTimetable = ()           => { const p = getPrevTimetable(); if (p) write('tt_timetable', p); };
 export const saveAbsenceLog = (l: AbsenceRecord[]) => write('tt_absence', l);
+
+// ── Generation history (last 3, for what-if comparison) ─────────────────────
+export const getTimetableHistory = (): Timetable[] => read<Timetable[]>('tt_history', []);
+export function pushTimetableHistory(t: Timetable) {
+  if (!t.generated) return;
+  const hist = [t, ...getTimetableHistory()].slice(0, 3);
+  write('tt_history', hist);
+}
+
+// ── Migration receipt ─────────────────────────────────────────────────────────
+export interface MigrationReceipt { from: string; to: string; at: string }
+export const getMigrationReceipt = (): MigrationReceipt | null =>
+  read<MigrationReceipt | null>('tt_migrated', null);
+export const dismissMigrationReceipt = () => {
+  if (typeof window !== 'undefined') localStorage.removeItem('tt_migrated');
+};
 
 // ── Subject helpers ───────────────────────────────────────────────────────────
 export function addSubject(s: Subject)     { write('tt_subjects', [...getSubjects(), s]); }

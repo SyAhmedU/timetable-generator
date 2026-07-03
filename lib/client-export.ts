@@ -1,6 +1,7 @@
 // Client-side Excel export (runs in browser, triggers download directly)
 import * as XLSX from 'xlsx';
 import type { Class, Subject, Mentor, MentorCategory, Timetable, AbsenceRecord } from './types';
+import { mentorLoads, fairness, sessionUtilization } from './analytics';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 const SESSION_LABELS: Record<number, string> = {
@@ -73,6 +74,38 @@ export function exportTimetableExcel(
       { wch: 30 },  // S7
     ];
     XLSX.utils.book_append_sheet(wb, ws, cls.shortName.slice(0, 31));
+  }
+
+  // Stats sheet — the numbers behind the grid travel with the grid.
+  if (!classId) {
+    const loads = mentorLoads(mentors, timetable);
+    const f = fairness(loads);
+    const statRows: (string | number)[][] = [
+      ['Mentor loads & idle gaps'],
+      ['Code', 'Name', 'Category', 'Hours', 'Cap', 'Load %', 'Idle gap sessions', 'Days on campus'],
+      ...loads.map(l => [
+        l.mentor.code, l.mentor.name, l.mentor.category,
+        l.hours, l.cap, Math.round(l.pct * 100), l.idleGaps, l.daysOnCampus,
+      ]),
+      [],
+      ['Fairness'],
+      ['Assigned mentors', f.n],
+      ['Min hours', f.min], ['Max hours', f.max], ['Spread (max−min)', f.spread],
+      ['Coefficient of variation', f.cv === null ? '—' : Number(f.cv.toFixed(3))],
+      [],
+      ['Session utilisation (filled cells / possible)'],
+      ['Session', 'Filled', 'Possible', '%'],
+      ...sessionUtilization(classes, timetable).map(u => [
+        `S${u.session} ${SESSION_LABELS[u.session]}`, u.filled, u.possible,
+        u.possible ? Math.round(u.filled / u.possible * 100) : 0,
+      ]),
+      [],
+      ['Solver warnings', timetable.warnings.length],
+      ...timetable.warnings.map(w => [w]),
+    ];
+    const statWs = XLSX.utils.aoa_to_sheet(statRows);
+    statWs['!cols'] = [{ wch: 26 }, { wch: 22 }, { wch: 12 }, { wch: 8 }, { wch: 6 }, { wch: 8 }, { wch: 16 }, { wch: 14 }];
+    XLSX.utils.book_append_sheet(wb, statWs, 'Stats');
   }
 
   XLSX.writeFile(wb, classId ? `${classMap[classId]?.shortName ?? classId}.xlsx` : 'all-timetables.xlsx');
