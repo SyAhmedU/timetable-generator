@@ -43,6 +43,7 @@ export default function TimetablePage() {
   const [genAttempts, setGenAttempts]       = useState(0);
   const [hasPrev, setHasPrev]               = useState(false);
   const [showMentors, setShowMentors]       = useState(true);
+  const [showHeat, setShowHeat]             = useState(true); // SYED-CONCEPT · Living Grid load heat (screen only)
   const [activeIds, setActiveIds]           = useState<Set<string>>(new Set());
   const [showClassPicker, setShowPicker]    = useState(false);
   const [viewMode, setViewMode]             = useState<'class' | 'mentor' | 'overview'>('class');
@@ -181,6 +182,16 @@ export default function TimetablePage() {
   const slot = (day: number, session: number): TimetableSlot | undefined =>
     timetable?.slots.find(s => s.classId === selectedClass && s.day === day && s.session === session);
 
+  // SYED-CONCEPT · The Living Grid — each mentor's real weekly hours across ALL
+  // classes, so every cell can show the weight it puts on that mentor.
+  const mentorWeekLoad = (() => {
+    const hours: Record<string, number> = {};
+    if (timetable?.generated) for (const s of timetable.slots) {
+      if (s.mentorId) hours[s.mentorId] = (hours[s.mentorId] ?? 0) + 1;
+    }
+    return hours;
+  })();
+
   const selectedClass_ = classes.find(c => c.id === selectedClass);
 
   // Solver warnings mapped onto cells (Day X S Y mentions), for the
@@ -222,6 +233,23 @@ export default function TimetablePage() {
                 <span className="lab-badge text-[9px] font-semibold bg-black/10 px-1.5 py-0.5 rounded-full ml-auto">Lab</span>
               )}
             </div>
+            {/* SYED-CONCEPT · load heat: this mentor's real week vs their cap (screen only) */}
+            {showHeat && mentor && (() => {
+              const load = mentorWeekLoad[mentor.id] ?? 0;
+              const ratio = mentor.maxHoursPerWeek > 0 ? load / mentor.maxHoursPerWeek : 0;
+              const over = ratio > 1;
+              return (
+                <span className="no-print block mt-1.5" title={`${mentor.name}: ${load}h of ${mentor.maxHoursPerWeek}h this week${over ? ' — OVER CAP' : ''}`}>
+                  <span className="block h-[3px] rounded-full bg-black/10 overflow-hidden">
+                    <span className={`block h-full rounded-full ${over ? 'tt-overload' : ''}`}
+                      style={{
+                        width: `${Math.min(ratio, 1) * 100}%`,
+                        background: over ? '#dc2626' : ratio >= 0.85 ? '#F14575' : 'rgba(146,112,244,.85)',
+                      }} />
+                  </span>
+                </span>
+              );
+            })()}
           </div>
         ) : (
           <div className={`min-h-[72px] flex items-center justify-center ${changed ? 'rounded-xl ring-2 ring-indigo-300 ring-offset-1' : ''}`}
@@ -373,6 +401,13 @@ export default function TimetablePage() {
               <button onClick={() => setShowMentors(v => !v)}
                 className="px-3 py-2 rounded-lg text-sm bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 transition">
                 {showMentors ? 'Hide Mentors' : 'Show Mentors'}
+              </button>
+              <button onClick={() => setShowHeat(v => !v)}
+                title="Tint each session with its mentor's real weekly load (never prints)"
+                className={`px-3 py-2 rounded-lg text-sm border transition ${
+                  showHeat ? 'bg-rose-50 border-rose-300 text-rose-700 font-semibold' : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+                }`}>
+                🔥 Load heat
               </button>
               <button onClick={() => window.print()}
                 className="px-3 py-2 rounded-lg text-sm bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 transition">
