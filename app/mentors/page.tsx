@@ -153,6 +153,46 @@ function MentorsPageInner() {
               ))}
             </tbody>
           </table>
+          {/* Load heatmap — every required mentor's sessions per weekday from the
+              generated slots. Hot cells = heavy days; instant see-saw check that
+              no one's week is front-loaded. */}
+          {hasGenerated && activeSummary.length > 1 && (
+            <div className="px-6 py-4 border-t overflow-x-auto">
+              <h3 className="font-semibold text-sm mb-1">Load heatmap <span className="font-normal text-gray-400">— sessions per day (of {SESSION_INFO.length} max)</span></h3>
+              <table className="text-xs" style={{ borderCollapse: 'separate', borderSpacing: 2 }}>
+                <thead>
+                  <tr>
+                    <th className="text-left pr-2 font-medium text-gray-500">Mentor</th>
+                    {DAYS.map((d, i) => <th key={i} className="font-medium text-gray-500 px-1">{d.slice(0, 3)}</th>)}
+                    <th className="font-medium text-gray-500 pl-2">Wk</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {activeSummary.map(m => {
+                    const perDay = [1, 2, 3, 4, 5].map(d => slots.filter(s => s.mentorId === m.id && s.day === d).length);
+                    return (
+                      <tr key={m.id}>
+                        <td className="pr-2 whitespace-nowrap font-medium text-gray-700">{m.code}</td>
+                        {perDay.map((n, i) => (
+                          <td key={i} title={`${m.name} · ${DAYS[i]}: ${n} session${n === 1 ? '' : 's'}`}
+                            className="text-center rounded font-mono"
+                            style={{
+                              width: 34, height: 22,
+                              background: n === 0 ? '#f1f5f9' : `rgba(37,99,235,${(0.12 + 0.75 * (n / SESSION_INFO.length)).toFixed(2)})`,
+                              color: n >= 4 ? '#fff' : '#334155',
+                            }}>
+                            {n || ''}
+                          </td>
+                        ))}
+                        <td className={`pl-2 font-bold ${m.totalHours > m.maxHoursPerWeek ? 'text-red-600' : 'text-gray-700'}`}>{m.totalHours}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+              <p className="text-[11px] text-gray-400 mt-1">Darker = more sessions that day · a full column of dark cells means that weekday is over-packed campus-wide.</p>
+            </div>
+          )}
           <div className="px-6 py-3 border-t flex gap-3 flex-wrap">
             <button onClick={() => exportMentorSummaryExcel(classes, subjects, mentors, timetable)}
               className="px-3 py-1.5 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
