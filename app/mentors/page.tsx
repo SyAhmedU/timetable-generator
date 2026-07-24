@@ -12,9 +12,9 @@ const SESSION_INFO = [
   { n: 2, label: '9:20–10:10'  },
   { n: 3, label: '10:20–11:10' },
   { n: 4, label: '11:10–12:00' },
-  { n: 5, label: '12:45–1:30'  },
-  { n: 6, label: '1:30–2:15'   },
-  { n: 7, label: '2:15–3:00'   },
+  { n: 5, label: '12:00–12:50' },
+  { n: 6, label: '1:35–2:25'   },
+  { n: 7, label: '2:25–3:15'   },
 ];
 
 export default function MentorsPage() {
@@ -262,9 +262,9 @@ function MentorsPageInner() {
                       <th style={{ background: 'rgba(251,191,36,0.18)', color: '#92700a' }}
                         className="px-2 py-3 text-center border-r border-amber-300/40 w-16">
                         <div className="text-sm">☕</div>
-                        <div className="text-[9px] font-semibold mt-0.5 leading-tight">Break<br/>10:10–10:20</div>
+                        <div className="text-[9px] font-semibold mt-0.5 leading-tight">Tea Break<br/>10:10–10:20</div>
                       </th>
-                      {SESSION_INFO.slice(2, 4).map(({ n, label }) => (
+                      {SESSION_INFO.slice(2, 5).map(({ n, label }) => (
                         <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
                           className="px-2 py-3 text-center border-r border-white/10">
                           <div className="text-sm font-bold">S{n}</div>
@@ -274,9 +274,9 @@ function MentorsPageInner() {
                       <th style={{ background: 'rgba(16,185,129,0.15)', color: '#065f46' }}
                         className="px-2 py-3 text-center border-r border-emerald-300/40 w-16">
                         <div className="text-sm">🍽</div>
-                        <div className="text-[9px] font-semibold mt-0.5 leading-tight">Lunch<br/>12:00–12:45</div>
+                        <div className="text-[9px] font-semibold mt-0.5 leading-tight">Lunch<br/>12:50–1:35</div>
                       </th>
-                      {SESSION_INFO.slice(4).map(({ n, label }) => (
+                      {SESSION_INFO.slice(5).map(({ n, label }) => (
                         <th key={n} style={{ background: 'var(--navy)', color: 'white' }}
                           className="px-2 py-3 text-center border-r border-white/10 last:border-r-0">
                           <div className="text-sm font-bold">S{n}</div>
@@ -315,8 +315,8 @@ function MentorsPageInner() {
                         {/* Break spacer */}
                         <td style={{ background: 'rgba(251,191,36,0.06)', borderColor: 'rgba(251,191,36,0.25)' }}
                           className="border-r border-b w-16" />
-                        {/* S3, S4 */}
-                        {[3, 4].map(n => {
+                        {/* S3, S4, S5 */}
+                        {[3, 4, 5].map(n => {
                           const s   = mentorSlot(day, n);
                           const sub = s ? subjectMap[s.subjectId] : null;
                           const cls = s ? classMap[s.classId]   : null;
@@ -338,8 +338,8 @@ function MentorsPageInner() {
                         {/* Lunch spacer */}
                         <td style={{ background: 'rgba(16,185,129,0.05)', borderColor: 'rgba(16,185,129,0.25)' }}
                           className="border-r border-b w-16" />
-                        {/* S5, S6, S7 */}
-                        {[5, 6, 7].map(n => {
+                        {/* S6, S7 */}
+                        {[6, 7].map(n => {
                           const s   = mentorSlot(day, n);
                           const sub = s ? subjectMap[s.subjectId] : null;
                           const cls = s ? classMap[s.classId]   : null;

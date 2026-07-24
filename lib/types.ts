@@ -79,9 +79,9 @@ export const SESSIONS = [
   { number: 2, start: '9:20',  end: '10:10' },
   { number: 3, start: '10:20', end: '11:10' },
   { number: 4, start: '11:10', end: '12:00' },
-  { number: 5, start: '12:45', end: '1:30'  },
-  { number: 6, start: '1:30',  end: '2:15'  },
-  { number: 7, start: '2:15',  end: '3:00'  },
+  { number: 5, start: '12:00', end: '12:50' },
+  { number: 6, start: '1:35',  end: '2:25'  },
+  { number: 7, start: '2:25',  end: '3:15'  },
 ] as const;
 
 export const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];

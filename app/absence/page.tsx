@@ -10,7 +10,7 @@ import { exportAbsenceLogExcel } from '@/lib/client-export';
 
 const SESSION_LABELS: Record<number, string> = {
   1: 'S1 (8:30–9:20)', 2: 'S2 (9:20–10:10)', 3: 'S3 (10:20–11:10)',
-  4: 'S4 (11:10–12:00)', 5: 'S5 (12:45–1:30)', 6: 'S6 (1:30–2:15)', 7: 'S7 (2:15–3:00)',
+  4: 'S4 (11:10–12:00)', 5: 'S5 (12:00–12:50)', 6: 'S6 (1:35–2:25)', 7: 'S7 (2:25–3:15)',
 };
 
 export default function AbsencePage() {

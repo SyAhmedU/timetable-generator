@@ -6,7 +6,7 @@ import { mentorLoads, fairness, sessionUtilization } from './analytics';
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
 const SESSION_LABELS: Record<number, string> = {
   1: '8:30–9:20', 2: '9:20–10:10', 3: '10:20–11:10',
-  4: '11:10–12:00', 5: '12:45–1:30', 6: '1:30–2:15', 7: '2:15–3:00',
+  4: '11:10–12:00', 5: '12:00–12:50', 6: '1:35–2:25', 7: '2:25–3:15',
 };
 
 export function exportTimetableExcel(
@@ -23,8 +23,8 @@ export function exportTimetableExcel(
   const targets   = classId ? classes.filter(c => c.id === classId) : classes;
 
   // Sessions in order with break/lunch separators
-  // columns: Day | S1 | S2 | Break | S3 | S4 | Lunch | S5 | S6 | S7
-  const SESSION_COLS = [1, 2, null, 3, 4, null, 5, 6, 7] as const; // null = break/lunch
+  // columns: Day | S1 | S2 | Tea Break | S3 | S4 | S5 | Lunch | S6 | S7
+  const SESSION_COLS = [1, 2, null, 3, 4, 5, null, 6, 7] as const; // null = break/lunch
 
   const cellContent = (cls: Class, day: number, session: number): string => {
     const slot = timetable.slots.find(
@@ -42,7 +42,7 @@ export function exportTimetableExcel(
     let breakDone = false;
     for (const col of SESSION_COLS) {
       if (col === null) {
-        header.push(breakDone ? 'Lunch 12:00–12:45' : 'Break 10:10–10:20');
+        header.push(breakDone ? 'Lunch 12:50–1:35' : 'Tea Break 10:10–10:20');
         breakDone = true;
       } else {
         header.push(`S${col}\n${SESSION_LABELS[col]}`);
@@ -65,11 +65,11 @@ export function exportTimetableExcel(
       { wch: 14 },  // Day
       { wch: 30 },  // S1
       { wch: 30 },  // S2
-      { wch: 16 },  // Break
+      { wch: 16 },  // Tea Break
       { wch: 30 },  // S3
       { wch: 30 },  // S4
-      { wch: 16 },  // Lunch
       { wch: 30 },  // S5
+      { wch: 16 },  // Lunch
       { wch: 30 },  // S6
       { wch: 30 },  // S7
     ];
