@@ -2,7 +2,7 @@ import type { Class, Subject, Mentor, Timetable } from './types';
 
 // Bump this string whenever seed data changes — triggers auto-reset in browsers
 // with stale localStorage from a previous version.
-export const SEED_VERSION = 'v12-strict-cs-ds-separation';
+export const SEED_VERSION = 'v13-real-mentors-ay2627';
 
 export const SEED_CLASSES: Class[] = [
   // Year 3 first
@@ -164,34 +164,38 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_bba2_mhr',   classId: 'cls_bba2', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 ];
 
+// Real AY 2026-27 roster (16 mentors), replacing the placeholder headcount below.
+// ⚠ CAPACITY GAP vs. hour-demand model (each mentor capped at 20 hrs/wk):
+//   CS         106 hrs demand / 4 real mentors  = 80 hrs capacity  → short ~26 hrs (model assumed 6 mentors)
+//   DS          27 hrs demand / 3 real mentors  = 60 hrs capacity  → 33 hrs surplus (strict DS-only, can't offload to CS)
+//   MGMT+COM   100 hrs demand / 4 real mentors  = 80 hrs capacity  → short ~20 hrs (MANAGEMENT overflows to COMMERCE mentors)
+//   ENGLISH     63 hrs demand / 3 real mentors  = 60 hrs capacity  → short ~3 hrs (borderline)
+//   MATH        50 hrs demand / 2 real mentors  = 40 hrs capacity  → short ~10 hrs (model assumed 3 mentors)
+// See Syed for the resolution call: raise maxHoursPerWeek for the short categories, cut subject
+// hours/batches, or accept the generator leaving some slots unassigned (surfaced as warnings).
 export const SEED_MENTORS: Mentor[] = [
-  // CS mentors — 6 (106 hrs demand / 20 = ceil(5.3) = 6; CS-only, no DS cross-assignment)
-  { id: 'm_cs1',   code: 'CS1',   name: 'CS Mentor 1',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
-  { id: 'm_cs2',   code: 'CS2',   name: 'CS Mentor 2',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
-  { id: 'm_cs3',   code: 'CS3',   name: 'CS Mentor 3',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
-  { id: 'm_cs4',   code: 'CS4',   name: 'CS Mentor 4',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
-  { id: 'm_cs5',   code: 'CS5',   name: 'CS Mentor 5',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
-  { id: 'm_cs6',   code: 'CS6',   name: 'CS Mentor 6',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'MCA/M.Sc.'   },
-  // DS mentors — 2 (27 hrs demand / 20 = ceil(1.35) = 2; DS-only, no CS cross-assignment)
-  { id: 'm_ds1',   code: 'DS1',   name: 'DS Mentor 1',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
-  { id: 'm_ds2',   code: 'DS2',   name: 'DS Mentor 2',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
-  { id: 'm_ds3',   code: 'DS3',   name: 'DS Mentor 3',         category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: 'M.Tech/Ph.D.' },
-  // Management mentor — 1 (covers ~20 hrs; commerce mentors handle remaining ~25 hrs via fallback)
-  { id: 'm_mg1',   code: 'MG1',   name: 'Management Mentor 1', category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: 'MBA'          },
-  // English mentors — 4 (~63 hrs/wk demand; ~16 hrs/mentor)
-  { id: 'm_eng1',  code: 'ENG1',  name: 'English Mentor 1',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
-  { id: 'm_eng2',  code: 'ENG2',  name: 'English Mentor 2',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
-  { id: 'm_eng3',  code: 'ENG3',  name: 'English Mentor 3',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
-  { id: 'm_eng4',  code: 'ENG4',  name: 'English Mentor 4',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.A. Eng.'    },
-  // Math mentors — 3 (~50 hrs/wk demand; ~17 hrs/mentor)
-  { id: 'm_math1', code: 'MATH1', name: 'Math Mentor 1',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math'   },
-  { id: 'm_math2', code: 'MATH2', name: 'Math Mentor 2',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math'   },
-  { id: 'm_math3', code: 'MATH3', name: 'Math Mentor 3',       category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: 'M.Sc. Math'   },
-  // Commerce mentors — 4 (~55 hrs commerce + ~25 hrs management overflow = ~80 hrs; ~20 hrs/mentor)
-  { id: 'm_com1',  code: 'COM1',  name: 'Commerce Mentor 1',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
-  { id: 'm_com2',  code: 'COM2',  name: 'Commerce Mentor 2',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
-  { id: 'm_com3',  code: 'COM3',  name: 'Commerce Mentor 3',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
-  { id: 'm_com4',  code: 'COM4',  name: 'Commerce Mentor 4',   category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: 'M.Com.'       },
+  // CS mentors — 4 real (model assumed 6 for 106 hrs/wk demand; currently ~26 hrs/wk short)
+  { id: 'm_cs1',   code: 'CS1',   name: 'Mr. Nishanta Kakati',      category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_cs2',   code: 'CS2',   name: 'Mr. Vishal Kumar',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_cs3',   code: 'CS3',   name: 'Mr. Praveen Yadavalli',    category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_cs4',   code: 'CS4',   name: 'Mr. Jitendra Kumar Rana',  category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
+  // DS mentors — 3 real (27 hrs/wk demand; over-resourced relative to demand, but DS-only — can't cover the CS gap)
+  { id: 'm_ds1',   code: 'DS1',   name: 'Mr. Aakaash M',            category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_ds2',   code: 'DS2',   name: 'Mr. Tamilarasan D',        category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_ds3',   code: 'DS3',   name: 'Mr. Parthajit Konwar',     category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
+  // Management mentor — 1 real (covers ~20 hrs of the 45 hr mgmt demand; remainder falls to Commerce mentors via fallback)
+  { id: 'm_mg1',   code: 'MG1',   name: 'Ms. Sruthi V',             category: 'MANAGEMENT', departmentId: 'PBF',  maxHoursPerWeek: 20, qualification: null },
+  // English mentors — 3 real (63 hrs/wk demand; ~3 hrs/wk short)
+  { id: 'm_eng1',  code: 'ENG1',  name: 'Ms. Catherin Sweety R',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_eng2',  code: 'ENG2',  name: 'Ms. Sabitha Shanmugam',    category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_eng3',  code: 'ENG3',  name: 'Mr. Afridkhan',            category: 'ENGLISH',    departmentId: null,   maxHoursPerWeek: 20, qualification: null },
+  // Math mentors — 2 real (model assumed 3 for 50 hrs/wk demand; currently ~10 hrs/wk short)
+  { id: 'm_math1', code: 'MATH1', name: 'Ms. Surya G',              category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_math2', code: 'MATH2', name: 'Ms. Jayashree R',          category: 'MATH',       departmentId: null,   maxHoursPerWeek: 20, qualification: null },
+  // Commerce mentors — 3 real (55 hrs commerce + management overflow; combined w/ MG1 currently ~20 hrs/wk short)
+  { id: 'm_com1',  code: 'COM1',  name: 'Mr. Santhosh Kumar M',     category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_com2',  code: 'COM2',  name: 'Ms. Jayashree B',          category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_com3',  code: 'COM3',  name: 'Ms. Ansila K',             category: 'COMMERCE',   departmentId: 'PCOM', maxHoursPerWeek: 20, qualification: null },
 ];
 
 export const EMPTY_TIMETABLE: Timetable = {
