@@ -2,7 +2,7 @@ import type { Class, Subject, Mentor, Timetable } from './types';
 
 // Bump this string whenever seed data changes — triggers auto-reset in browsers
 // with stale localStorage from a previous version.
-export const SEED_VERSION = 'v13-real-mentors-ay2627';
+export const SEED_VERSION = 'v14-younus-parthajit-fix';
 
 export const SEED_CLASSES: Class[] = [
   // Year 3 first
@@ -164,9 +164,13 @@ export const SEED_SUBJECTS: Subject[] = [
   { id: 's_bba2_mhr',   classId: 'cls_bba2', name: 'Mentor Hour', category: 'NA', hoursPerWeek: 1, isLab: false, labForSubjectId: null },
 ];
 
-// Real AY 2026-27 roster (16 mentors), replacing the placeholder headcount below.
+// Real AY 2026-27 roster (14 mentors), replacing the placeholder headcount below.
+// Staffing correction, 28-09-2026: Vishal Kumar stopped reporting — Younus SBS took over as
+// mentor for his class (the account was renamed, not replaced, so his old CS slot is Younus's
+// now). Jitendra Kumar Rana never actually joined despite being on this seed — removed outright,
+// no replacement (Parthajit Konwar was already the real I B.Tech AI-DS mentor under DS).
 // ⚠ CAPACITY GAP vs. hour-demand model (each mentor capped at 20 hrs/wk):
-//   CS         106 hrs demand / 4 real mentors  = 80 hrs capacity  → short ~26 hrs (model assumed 6 mentors)
+//   CS         106 hrs demand / 3 real mentors  = 60 hrs capacity  → short ~46 hrs (model assumed 6 mentors)
 //   DS          27 hrs demand / 3 real mentors  = 60 hrs capacity  → 33 hrs surplus (strict DS-only, can't offload to CS)
 //   MGMT+COM   100 hrs demand / 4 real mentors  = 80 hrs capacity  → short ~20 hrs (MANAGEMENT overflows to COMMERCE mentors)
 //   ENGLISH     63 hrs demand / 3 real mentors  = 60 hrs capacity  → short ~3 hrs (borderline)
@@ -174,11 +178,10 @@ export const SEED_SUBJECTS: Subject[] = [
 // See Syed for the resolution call: raise maxHoursPerWeek for the short categories, cut subject
 // hours/batches, or accept the generator leaving some slots unassigned (surfaced as warnings).
 export const SEED_MENTORS: Mentor[] = [
-  // CS mentors — 4 real (model assumed 6 for 106 hrs/wk demand; currently ~26 hrs/wk short)
+  // CS mentors — 3 real (model assumed 6 for 106 hrs/wk demand; currently ~46 hrs/wk short)
   { id: 'm_cs1',   code: 'CS1',   name: 'Mr. Nishanta Kakati',      category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
-  { id: 'm_cs2',   code: 'CS2',   name: 'Mr. Vishal Kumar',         category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
+  { id: 'm_cs2',   code: 'CS2',   name: 'Mr. Younus SBS',           category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
   { id: 'm_cs3',   code: 'CS3',   name: 'Mr. Praveen Yadavalli',    category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
-  { id: 'm_cs4',   code: 'CS4',   name: 'Mr. Jitendra Kumar Rana',  category: 'CS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
   // DS mentors — 3 real (27 hrs/wk demand; over-resourced relative to demand, but DS-only — can't cover the CS gap)
   { id: 'm_ds1',   code: 'DS1',   name: 'Mr. Aakaash M',            category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
   { id: 'm_ds2',   code: 'DS2',   name: 'Mr. Tamilarasan D',        category: 'DS',         departmentId: 'ACS',  maxHoursPerWeek: 20, qualification: null },
