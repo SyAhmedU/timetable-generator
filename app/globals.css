@@ -147,3 +147,6 @@ body::before {
 @keyframes tt-overload { 0%,100% { opacity: 1; } 50% { opacity: .45; } }
 @media (prefers-reduced-motion: reduce) { .tt-overload { animation: none; } }
 @media print { .tt-overload { animation: none; } }
+
+/* Campus entry refresh; existing passcode behavior retained. */
+#syed-gate{background:#f6f4ed!important;color:#183440!important}#syed-gate>div{background:#fffefb;padding:40px 28px;border:1px solid #d4dbd5;border-radius:10px;box-shadow:0 16px 60px #1834400a}#syed-gate input{color:#183440!important;background:#f6f4ed!important;border:1px solid #bccac9!important;border-radius:6px;padding:14px!important}#syed-gate-i:focus-visible{outline:3px solid #187581!important;outline-offset:4px}#syed-gate-h{color:#526b73!important}

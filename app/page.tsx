@@ -117,7 +117,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="space-y-7">
+    <div className="space-y-7"><Link href="/campus" className="block rounded-xl border border-teal-200 bg-teal-50 p-4"><strong>Updated campus timetable →</strong><span className="block text-sm mt-1">View the confirmed 4 October changes and mentor allocations.</span></Link>
 
       {/* ── Status Banner ────────────────────────────────────────────────── */}
       <div className={`rounded-2xl p-5 border-2 ${timetable.generated

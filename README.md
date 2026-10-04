@@ -34,3 +34,9 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+## Campus operations polish — 2026-10-04
+Entry gate now names the timetable workspace and masks password input, retaining the existing passcode. Vercel builds use the root path; local/GitHub Pages builds retain `/timetable-generator`. Manifest and service-worker URLs adapt to both. Builds and generator checks passed. Existing browser-local data stays on its original origin; opening a different host does not migrate it.
+
+Production: https://timetable-generator-nine-rouge.vercel.app. `/campus` is a dated read-only copy of the verified eight-class operational timetable (4 October 2026); no generator localStorage overwrite. Includes revised subject allocations, approved Low Code swaps and calculated subject/mentor-hour totals. Aakaash’s supplied 18 differs from 13 calculated subject sessions; explicitly flagged.

@@ -1,0 +1,2536 @@
+{
+  "asOf": "2026-10-04",
+  "source": "Campus Manager confirmed changes and live campus timetable",
+  "classes": [
+    "III AI ML",
+    "II AI ML",
+    "II AI DS",
+    "I AI DS",
+    "I BTech AI DS",
+    "I BCOM",
+    "II BCOM",
+    "II BBA"
+  ],
+  "slots": [
+    {
+      "day": "Mon",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Business Analytics Laboratory",
+      "faculty": "Aakaash M",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Database Management Systems Laboratory",
+      "faculty": "Tamilarasan D",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Business Analytics Laboratory",
+      "faculty": "Aakaash M",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Environmental Studies",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Operating Systems",
+      "faculty": "Younus SBS",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Database Management Systems Laboratory",
+      "faculty": "Tamilarasan D",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Principles of Management",
+      "faculty": "Ansila K",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Library",
+      "faculty": "",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Business Analytics Laboratory",
+      "faculty": "Aakaash M",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Aptitude",
+      "faculty": "Surya G",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Principles of Management",
+      "faculty": "Ansila K",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "PET",
+      "faculty": "",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Operating Systems",
+      "faculty": "Younus SBS",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Database Management Systems Laboratory",
+      "faculty": "Tamilarasan D",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Principles of Management",
+      "faculty": "Ansila K",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Environmental Studies",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Operating Systems",
+      "faculty": "Younus SBS",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Business Analytics Laboratory",
+      "faculty": "Aakaash M",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Aptitude",
+      "faculty": "Surya G",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Mentor Hour",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Business Statistics and Data Research",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Mon",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Strategic Management",
+      "faculty": "Ansila K",
+      "className": "II BBA"
+    },
+    {
+      "day": "Mon",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Logistics and E-Commerce trends",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Mon",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Financial Accounting",
+      "faculty": "Ansila K",
+      "className": "II BBA"
+    },
+    {
+      "day": "Mon",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BBA"
+    },
+    {
+      "day": "Mon",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Capstone Projects – II",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Mon",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Omnichannel Marketing and Customer Journey",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Tue",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Business Statistics and Data Research",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Tue",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Logistics and E-Commerce trends",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Tue",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Product Sourcing and Inventory Management",
+      "faculty": "Ansila K",
+      "className": "II BBA"
+    },
+    {
+      "day": "Tue",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Financial Accounting",
+      "faculty": "Ansila K",
+      "className": "II BBA"
+    },
+    {
+      "day": "Tue",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BBA"
+    },
+    {
+      "day": "Tue",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Capstone Projects – II",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Tue",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Mentor",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Wed",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Business Statistics and Data Research",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Wed",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Strategic Management",
+      "faculty": "Ansila K",
+      "className": "II BBA"
+    },
+    {
+      "day": "Wed",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Logistics and E-Commerce trends",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Wed",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Financial Accounting",
+      "faculty": "Ansila K",
+      "className": "II BBA"
+    },
+    {
+      "day": "Wed",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BBA"
+    },
+    {
+      "day": "Wed",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Capstone Projects – II",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Wed",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Aptitude",
+      "faculty": "Surya G",
+      "className": "II BBA"
+    },
+    {
+      "day": "Thu",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Business Statistics and Data Research",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Thu",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Logistics and E-Commerce trends",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Thu",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Mentor Hour",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Thu",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Aptitude",
+      "faculty": "Surya G",
+      "className": "II BBA"
+    },
+    {
+      "day": "Thu",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BBA"
+    },
+    {
+      "day": "Thu",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Omnichannel Marketing and Customer Journey",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Thu",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Product Sourcing and Inventory Management",
+      "faculty": "Ansila K",
+      "className": "II BBA"
+    },
+    {
+      "day": "Fri",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Business Statistics and Data Research",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Fri",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Logistics and E-Commerce trends",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Fri",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Product Sourcing and Inventory Management",
+      "faculty": "Ansila K",
+      "className": "II BBA"
+    },
+    {
+      "day": "Fri",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Aptitude",
+      "faculty": "Surya G",
+      "className": "II BBA"
+    },
+    {
+      "day": "Fri",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BBA"
+    },
+    {
+      "day": "Fri",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Open Elective - NPTL / MOOC",
+      "faculty": "Sruthi V",
+      "className": "II BBA"
+    },
+    {
+      "day": "Fri",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Library",
+      "faculty": "",
+      "className": "II BBA"
+    },
+    {
+      "day": "Mon",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Financial Management",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Governance and Ethics of Financial Services",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Cost Accounting",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Accounting Standards for BFSI Industry",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Banking Technology and Digital Payments",
+      "faculty": "Ansila K",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Library",
+      "faculty": "",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Financial Management",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Governance and Ethics of Financial Services",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Cost Accounting",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Accounting Standards for BFSI Industry",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Banking Technology and Digital Payments",
+      "faculty": "Ansila K",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Aptitude",
+      "faculty": "Jayashree R",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Financial Management",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Governance and Ethics of Financial Services",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Cost Accounting",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Accounting Standards for BFSI Industry",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Banking Technology and Digital Payments",
+      "faculty": "Ansila K",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Mentor",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Financial Management",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Governance and Ethics of Financial Services",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Cost Accounting",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Elective Digital Marketing and E-Commerce Consumer Behaviour",
+      "faculty": "Sruthi V",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Entrepreneurship and Startup Fundamentals",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Aptitude",
+      "faculty": "Jayashree R",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Financial Management",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Aptitutde",
+      "faculty": "Jayashree R",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Cost Accounting",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Elective Digital Marketing and E-Commerce Consumer Behaviour",
+      "faculty": "Sruthi V",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Entrepreneurship and Startup Fundamentals",
+      "faculty": "Santhosh Kumar M",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "PET",
+      "faculty": "",
+      "className": "II BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Fundamentals and Computer Architecture",
+      "faculty": "Younus SBS",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Design for Developers (UI and UX)",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Problem solving through Aptitude – I Laboratory",
+      "faculty": "Surya G",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Mathematics for AI",
+      "faculty": "Surya G",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Effective Communication for Professionals",
+      "faculty": "Afridkhan",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Mathematics for AI",
+      "faculty": "Surya G",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Design for Developers (UI and UX)",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Problem solving through Aptitude – I Laboratory",
+      "faculty": "Surya G",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Fundamentals and Computer Architecture",
+      "faculty": "Younus SBS",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Effective Communication for Professionals",
+      "faculty": "Afridkhan",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Mathematics for AI",
+      "faculty": "Surya G",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Design for Developers (UI and UX)",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Problem solving through Aptitude – I Laboratory",
+      "faculty": "Surya G",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Effective Communication for Professionals",
+      "faculty": "Afridkhan",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Mentor Hour",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Mathematics for AI",
+      "faculty": "Surya G",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Design for Developers (UI and UX)",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Problem solving through Aptitude – I Laboratory",
+      "faculty": "Surya G",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Effective Communication for Professionals",
+      "faculty": "Afridkhan",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Library",
+      "faculty": "",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Python Programming",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Mathematics for AI",
+      "faculty": "Surya G",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Effective Communication for Professionals",
+      "faculty": "Afridkhan",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Design for Developers (UI and UX)",
+      "faculty": "Praveen Yadavalli",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Fundamentals and Computer Architecture",
+      "faculty": "Younus SBS",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "PET",
+      "faculty": "",
+      "className": "I AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Principles of Management",
+      "faculty": "Ansila K",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Operating Systems",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Database Management Systems Laboratory",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Database Management Systems Laboratory",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Operating Systems",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Aptitude",
+      "faculty": "Surya G",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Business Analytics Laboratory",
+      "faculty": "Aakaash M",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Environmental Studies",
+      "faculty": "Afridkhan",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Operating Systems",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Database Management Systems Laboratory",
+      "faculty": "Nishanta Kakati",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Library",
+      "faculty": "",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Principles of Management",
+      "faculty": "Ansila K",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Business Analytics Laboratory",
+      "faculty": "Aakaash M",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Effective Communication Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Aptitude",
+      "faculty": "Surya G",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "PET",
+      "faculty": "",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Data Structures and Algorithms",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Environmental Studies",
+      "faculty": "Afridkhan",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Principles of Management",
+      "faculty": "Ansila K",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Business Analytics Laboratory",
+      "faculty": "Aakaash M",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Business Analytics Laboratory",
+      "faculty": "Aakaash M",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Mentor Hour",
+      "faculty": "Younus SBS",
+      "className": "II AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Introduction to FinTech",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Principles of Financial Accounting",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Problem solving through Aptitude - I",
+      "faculty": "Jayashree R",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Principles of Management",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Business Mathematics and Statistics",
+      "faculty": "Jayashree R",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Business Economics",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Introduction to FinTech",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Principles of Financial Accounting",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Problem solving through Aptitude - I",
+      "faculty": "Jayashree R",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Principles of Management",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Business Mathematics and Statistics",
+      "faculty": "Jayashree R",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Tue",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Mentor",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Introduction to FinTech",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Principles of Financial Accounting",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Problem solving through Aptitude - I",
+      "faculty": "Jayashree R",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Principles of Management",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Business Mathematics and Statistics",
+      "faculty": "Jayashree R",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Wed",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Business Economics",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Introduction to FinTech",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Principles of Financial Accounting",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Problem solving through Aptitude - I",
+      "faculty": "Jayashree R",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Business Economics",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Business Mathematics and Statistics",
+      "faculty": "Jayashree R",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Thu",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "PET",
+      "faculty": "",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Introduction to FinTech",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Principles of Financial Accounting",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Effective Communication Skills",
+      "faculty": "Sabitha Shanmugam",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Problem solving through Aptitude - I",
+      "faculty": "Jayashree R",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Business Economics",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Principles of Management",
+      "faculty": "Jayashree B",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Fri",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Library",
+      "faculty": "",
+      "className": "I BCOM"
+    },
+    {
+      "day": "Mon",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Generative AI",
+      "faculty": "Aakaash M",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Natural Language Processing",
+      "faculty": "Tamilarasan D",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Aptitude",
+      "faculty": "Surya G",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Placement Training Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Data Warehousing and Mining",
+      "faculty": "Nishanta Kakati",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Deep Learning",
+      "faculty": "Parthajit Konwar",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Mentor Hour",
+      "faculty": "Aakaash M",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Generative AI",
+      "faculty": "Aakaash M",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Natural Language Processing",
+      "faculty": "Tamilarasan D",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Deep Learning",
+      "faculty": "Parthajit Konwar",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Placement Training Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Reinforcement Learning Laboratory",
+      "faculty": "Parthajit Konwar",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Reinforcement Learning Laboratory",
+      "faculty": "Parthajit Konwar",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Tue",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "PET",
+      "faculty": "",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Generative AI",
+      "faculty": "Aakaash M",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Natural Language Processing",
+      "faculty": "Tamilarasan D",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Capstone Project",
+      "faculty": "Tamilarasan D",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Placement Training Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Data Warehousing and Mining",
+      "faculty": "Nishanta Kakati",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Deep Learning",
+      "faculty": "Parthajit Konwar",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Wed",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Capstone Project",
+      "faculty": "Tamilarasan D",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Generative AI",
+      "faculty": "Aakaash M",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Natural Language Processing",
+      "faculty": "Tamilarasan D",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Deep Learning",
+      "faculty": "Parthajit Konwar",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Placement Training Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Reinforcement Learning Laboratory",
+      "faculty": "Parthajit Konwar",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Reinforcement Learning Laboratory",
+      "faculty": "Parthajit Konwar",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Thu",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Capstone Project",
+      "faculty": "Tamilarasan D",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Generative AI",
+      "faculty": "Aakaash M",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Natural Language Processing",
+      "faculty": "Tamilarasan D",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Deep Learning",
+      "faculty": "Parthajit Konwar",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Placement Training Skill Development",
+      "faculty": "Catherin Sweety R",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Data Warehousing and Mining",
+      "faculty": "Nishanta Kakati",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Aptitude",
+      "faculty": "Surya G",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Fri",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Library",
+      "faculty": "",
+      "className": "III AI ML"
+    },
+    {
+      "day": "Mon",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Statistics for Data Science",
+      "faculty": "Jayashree R",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Workplace English for Engineers",
+      "faculty": "Afridkhan",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Low Code and No Code App Development",
+      "faculty": "Parthajit Konwar",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "AI-Centric Design Thinking",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Mon",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Library",
+      "faculty": "",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Statistics for Data Science",
+      "faculty": "Jayashree R",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Workplace English for Engineers",
+      "faculty": "Afridkhan",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Web Interfaces for AI Applications",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "PET",
+      "faculty": "",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Statistics for Data Science",
+      "faculty": "Jayashree R",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Workplace English for Engineers",
+      "faculty": "Afridkhan",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Aptitude",
+      "faculty": "Jayashree R",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "AI-Centric Design Thinking",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Wed",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Mentor Hour",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "AI-Centric Design Thinking",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Workplace English for Engineers",
+      "faculty": "Afridkhan",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Web Interfaces for AI Applications",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "AI-Centric Design Thinking",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Tue",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Web Interfaces for AI Applications",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 1,
+      "start": "08:30",
+      "end": "09:20",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 2,
+      "start": "09:20",
+      "end": "10:10",
+      "subject": "Logic Building using Java",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 3,
+      "start": "10:20",
+      "end": "11:10",
+      "subject": "Statistics for Data Science",
+      "faculty": "Jayashree R",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 4,
+      "start": "11:10",
+      "end": "12:00",
+      "subject": "Web Interfaces for AI Applications",
+      "faculty": "Abhilash",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 5,
+      "start": "12:00",
+      "end": "12:50",
+      "subject": "Workplace English for Engineers",
+      "faculty": "Afridkhan",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 6,
+      "start": "13:35",
+      "end": "14:25",
+      "subject": "Low Code and No Code App Development",
+      "faculty": "Parthajit Konwar",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Fri",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Aptitude",
+      "faculty": "Jayashree R",
+      "className": "I BTech AI DS"
+    },
+    {
+      "day": "Thu",
+      "period": 7,
+      "start": "14:25",
+      "end": "15:15",
+      "subject": "Low Code and No Code App Development",
+      "faculty": "Parthajit Konwar",
+      "className": "I BTech AI DS"
+    }
+  ]
+}

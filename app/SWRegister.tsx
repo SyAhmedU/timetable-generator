@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 export default function SWRegister() {
   useEffect(() => {
     if (!('serviceWorker' in navigator)) return;
-    navigator.serviceWorker.register('/timetable-generator/sw.js').catch(() => {});
+    navigator.serviceWorker.register(`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/sw.js`).catch(() => {});
   }, []);
   return null;
 }
