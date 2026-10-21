@@ -3,9 +3,9 @@
 // force clients onto a fresh cache. Scope is derived from this worker's own URL,
 // so it works under the /timetable-generator/ GitHub Pages path.
 const PREFIX = 'syed-pwa-timetable-generator-';
-const CACHE = PREFIX + 'v1';
+const CACHE = PREFIX + 'v2-png-20261021';
 const ROOT = new URL('./', self.location).href;          // scope root (absolute)
-const SHELL = [ROOT, ROOT + 'manifest.webmanifest', ROOT + 'icon.svg'];
+const SHELL = [ROOT, ROOT + 'manifest.webmanifest', ROOT + 'icon.svg', ROOT + 'icon-192.png', ROOT + 'icon-512.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil((async () => {
